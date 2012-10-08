@@ -38,10 +38,13 @@ public class Config {
 			voteSites.add("http://ow.ly/dVcsF");
 			voteSites.add("http://ow.ly/eggLe");
 			plugin.getConfig().set("ArcherGames.vote.sites", voteSites);
-			plugin.getConfig().set("ArcherGames.game.countDown", 30);
-			plugin.getConfig().set("ArcherGames.game.startPosition.x", 100);
-			plugin.getConfig().set("ArcherGames.game.startPosition.y", 70);
-			plugin.getConfig().set("ArcherGames.game.startPosition.z", 100);
+			plugin.getConfig().set("ArcherGames.timers.preGameCountdown", 120); // 2 minutes for everyone to get in game
+			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
+			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
+			plugin.getConfig().set("ArcherGames.game.startPosition.world", plugin.getServer().getWorlds().get(0)); // Fetch the default world
+			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
+			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
+			plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
