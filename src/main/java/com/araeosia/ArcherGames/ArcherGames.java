@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.utils.Config;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,8 +35,8 @@ public class ArcherGames extends JavaPlugin {
 			public void run(){
 				ArcherGames plugin = new ArcherGames();
 				for(Player player : plugin.getServer().getOnlinePlayers()){
-			player.sendMessage(ChatColor.GREEN + "Game starts in " + countDown + " seconds!");
-		}		
+					player.sendMessage(ChatColor.GREEN + "Game starts in " + countDown + " seconds!");
+				}
 			}
 		}, (countDown) * 20 * 60);
 	
