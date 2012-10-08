@@ -1,0 +1,45 @@
+name: ArcherGames
+version: 0.1
+main: com.araeosia.ArcherGames.ArcherGames
+depend: [Vault]
+
+commands:
+  vote:
+    description: Displays the voting links to vote on.
+    usage: /vote
+  chunk:
+    description: Reloads chunks to stop ghost blocks.
+    usage: /chunk
+  ride:
+    description: Right click to sit on someone.
+    usage: /ride
+  chat:
+    description: Disables or enables chat.
+    usage: /chat
+  track:
+    description: Track player statistics.
+    usage: /track <player>
+  money:
+    description: Checks wallet balance.
+    usage: /money
+  baltop:
+    description: Shows the player with the most money.
+    usage: /baltop
+  credtop:
+    description: Shows the player with the most credits.
+    usage: /credtop
+  stat:
+    description: Shows your statistics.
+    usage: /stat
+  stats:
+    description: Shows a specified player's statistics.
+    usage: /stats <player>
+  credit:
+    description: Shows how many credits you have.
+    usage: /credit
+  commands:
+    description: Shows available commands.
+    usage: /commands
+  help:
+    description: Shows help.
+    usage: /help
