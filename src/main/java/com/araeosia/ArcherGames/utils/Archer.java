@@ -1,5 +1,8 @@
 package com.araeosia.ArcherGames.utils;
 
+import com.araeosia.ArcherGames.ArcherGames;
+import java.util.ArrayList;
+
 
 public class Archer {
 
@@ -62,7 +65,7 @@ public class Archer {
     }
     
     /**
-     * 
+     * Get the player's Kit.
      * @return 
      */
     public String getKitName(){
@@ -90,5 +93,31 @@ public class Archer {
      */
     public void ready(){
         isReady = true;
+    }
+    
+    // Static methods for use for monitoring and handling
+    
+    /**
+     * Get an archer by their name
+     * @param name
+     * @return 
+     */
+    public static Archer getByName(String name){
+        for(Archer a : ArcherGames.players){
+            if(a.getName().equalsIgnoreCase(name)){
+                return a;
+            }
+        }
+        return null;
+    }
+    
+    public static ArrayList<Archer> getNotReadyPlayers(){
+        ArrayList<Archer> archers = new ArrayList<Archer>();
+       for(Archer a : ArcherGames.players){
+            if(!a.isReady()){
+                archers.add(a);
+            }
+        }
+        return archers;
     }
 }

@@ -43,3 +43,9 @@ commands:
   help:
     description: Shows help.
     usage: /help
+  kit:
+    description: Select a kit for the game
+    usage: /kit (kitname)
+  listkits:
+    description: List avalible kits
+    usage: /listkits
