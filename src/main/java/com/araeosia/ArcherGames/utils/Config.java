@@ -74,8 +74,8 @@ public class Config {
                    temp = new ArrayList<ItemStack>();
                    String s = plugin.getConfig().getString("ArcherGames.kits." + key);
                    for(String str : s.split(",")){
-                       ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( s.split(":")[0] )), Integer.parseInt(s.split(":")[1]));
-                       itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(s.split(":")[2])), Integer.parseInt(s.split(":")[3]));
+                       ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
+                       itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
                        temp.add( itemStack );
                    }
                    plugin.kits.put(key, temp);
