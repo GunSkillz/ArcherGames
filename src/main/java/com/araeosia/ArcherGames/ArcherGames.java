@@ -1,9 +1,9 @@
 package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Config;
+
 import java.util.List;
 import java.util.logging.Logger;
-
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,15 +12,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.araeosia.ArcherGames.listeners.PlayerCommandPreProccessListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.bukkit.inventory.ItemStack;
 
 public class ArcherGames extends JavaPlugin {
 	
 	public boolean debug = false;
 	public Config config;
 	public int countDown;
-	Logger log = this.getLogger();
+	public final Logger log = getLogger();
 	public List<String> voteSites;
 	public Location startPosition;
+        public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
 	
 	/**
 	 * 

@@ -2,10 +2,15 @@ package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import static org.bukkit.enchantments.Enchantment.*;
 
 
 public class Config {
@@ -45,19 +50,35 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
 			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
 			plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
+                        plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
 		plugin.countDown = plugin.getConfig().getInt("ArcherGames.game.countDown");
-		World w = null;
-		for(World world : plugin.getServer().getWorlds()){
-			if(world.getEnvironment() == Environment.NORMAL) w = world;
-		}
 		plugin.startPosition = new Location(
-				w,
+				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.z")
 				);
-	}
+                loadKits();
+        }
+        
+        /**
+         * Load the Kits form the Config
+         * 
+         */
+           public void loadKits(){
+               ArrayList<ItemStack> temp;
+               for(String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)){
+                   temp = new ArrayList<ItemStack>();
+                   String s = plugin.getConfig().getString("ArcherGames.kits." + key);
+                   for(String str : s.split(",")){
+                       ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( s.split(":")[0] )), Integer.parseInt(s.split(":")[1]));
+                       itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(s.split(":")[2])), Integer.parseInt(s.split(":")[3]));
+                       temp.add( itemStack );
+                   }
+                   plugin.kits.put(key, temp);
+               }
+        }
 }
