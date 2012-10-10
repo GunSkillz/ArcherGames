@@ -34,12 +34,9 @@ commands:
   credit:
     description: Shows how many credits you have.
     usage: /credit
-  commands:
-    description: Shows available commands.
-    usage: /commands
-  help:
-    description: Shows help.
-    usage: /help
+  ArcherGames:
+    description: Command for help, listing commands, and debugging
+    usage: /ArcherGames (help|commands)
   kit:
     description: Select a kit for the game
     usage: /kit (kitname)
