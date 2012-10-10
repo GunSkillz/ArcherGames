@@ -11,16 +11,16 @@ import org.bukkit.entity.Player;
 public class ServerWide {
 	
 	public ArcherGames plugin;
-	public ArrayList<Player> livingPlayers;
-	public ArrayList<Player> deadPlayers;
+	public ArrayList<String> livingPlayers;
+	public ArrayList<String> deadPlayers;
 	
 	public ServerWide(ArcherGames plugin){
 		this.plugin = plugin;
 	}
 	
 	public void killPlayer(Player player){
-		livingPlayers.remove(player);
-		deadPlayers.add(player);
+		livingPlayers.remove(player.getName());
+		deadPlayers.add(player.getName());
 	}
 	public static ArrayList<Archer> getNotReadyPlayers(){
 		ArrayList<Archer> archers = new ArrayList<Archer>();
@@ -33,8 +33,8 @@ public class ServerWide {
 	}
 	public void sendToLivingPlayers(String message){
 		// Send a message to every living archer
-		for(Player p : livingPlayers){
-			p.sendMessage(message);
+		for(String pName : livingPlayers){
+			plugin.getServer().getPlayer(pName).sendMessage(message);
 		}
 	}
 	public void sendMessageToAllPlayers(String message){

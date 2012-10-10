@@ -54,6 +54,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there weren't enough players.");
 			plugin.getConfig().set("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies.");
 			plugin.getConfig().set("ArcherGames.strings.invincibilityend", "[ArcherGames] Your minute of invincibility is up! Let the games begin...");
+			plugin.getConfig().set("ArcherGames.strings.overtimestart", "[ArcherGames] Overtime has started! Fight to the death!");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
@@ -70,6 +71,7 @@ public class Config {
 		plugin.strings.put("startnotenoughplayers", plugin.getConfig().getString("ArcherGames.strings.startnotenoughplayers"));
 		plugin.strings.put("starting", plugin.getConfig().getString("ArcherGames.strings.starting"));
 		plugin.strings.put("invincibilityend", plugin.getConfig().getString("ArcherGames.strings.invincibilityend"));
+		plugin.strings.put("overtimestart", plugin.getConfig().getString("ArcherGames.strings.overtimestart"));
 		loadKits();
 		}
 		
