@@ -9,7 +9,9 @@ public class ScheduledTasks {
 	public ArcherGames plugin;
 	public int gameStatus;
 	public int currentLoop; // In loops
-	public int countdown; // In seconds
+	public int preGameCountdown; // Time before anything starts. Players choose kits.
+	public int gameInvincibleCountdown; // Time while players are invincible.
+	public int gameOvertimeCountdown; // Time until overtime starts.
 	public int minPlayersToStart;
 	
 	public ScheduledTasks(ArcherGames plugin){
@@ -25,8 +27,15 @@ public class ScheduledTasks {
 				switch(gameStatus){
 					case 1:
 						// Pre-game
-						if(currentLoop==countdown){
-							
+						if(currentLoop==preGameCountdown){
+							// Time to start.
+							if(plugin.getServer().getOnlinePlayers().length<minPlayersToStart){ // There aren't enough players.
+								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
+							}else{ // There's enough players, let's start!
+								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+								gameStatus=2;
+							}
+							currentLoop=-1;
 						}
 						currentLoop++;
 						break;

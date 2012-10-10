@@ -50,19 +50,27 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
 			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
 			plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
-						plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
+			plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
+			plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there weren't enough players.");
+			plugin.getConfig().set("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies.");
+			plugin.getConfig().set("ArcherGames.strings.invincibilityend", "[ArcherGames] Your minute of invincibility is up! Let the games begin...");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
-		plugin.scheduler.countdown = plugin.getConfig().getInt("ArcherGames.game.countdown");
+		plugin.scheduler.preGameCountdown = plugin.getConfig().getInt("ArcherGames.timers.preGameCountdown");
+		plugin.scheduler.gameInvincibleCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameInvincibleCountdown");
+		plugin.scheduler.gameOvertimeCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameOvertimeCountdown");
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.startPosition = new Location(
-				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
-				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
-				plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
-				plugin.getConfig().getInt("ArcherGames.game.startPosition.z")
-				);
-				loadKits();
+			plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
+			plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
+			plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
+			plugin.getConfig().getInt("ArcherGames.game.startPosition.z")
+		);
+		plugin.strings.put("startnotenoughplayers", plugin.getConfig().getString("ArcherGames.strings.startnotenoughplayers"));
+		plugin.strings.put("starting", plugin.getConfig().getString("ArcherGames.strings.starting"));
+		plugin.strings.put("invincibilityend", plugin.getConfig().getString("ArcherGames.strings.invincibilityend"));
+		loadKits();
 		}
 		
 		/**
