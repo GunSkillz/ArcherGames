@@ -58,6 +58,9 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.overtimestart", "[ArcherGames] Overtime has started! Fight to the death!");
 			plugin.getConfig().set("ArcherGames.strings.gameended", "[ArcherGames] The game is over!");
 			plugin.getConfig().set("ArcherGames.strings.serverclosekick", "The server is rebooting.");
+			plugin.getConfig().set("ArcherGames.strings.joinedgame", "[ArcherGames] Welcome %s to %s, make sure to read your book for information!");
+			plugin.getConfig().set("ArcherGames.strings.servername", "ArcherGamesServer");
+			plugin.getConfig().set("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
@@ -78,6 +81,8 @@ public class Config {
 		plugin.strings.put("overtimestart", plugin.getConfig().getString("ArcherGames.strings.overtimestart"));
 		plugin.strings.put("gameended", plugin.getConfig().getString("ArcherGames.strings.gameended"));
 		plugin.strings.put("serverclosekick", plugin.getConfig().getString("ArcherGames.strings.serverclosekick"));
+		plugin.strings.put("joinedgame", plugin.getConfig().getString("ArcherGames.strings.joinedgame"));
+		plugin.strings.put("starttimeleft", plugin.getConfig().getString("ArcherGames.strings.starttimeleft"));
 		loadKits();
 		}
 		

@@ -22,7 +22,8 @@ public class PlayerLoginEventListener implements Listener{
 	 */
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onLoginEvent(final PlayerLoginEvent event){
-		Archer a = new Archer(event.getPlayer());
+		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
+		event.getPlayer().sendMessage(plugin.strings.get("joinedgame").format(event.getPlayer().getName(), plugin.strings.get("servername")));
 	}
 }

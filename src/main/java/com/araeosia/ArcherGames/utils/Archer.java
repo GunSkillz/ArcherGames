@@ -7,18 +7,18 @@ import org.bukkit.entity.Player;
 public class Archer {
 
 	public boolean canTalk;
-	public Player player;
+	public String name;
 	public boolean isAlive;
 	public String kit;
 	public boolean isReady;
-	public String name;
+	public int Score;
 	
 	/**
 	 * Make a new player when they login
 	 * @param name 
 	 */
-	public Archer(Player player){
-		this.player = player;
+	public Archer(String playerName){
+		this.name = playerName;
 		canTalk = false;
 		isAlive = true;
 		kit = "";
@@ -92,7 +92,7 @@ public class Archer {
 	 * 
 	 */
 	public String getName(){
-	    return player.getName();
+		return name;
 	}
 	// Static methods for use for monitoring and handling
 	
@@ -103,7 +103,7 @@ public class Archer {
 	 */
 	public static Archer getByName(String name){
 		for(Archer a : ArcherGames.players){
-			if(name.equals(a.player.getName())){
+			if(name.equals(a.getName())){
 				return a;
 			}
 		}
