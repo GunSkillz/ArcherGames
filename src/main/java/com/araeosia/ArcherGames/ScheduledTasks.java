@@ -41,6 +41,13 @@ public class ScheduledTasks {
 						break;
 					case 2:
 						// Invincibility
+						if(currentLoop==gameInvincibleCountdown){
+							// Invincibility is over.
+							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
+							gameStatus=3;
+							currentLoop=-1;
+						}
+						currentLoop++;
 						break;
 					case 3:
 						// Game time
