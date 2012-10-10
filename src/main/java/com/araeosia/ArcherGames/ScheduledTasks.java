@@ -29,17 +29,28 @@ public class ScheduledTasks {
 				switch (gameStatus) {
 					case 1:
 						// Pre-game
-						if((preGameCountdown-currentLoop)==60){
-							// 60 seconds left.
+						switch((preGameCountdown-currentLoop)){
+							case 60:
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("1 minute"));
-						}
-						if((preGameCountdown-currentLoop)==15){
-							// 15 seconds left.
+								break;
+							case 30:
+								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("30 seconds"));
+								break;
+							case 15:
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("15 seconds"));
-						}
-						if((preGameCountdown-currentLoop)<=10 && (preGameCountdown-currentLoop)!=0){
-							// Less than 10 but not 0 seconds left.
+								break;
+							case 10:
+							case 9:
+							case 8:
+							case 7:
+							case 6:
+							case 5:
+							case 4:
+							case 3:
+							case 2:
+							case 1:
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format((preGameCountdown-currentLoop) + " second(s)"));
+								break;
 						}
 						if (currentLoop >= preGameCountdown) {
 							// Time to start.
