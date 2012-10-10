@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.Bukkit;
 
 import org.bukkit.entity.Player;
@@ -79,8 +80,8 @@ public class ScheduledTasks {
 						if (currentLoop >= gameOvertimeCountdown) {
 							// Game time is up.
 							ServerWide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
-							for (String playerName : ServerWide.livingPlayers) {
-								plugin.getServer().getPlayer(playerName).teleport(plugin.startPosition);
+							for (Archer a : ServerWide.livingPlayers) {
+								ServerWide.getPlayer(a).teleport(plugin.startPosition);
 							}
 							gameStatus = 4;
 							currentLoop = -1;

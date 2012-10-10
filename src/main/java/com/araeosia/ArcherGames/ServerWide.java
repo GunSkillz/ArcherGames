@@ -11,12 +11,10 @@ import org.bukkit.entity.Player;
  */
 public class ServerWide {
 
-	public static ArrayList<String> livingPlayers;
-	public static ArrayList<String> deadPlayers;
+	public static ArrayList<Archer> livingPlayers;
 
 	public static void killPlayer(Player player) {
-		livingPlayers.remove(player.getName());
-		deadPlayers.add(player.getName());
+		livingPlayers.remove(getArcher(player));
 		ServerWide.getArcher(player).kill();
 	}
 
@@ -32,8 +30,8 @@ public class ServerWide {
 
 	public static void sendToLivingPlayers(String message) {
 		// Send a message to every living archer
-		for (String pName : livingPlayers) {
-			Bukkit.getServer().getPlayer(pName).sendMessage(message);
+		for (Archer a : livingPlayers) {
+			getPlayer(a).sendMessage(message);
 		}
 	}
 
