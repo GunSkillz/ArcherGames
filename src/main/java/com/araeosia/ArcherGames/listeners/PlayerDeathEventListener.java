@@ -1,7 +1,9 @@
 package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
-import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.ScheduledTasks;
+import com.araeosia.ArcherGames.ServerWide;
+import org.bukkit.entity.Player;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,8 +24,12 @@ public class PlayerDeathEventListener implements Listener{
 	 */
 	@EventHandler
 	public void onDeathEvent(final PlayerDeathEvent event){
-		// Player has died.
-		plugin.serverwide.killPlayer(event.getEntity());
-		Archer.getByName(event.getEntity().getName()).kill();
+		if(event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			if(!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (ServerWide.getArcher(player).isAlive())){
+					ServerWide.killPlayer(event.getEntity());
+			}
+		}
 	}
 }
+

@@ -17,6 +17,7 @@ public class ServerWide {
 	public static void killPlayer(Player player) {
 		livingPlayers.remove(player.getName());
 		deadPlayers.add(player.getName());
+		ServerWide.getArcher(player).kill();
 	}
 
 	public static ArrayList<Archer> getNotReadyPlayers() {
