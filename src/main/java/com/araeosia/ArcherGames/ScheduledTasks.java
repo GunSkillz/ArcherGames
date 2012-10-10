@@ -8,6 +8,9 @@ public class ScheduledTasks {
 	
 	public ArcherGames plugin;
 	public int gameStatus;
+	public int currentLoop; // In loops
+	public int countdown; // In seconds
+	public int minPlayersToStart;
 	
 	public ScheduledTasks(ArcherGames plugin){
 		this.plugin = plugin;
@@ -22,6 +25,10 @@ public class ScheduledTasks {
 				switch(gameStatus){
 					case 1:
 						// Pre-game
+						if(currentLoop==countdown){
+							
+						}
+						currentLoop++;
 						break;
 					case 2:
 						// Invincibility

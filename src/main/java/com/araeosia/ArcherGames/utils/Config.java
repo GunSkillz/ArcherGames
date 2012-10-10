@@ -50,35 +50,36 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
 			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
 			plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
-                        plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
+						plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
-		plugin.countDown = plugin.getConfig().getInt("ArcherGames.game.countDown");
+		plugin.scheduler.countdown = plugin.getConfig().getInt("ArcherGames.game.countdown");
+		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.startPosition = new Location(
 				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.z")
 				);
-                loadKits();
-        }
-        
-        /**
-         * Load the Kits form the Config
-         * 
-         */
-           public void loadKits(){
-               ArrayList<ItemStack> temp;
-               for(String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)){
-                   temp = new ArrayList<ItemStack>();
-                   String s = plugin.getConfig().getString("ArcherGames.kits." + key);
-                   for(String str : s.split(",")){
-                       ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
-                       itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
-                       temp.add( itemStack );
-                   }
-                   plugin.kits.put(key, temp);
-               }
-        }
+				loadKits();
+		}
+		
+		/**
+		 * Load the Kits form the Config
+		 * 
+		 */
+		   public void loadKits(){
+			   ArrayList<ItemStack> temp;
+			   for(String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)){
+				   temp = new ArrayList<ItemStack>();
+				   String s = plugin.getConfig().getString("ArcherGames.kits." + key);
+				   for(String str : s.split(",")){
+					   ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
+					   itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
+					   temp.add( itemStack );
+				   }
+				   plugin.kits.put(key, temp);
+			   }
+		}
 }

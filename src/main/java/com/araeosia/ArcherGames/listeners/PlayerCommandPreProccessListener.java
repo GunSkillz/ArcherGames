@@ -8,20 +8,20 @@ import org.bukkit.event.EventHandler;
 
 
 public class PlayerCommandPreProccessListener implements Listener {
-    
-    public ArcherGames plugin;
 	
-    public PlayerCommandPreProccessListener(ArcherGames plugin) {
-        this.plugin = plugin;
-    }
+	public ArcherGames plugin;
+	
+	public PlayerCommandPreProccessListener(ArcherGames plugin) {
+		this.plugin = plugin;
+	}
 
-    /**
-     * 
-     * @param event
-     */
-    @EventHandler
-    public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event){
-        
-    }
-    
+	/**
+	 * 
+	 * @param event
+	 */
+	@EventHandler
+	public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event){
+		
+	}
+	
 }
