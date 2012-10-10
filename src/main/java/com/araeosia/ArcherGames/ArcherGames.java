@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.listeners.ArcherGamesCommandExecutor;
 import com.araeosia.ArcherGames.listeners.ArcherGamesInfoCommandExecutors;
 import com.araeosia.ArcherGames.listeners.ArcherGamesKitCommandExecutor;
 import com.araeosia.ArcherGames.listeners.PlayerChatEventListener;
@@ -15,9 +16,11 @@ import com.araeosia.ArcherGames.listeners.PlayerCommandPreProccessListener;
 import com.araeosia.ArcherGames.listeners.PlayerDamageEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerDeathEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerLoginEventListener;
+import com.araeosia.ArcherGames.listeners.ProjectileHitEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ArcherGames extends JavaPlugin {
@@ -25,7 +28,7 @@ public class ArcherGames extends JavaPlugin {
 	public boolean debug = false;
 	public Config config;
 	public ScheduledTasks scheduler;
-	public Logger log;
+	public static Logger log;
 	public List<String> voteSites;
 	public Location startPosition;
 	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
@@ -47,12 +50,14 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerLoginEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDamageEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDeathEventListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new ProjectileHitEventListener(this), this);
 		// Commands
 		this.getCommand("kit").setExecutor(new ArcherGamesKitCommandExecutor(this));
 		this.getCommand("listkits").setExecutor(new ArcherGamesKitCommandExecutor(this));
 		this.getCommand("vote").setExecutor(new ArcherGamesInfoCommandExecutors(this));
 		this.getCommand("money").setExecutor(new ArcherGamesInfoCommandExecutors(this));
 		this.getCommand("stats").setExecutor(new ArcherGamesInfoCommandExecutors(this));
+		this.getCommand("archergames").setExecutor(new ArcherGamesCommandExecutor(this));
 
 		log.info("ArcherGames is enabled!");
 	}
