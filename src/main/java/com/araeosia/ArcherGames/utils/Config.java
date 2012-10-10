@@ -3,6 +3,7 @@ package com.araeosia.ArcherGames.utils;
 import com.araeosia.ArcherGames.ArcherGames;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +29,6 @@ public class Config {
 	/**
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
 	public void loadConfiguration(){
 		if(!(plugin.getConfig().getDouble("ArcherGames.technical.version") == 0.1)){
 			plugin.getConfig().set("ArcherGames.technical.debug", false);
@@ -47,7 +47,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
 			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
 			plugin.getConfig().set("ArcherGames.timers.shutdownTimer", 30); // 30 seconds until the server reboots.
-			plugin.getConfig().set("ArcherGames.game.startPosition.world", plugin.getServer().getWorlds().get(0)); // Fetch the default world
+			plugin.getConfig().set("ArcherGames.game.startPosition.world", plugin.getServer().getWorlds().get(0).getName()); // Fetch the default world
 			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
 			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
 			plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
@@ -96,9 +96,13 @@ public class Config {
 				   temp = new ArrayList<ItemStack>();
 				   String s = plugin.getConfig().getString("ArcherGames.kits." + key);
 				   for(String str : s.split(",")){
-					   ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
-					   itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
-					   temp.add( itemStack );
+						try{
+						ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
+						itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
+						temp.add( itemStack );
+						} catch (NumberFormatException e) {
+							plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit {0} is not configured correctly!", key);
+						}
 				   }
 				   plugin.kits.put(key, temp);
 			   }
