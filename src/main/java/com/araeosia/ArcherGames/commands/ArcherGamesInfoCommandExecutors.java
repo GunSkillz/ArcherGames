@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.araeosia.ArcherGames.listeners;
+package com.araeosia.ArcherGames.commands;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import org.bukkit.ChatColor;

@@ -69,6 +69,7 @@ public class Config {
 		plugin.scheduler.gameOvertimeCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameOvertimeCountdown");
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
+		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.startPosition = new Location(
 			plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
 			plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
@@ -104,6 +105,9 @@ public class Config {
 						temp.add( itemStack );
 						} catch (NumberFormatException e) {
 							plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit "+key+" is not configured correctly!");
+							if(plugin.debug){
+								e.printStackTrace();
+							}
 						}
 				   }
 				   plugin.kits.put(key, temp);

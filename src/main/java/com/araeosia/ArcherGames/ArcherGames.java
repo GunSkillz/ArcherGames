@@ -1,27 +1,29 @@
 package com.araeosia.ArcherGames;
 
-import com.araeosia.ArcherGames.listeners.ArcherGamesCommandExecutor;
-import com.araeosia.ArcherGames.listeners.ArcherGamesInfoCommandExecutors;
-import com.araeosia.ArcherGames.listeners.ArcherGamesKitCommandExecutor;
-import com.araeosia.ArcherGames.listeners.PlayerChatEventListener;
+import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
-
-import java.util.List;
-import java.util.logging.Logger;
-
-import org.bukkit.Location;
-import org.bukkit.plugin.java.JavaPlugin;
-
+import com.araeosia.ArcherGames.commands.ArcherGamesCommandExecutor;
+import com.araeosia.ArcherGames.commands.ArcherGamesInfoCommandExecutors;
+import com.araeosia.ArcherGames.commands.ArcherGamesKitCommandExecutor;
+import com.araeosia.ArcherGames.listeners.PlayerChatEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerCommandPreProccessListener;
 import com.araeosia.ArcherGames.listeners.PlayerDamageEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerDeathEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerLoginEventListener;
 import com.araeosia.ArcherGames.listeners.ProjectileHitEventListener;
-import com.araeosia.ArcherGames.utils.Archer;
+
+import java.util.List;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.bukkit.event.entity.ProjectileHitEvent;
+
+import org.bukkit.Location;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.ItemStack;
+
+
+
+
 
 public class ArcherGames extends JavaPlugin {
 

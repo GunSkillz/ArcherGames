@@ -1,4 +1,4 @@
-package com.araeosia.ArcherGames.listeners;
+package com.araeosia.ArcherGames.commands;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.utils.Archer;
