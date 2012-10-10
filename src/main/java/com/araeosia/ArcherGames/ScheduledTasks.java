@@ -60,6 +60,7 @@ public class ScheduledTasks {
 							} else { // There's enough players, let's start!
 								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 								gameStatus = 2;
+//								for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
 							}
 							currentLoop = -1;
 						}

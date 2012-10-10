@@ -24,12 +24,13 @@ public class ArcherGamesKitCommandExecutor implements CommandExecutor{
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
 		}
-		if(plugin.kits.containsKey(args[0])){
-			Archer.getByName(sender.getName()).selectKit(args[0]);
-			sender.sendMessage(ChatColor.GREEN + "Your kit has been set to " + args[0]);
-			return true;
+		else if(args.length != 0){
+			if(plugin.kits.containsKey(args[0])){
+				Archer.getByName(sender.getName()).selectKit(args[0]);
+				sender.sendMessage(ChatColor.GREEN + "Your kit has been set to " + args[0]);
+				return true;
+			}
 		}
 		return false;
 	}
-	
 }
