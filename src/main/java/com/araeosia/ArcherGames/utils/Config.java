@@ -98,10 +98,12 @@ public class Config {
 				   for(String str : s.split(",")){
 						try{
 						ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
-						itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
+						if(!(Integer.parseInt(str.split(":")[2]) < 0)){
+							itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));	
+						}
 						temp.add( itemStack );
 						} catch (NumberFormatException e) {
-							plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit {0} is not configured correctly!", key);
+							plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit "+key+" is not configured correctly!");
 						}
 				   }
 				   plugin.kits.put(key, temp);
