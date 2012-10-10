@@ -12,6 +12,8 @@ import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.araeosia.ArcherGames.listeners.PlayerCommandPreProccessListener;
+import com.araeosia.ArcherGames.listeners.PlayerDamageEventListener;
+import com.araeosia.ArcherGames.listeners.PlayerDeathEventListener;
 import com.araeosia.ArcherGames.listeners.PlayerLoginEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.ArrayList;
@@ -40,12 +42,18 @@ public class ArcherGames extends JavaPlugin {
 		config = new Config(this);
 		config.loadConfiguration();
 		serverwide = new ServerWide(this);
+		// Events
 		this.getServer().getPluginManager().registerEvents(new PlayerCommandPreProccessListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerChatEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerLoginEventListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerDamageEventListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new PlayerDeathEventListener(this), this);
+		// Commands
 		this.getCommand("kit").setExecutor(new ArcherGamesKitCommandExecutor(this));
 		this.getCommand("listkits").setExecutor(new ArcherGamesKitCommandExecutor(this));
 		this.getCommand("vote").setExecutor(new ArcherGamesInfoCommandExecutors(this));
+		this.getCommand("money").setExecutor(new ArcherGamesInfoCommandExecutors(this));
+		this.getCommand("stats").setExecutor(new ArcherGamesInfoCommandExecutors(this));
 
 		log.info("ArcherGames is enabled!");
 	}

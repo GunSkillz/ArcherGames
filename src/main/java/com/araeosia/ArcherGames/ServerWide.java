@@ -55,4 +55,13 @@ public class ServerWide {
 		}
 		return null;
 	}
+	
+	public Archer getArcher(Player p){
+		for (Archer a : ArcherGames.players) {
+			if (a.getName().equalsIgnoreCase(p.getName())) {
+				return a;
+			}
+		}
+		return null;
+	}
 }

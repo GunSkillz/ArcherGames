@@ -30,6 +30,26 @@ public class ArcherGamesInfoCommandExecutors implements CommandExecutor{
 				return true;
 			}
 		}
+		else if(cmd.getName().equalsIgnoreCase("money")){
+			if(args.length == 0){
+				//sender.sendMessage(plugin.econ.getBalance(sender.getName()).getBalance()); //Or something
+				return true;
+			}
+			else {
+				//player.sendMessage(plugin.econ.getBalance(args[0]).getBalance()); //Or something
+				return true;
+			}
+		}
+		else if(cmd.getName().equalsIgnoreCase("stats")){
+			if(args.length == 0){
+				//plugin.getStats(sender.getName());
+				return true;
+			}
+			else {
+				//plugin.getStats(args[0]);
+				return true;
+			}
+		}
 		return false;
 	}
 	
