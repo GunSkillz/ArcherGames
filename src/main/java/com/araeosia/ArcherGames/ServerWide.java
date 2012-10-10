@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.ArrayList;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -10,20 +11,15 @@ import org.bukkit.entity.Player;
  */
 public class ServerWide {
 
-	public ArcherGames plugin;
-	public ArrayList<String> livingPlayers;
-	public ArrayList<String> deadPlayers;
+	public static ArrayList<String> livingPlayers;
+	public static ArrayList<String> deadPlayers;
 
-	public ServerWide(ArcherGames plugin) {
-		this.plugin = plugin;
-	}
-
-	public void killPlayer(Player player) {
+	public static void killPlayer(Player player) {
 		livingPlayers.remove(player.getName());
 		deadPlayers.add(player.getName());
 	}
 
-	public ArrayList<Archer> getNotReadyPlayers() {
+	public static ArrayList<Archer> getNotReadyPlayers() {
 		ArrayList<Archer> archers = new ArrayList<Archer>();
 		for (Archer a : ArcherGames.players) {
 			if (!a.isReady()) {
@@ -33,22 +29,22 @@ public class ServerWide {
 		return archers;
 	}
 
-	public void sendToLivingPlayers(String message) {
+	public static void sendToLivingPlayers(String message) {
 		// Send a message to every living archer
 		for (String pName : livingPlayers) {
-			plugin.getServer().getPlayer(pName).sendMessage(message);
+			Bukkit.getServer().getPlayer(pName).sendMessage(message);
 		}
 	}
 
-	public void sendMessageToAllPlayers(String message) {
+	public static void sendMessageToAllPlayers(String message) {
 		// Send a message to every online player
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
+		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			p.sendMessage(message);
 		}
 	}
 
-	public Player getPlayer(Archer a) {
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
+	public static Player getPlayer(Archer a) {
+		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			if (p.getName().equalsIgnoreCase(a.getName())) {
 				return p;
 			}
@@ -56,7 +52,7 @@ public class ServerWide {
 		return null;
 	}
 	
-	public Archer getArcher(Player p){
+	public static Archer getArcher(Player p){
 		for (Archer a : ArcherGames.players) {
 			if (a.getName().equalsIgnoreCase(p.getName())) {
 				return a;

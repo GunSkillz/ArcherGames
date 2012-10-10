@@ -25,7 +25,6 @@ public class ArcherGames extends JavaPlugin {
 	public boolean debug = false;
 	public Config config;
 	public ScheduledTasks scheduler;
-	public ServerWide serverwide;
 	public final Logger log = getLogger();
 	public List<String> voteSites;
 	public Location startPosition;
@@ -41,7 +40,6 @@ public class ArcherGames extends JavaPlugin {
 		scheduler = new ScheduledTasks(this);
 		config = new Config(this);
 		config.loadConfiguration();
-		serverwide = new ServerWide(this);
 		// Events
 		this.getServer().getPluginManager().registerEvents(new PlayerCommandPreProccessListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerChatEventListener(this), this);

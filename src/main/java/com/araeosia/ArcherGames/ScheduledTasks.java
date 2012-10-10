@@ -31,13 +31,13 @@ public class ScheduledTasks {
 						// Pre-game
 						switch((preGameCountdown-currentLoop)){
 							case 60:
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("1 minute"));
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("1 minute"));
 								break;
 							case 30:
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("30 seconds"));
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("30 seconds"));
 								break;
 							case 15:
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("15 seconds"));
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("15 seconds"));
 								break;
 							case 10:
 							case 9:
@@ -49,15 +49,15 @@ public class ScheduledTasks {
 							case 3:
 							case 2:
 							case 1:
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format((preGameCountdown-currentLoop) + " second(s)"));
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format((preGameCountdown-currentLoop) + " second(s)"));
 								break;
 						}
 						if (currentLoop >= preGameCountdown) {
 							// Time to start.
-							if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
+							if (ServerWide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 							} else { // There's enough players, let's start!
-								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+								ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 								gameStatus = 2;
 							}
 							currentLoop = -1;
@@ -68,7 +68,7 @@ public class ScheduledTasks {
 						// Invincibility
 						if (currentLoop >= gameInvincibleCountdown) {
 							// Invincibility is over.
-							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
+							ServerWide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
 							gameStatus = 3;
 							currentLoop = -1;
 						}
@@ -78,8 +78,8 @@ public class ScheduledTasks {
 						// Game time
 						if (currentLoop >= gameOvertimeCountdown) {
 							// Game time is up.
-							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
-							for (String playerName : plugin.serverwide.livingPlayers) {
+							ServerWide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
+							for (String playerName : ServerWide.livingPlayers) {
 								plugin.getServer().getPlayer(playerName).teleport(plugin.startPosition);
 							}
 							gameStatus = 4;
@@ -90,9 +90,9 @@ public class ScheduledTasks {
 						break;
 					case 4:
 						// Overtime
-						if (plugin.serverwide.livingPlayers.size() <= 1) {
+						if (ServerWide.livingPlayers.size() <= 1) {
 							// Game is finally over. We have a winner.
-							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("gameended"));
+							ServerWide.sendMessageToAllPlayers(plugin.strings.get("gameended"));
 							gameStatus = 5;
 							currentLoop = -1;
 						}
