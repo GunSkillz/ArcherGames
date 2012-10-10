@@ -27,7 +27,7 @@ public class ScheduledTasks {
 				switch(gameStatus){
 					case 1:
 						// Pre-game
-						if(currentLoop==preGameCountdown){
+						if(currentLoop>=preGameCountdown){
 							// Time to start.
 							if(plugin.getServer().getOnlinePlayers().length<minPlayersToStart){ // There aren't enough players.
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
@@ -41,7 +41,7 @@ public class ScheduledTasks {
 						break;
 					case 2:
 						// Invincibility
-						if(currentLoop==gameInvincibleCountdown){
+						if(currentLoop>=gameInvincibleCountdown){
 							// Invincibility is over.
 							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
 							gameStatus=3;
@@ -51,6 +51,17 @@ public class ScheduledTasks {
 						break;
 					case 3:
 						// Game time
+						if(currentLoop>=gameOvertimeCountdown){
+							// Game time is up.
+							plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
+							for(String playerName : plugin.serverwide.livingPlayers){
+								plugin.getServer().getPlayer(playerName).teleport(plugin.startPosition);
+							}
+							gameStatus=4;
+							currentLoop=-1;
+							// TODO: World border shrinking.
+						}
+						currentLoop++;
 						break;
 					case 4:
 						// Overtime
