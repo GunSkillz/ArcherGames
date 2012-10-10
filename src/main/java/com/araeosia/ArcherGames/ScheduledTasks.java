@@ -31,7 +31,7 @@ public class ScheduledTasks {
 						// Pre-game
 						if (currentLoop >= preGameCountdown) {
 							// Time to start.
-							if (plugin.getServer().getOnlinePlayers().length < minPlayersToStart) { // There aren't enough players.
+							if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 							} else { // There's enough players, let's start!
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
