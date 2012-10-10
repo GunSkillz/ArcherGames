@@ -28,12 +28,9 @@ commands:
   credtop:
     description: Shows the player with the most credits.
     usage: /credtop
-  stat:
-    description: Shows your statistics.
-    usage: /stat
   stats:
     description: Shows a specified player's statistics.
-    usage: /stats <player>
+    usage: /stats [player]
   credit:
     description: Shows how many credits you have.
     usage: /credit
