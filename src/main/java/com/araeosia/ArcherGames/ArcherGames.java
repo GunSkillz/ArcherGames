@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.listeners.ArcherGamesInfoCommandExecutors;
 import com.araeosia.ArcherGames.listeners.ArcherGamesKitCommandExecutor;
 import com.araeosia.ArcherGames.listeners.PlayerChatEventListener;
 import com.araeosia.ArcherGames.utils.Config;
@@ -44,6 +45,8 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerLoginEventListener(this), this);
 		this.getCommand("kit").setExecutor(new ArcherGamesKitCommandExecutor(this));
 		this.getCommand("listkits").setExecutor(new ArcherGamesKitCommandExecutor(this));
+		this.getCommand("vote").setExecutor(new ArcherGamesInfoCommandExecutors(this));
+
 		log.info("ArcherGames is enabled!");
 	}
 

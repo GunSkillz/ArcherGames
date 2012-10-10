@@ -22,13 +22,13 @@ public class ServerWide {
 		livingPlayers.remove(player);
 		deadPlayers.add(player);
 	}
-	public static ArrayList<Archer> getNotReadyPlayers(){
-		ArrayList<Archer> archers = new ArrayList<Archer>();
+	public ArrayList<Archer> getNotReadyPlayers(){
+	ArrayList<Archer> archers = new ArrayList<Archer>();
 	   for(Archer a : ArcherGames.players){
-			if(!a.isReady()){
-				archers.add(a);
-			}
+		if(!a.isReady()){
+		    archers.add(a);
 		}
+	    }
 		return archers;
 	}
 	public void sendToLivingPlayers(String message){
@@ -42,5 +42,14 @@ public class ServerWide {
 		for(Player p : plugin.getServer().getOnlinePlayers()){
 			p.sendMessage(message);
 		}
+	}
+	
+	public Player getPlayer(Archer a){
+	    for(Player p : plugin.getServer().getOnlinePlayers()){
+		if(p.getName().equalsIgnoreCase(a.getName())){
+		    return p;
+		}
+	    }
+	    return null;
 	}
 }

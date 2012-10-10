@@ -88,6 +88,12 @@ public class Archer {
 		isReady = true;
 	}
 	
+	/**
+	 * 
+	 */
+	public String getName(){
+	    return player.getName();
+	}
 	// Static methods for use for monitoring and handling
 	
 	/**
