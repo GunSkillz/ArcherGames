@@ -125,7 +125,7 @@ public class ScheduledTasks {
 						break;
 				}
 			}
-		}, 1 * 20, 1 * 20);
+		}, 20L, 20L);
 		if(plugin.debug){ plugin.log.info("Task ID is "+Success); }
 	}
 }
