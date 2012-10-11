@@ -29,6 +29,7 @@ public class ScheduledTasks {
 			public void run() {
 				switch (gameStatus) {
 					case 1:
+						if(plugin.debug){ plugin.log.info((preGameCountdown-currentLoop)+" seconds until game starts."); }
 						// Pre-game
 						switch((preGameCountdown-currentLoop)){
 							case 60:
@@ -54,6 +55,7 @@ public class ScheduledTasks {
 								break;
 						}
 						if (currentLoop >= preGameCountdown) {
+							if(plugin.debug){ plugin.log.info("Attempting to start..."); }
 							// Time to start.
 							if (ServerWide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
 								ServerWide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
@@ -73,7 +75,9 @@ public class ScheduledTasks {
 						break;
 					case 2:
 						// Invincibility
+						if(plugin.debug){ plugin.log.info((gameInvincibleCountdown-currentLoop)+" seconds until invincibility ends."); }
 						if (currentLoop >= gameInvincibleCountdown) {
+							if(plugin.debug){ plugin.log.info("Invincibility has ended."); }
 							// Invincibility is over.
 							ServerWide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
 							gameStatus = 3;
@@ -83,7 +87,9 @@ public class ScheduledTasks {
 						break;
 					case 3:
 						// Game time
+						if(plugin.debug){ plugin.log.info((gameOvertimeCountdown-currentLoop)+" seconds until overtime starts."); }
 						if (currentLoop >= gameOvertimeCountdown) {
+							if(plugin.debug){ plugin.log.info("Overtime has started."); }
 							// Game time is up.
 							ServerWide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
 							for (Archer a : ServerWide.livingPlayers) {
@@ -98,6 +104,7 @@ public class ScheduledTasks {
 					case 4:
 						// Overtime
 						if (ServerWide.livingPlayers.size() <= 1) {
+							if(plugin.debug){ plugin.log.info("Game has ended."); }
 							// Game is finally over. We have a winner.
 							ServerWide.sendMessageToAllPlayers(plugin.strings.get("gameended"));
 							gameStatus = 5;
@@ -107,7 +114,9 @@ public class ScheduledTasks {
 						break;
 					case 5:
 						// Game finished, waiting for reset to pre-game
+						if(plugin.debug){ plugin.log.info((shutdownTimer-currentLoop)+" seconds until server reboots."); }
 						if (currentLoop >= shutdownTimer) {
+							if(plugin.debug){ plugin.log.info("Kicking all players, then shutting down."); }
 							for (Player p : plugin.getServer().getOnlinePlayers()) {
 								p.kickPlayer(plugin.strings.get("serverclosekick"));
 							}
