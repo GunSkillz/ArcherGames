@@ -24,7 +24,7 @@ public class ScheduledTasks {
 	 * This will do the action every second (20 TPS)
 	 */
 	public void everySecondCheck() {
-		int Success = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		int Success = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
 			public void run() {
 				switch (gameStatus) {
