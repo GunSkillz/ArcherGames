@@ -62,7 +62,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("archergames").setExecutor(new ArcherGamesCommandExecutor(this));
 
 		log.info("ArcherGames is enabled!"); 
-		log.info("Attempting to hook into plugins!");
+		log.info("Attempting to hook into plugins...");
 	}
 
 	/**
