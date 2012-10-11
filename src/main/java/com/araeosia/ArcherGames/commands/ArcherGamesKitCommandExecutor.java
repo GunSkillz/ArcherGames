@@ -17,8 +17,8 @@ public class ArcherGamesKitCommandExecutor implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("listkits")){
-			sender.sendMessage(ChatColor.GREEN + "Here are the avalible kits: ");
-			String kits = "";
+			sender.sendMessage(plugin.strings.get("kitinfo"));
+			String kits = new String();
 			for(String s : plugin.kits.keySet()){
 				kits += s + ", ";
 			}
@@ -27,7 +27,7 @@ public class ArcherGamesKitCommandExecutor implements CommandExecutor{
 		else if(args.length != 0){
 			if(plugin.kits.containsKey(args[0])){
 				Archer.getByName(sender.getName()).selectKit(args[0]);
-				sender.sendMessage(ChatColor.GREEN + "Your kit has been set to " + args[0]);
+				sender.sendMessage(plugin.strings.get("kitinfo").format(args[0]));
 				return true;
 			}
 		}

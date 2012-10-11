@@ -28,6 +28,7 @@ public class PlayerDeathEventListener implements Listener{
 			Player player = (Player) event.getEntity();
 			if(!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (ServerWide.getArcher(player).isAlive())){
 					ServerWide.killPlayer(event.getEntity());
+					// TODO: Get the cause. If it's a player, give them some points.
 			}
 		}
 	}

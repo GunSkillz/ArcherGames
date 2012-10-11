@@ -20,6 +20,6 @@ public class PlayerChatEventListener implements Listener {
 	 */
 	@EventHandler
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event){
-		
+		// If the player is allowed to talk, pass their message on, Else cancel the event
 	}
 }

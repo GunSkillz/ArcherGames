@@ -42,6 +42,7 @@ public class Config {
 			voteSites.add("http://ow.ly/cmETB");
 			voteSites.add("http://ow.ly/dVcsF");
 			voteSites.add("http://ow.ly/eggLe");
+			plugin.getConfig().set("ArcherGames.vote.info", "§gVote on these sites for $3000 each!");
 			plugin.getConfig().set("ArcherGames.vote.sites", voteSites);
 			plugin.getConfig().set("ArcherGames.timers.preGameCountdown", 120); // 2 minutes for everyone to get in game
 			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
@@ -61,6 +62,8 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.joinedgame", "[ArcherGames] Welcome %s to %s, make sure to read your book for information!");
 			plugin.getConfig().set("ArcherGames.strings.servername", "ArcherGamesServer");
 			plugin.getConfig().set("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!");
+			plugin.getConfig().set("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: ");
+			plugin.getConfig().set("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s.");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
@@ -84,6 +87,9 @@ public class Config {
 		plugin.strings.put("serverclosekick", plugin.getConfig().getString("ArcherGames.strings.serverclosekick"));
 		plugin.strings.put("joinedgame", plugin.getConfig().getString("ArcherGames.strings.joinedgame"));
 		plugin.strings.put("starttimeleft", plugin.getConfig().getString("ArcherGames.strings.starttimeleft"));
+		plugin.strings.put("voteinfo", plugin.getConfig().getString("ArcherGames.vote.info"));
+		plugin.strings.put("kitinfo", plugin.getConfig().getString("ArcherGames.strings.kitinfo"));
+		plugin.strings.put("kitgiven", plugin.getConfig().getString("ArcherGames.strings.kitgiven"));
 		loadKits();
 		}
 		

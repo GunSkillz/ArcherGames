@@ -24,7 +24,7 @@ public class ArcherGamesInfoCommandExecutors implements CommandExecutor{
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("vote")){
-			sender.sendMessage(org.bukkit.ChatColor.GREEN + "Vote on these sites for $3000 each!");
+			sender.sendMessage(plugin.strings.get("voteinfo"));
 			for(String s : plugin.voteSites){
 				sender.sendMessage(ChatColor.GREEN + s);
 				return true;
