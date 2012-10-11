@@ -62,6 +62,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("archergames").setExecutor(new ArcherGamesCommandExecutor(this));
 
 		log.info("ArcherGames is enabled!");
+		if(debug){ log.info("Debug mode is enabled!"); }
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
 	}
