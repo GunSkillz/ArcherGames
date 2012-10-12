@@ -1,7 +1,7 @@
 name: ArcherGames
 version: 0.1
 main: com.araeosia.ArcherGames.ArcherGames
-depend: [Vault]
+depend: [Vault, VanishNoPacket]
 
 commands:
   vote:
@@ -35,7 +35,7 @@ commands:
     description: Shows how many credits you have.
     usage: /credit
   ArcherGames:
-    description: Command for help, listing commands, and debugging
+    description: Command for help, listing commands, and debugging.
     usage: /ArcherGames (help|commands)
   kit:
     description: Select a kit for the game
@@ -43,3 +43,6 @@ commands:
   listkits:
     description: List avalible kits
     usage: /listkits
+  howlong:
+    description: Tell you how long until something happens.
+    usage: /howlong

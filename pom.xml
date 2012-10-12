@@ -22,9 +22,18 @@
       <id>vault-repo</id>
       <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
     </repository>
+    <repository>
+      <id>kitteh-repo</id>
+      <url>http://repo.kitteh.org/content/groups/public</url>
+    </repository>
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>org.kitteh</groupId>
+      <artifactId>VanishNoPacket</artifactId>
+      <version>3.12.1</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
