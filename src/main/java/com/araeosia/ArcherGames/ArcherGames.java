@@ -72,6 +72,7 @@ public class ArcherGames extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
+		this.getServer().getScheduler().cancelTask(scheduler.schedulerTaskID); // Kill the loop.
 		log.info("ArcherGames is disabled.");
 
 	}

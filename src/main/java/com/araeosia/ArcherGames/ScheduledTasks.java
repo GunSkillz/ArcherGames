@@ -15,6 +15,8 @@ public class ScheduledTasks {
 	public int gameOvertimeCountdown; // Time until overtime starts.
 	public int shutdownTimer; // Time after the game ends until the server shuts down.
 	public int minPlayersToStart;
+	
+	public int schedulerTaskID;
 
 	public ScheduledTasks(ArcherGames plugin) {
 		this.plugin = plugin;
@@ -24,7 +26,7 @@ public class ScheduledTasks {
 	 * This will do the action every second (20 TPS)
 	 */
 	public void everySecondCheck() {
-		int Success = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+		int schedulerTaskID = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
 			public void run() {
 				switch (gameStatus) {
@@ -126,6 +128,33 @@ public class ScheduledTasks {
 				}
 			}
 		}, 20L, 20L);
-		if(plugin.debug){ plugin.log.info("Task ID is "+Success); }
+		if(plugin.debug){ plugin.log.info("Task ID is "+schedulerTaskID); }
+	}
+	public void startGame(boolean force) {
+		if(force){
+			ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+			gameStatus = 2;
+//			for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
+			for(Player p : plugin.getServer().getOnlinePlayers()){
+				if(ServerWide.getArcher(p).isReady){
+					p.teleport(plugin.startPosition);
+				}
+			}
+		}else{
+			if(plugin.debug){ plugin.log.info("Attempting to start early..."); }
+			// Time to start.
+			if (ServerWide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+				ServerWide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
+			} else { // There's enough players, let's start!
+				ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+				gameStatus = 2;
+//				for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
+				for(Player p : plugin.getServer().getOnlinePlayers()){
+					if(ServerWide.getArcher(p).isReady){
+						p.teleport(plugin.startPosition);
+					}
+				}
+			}
+		}
 	}
 }
