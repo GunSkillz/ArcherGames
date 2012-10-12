@@ -66,6 +66,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: ");
 			plugin.getConfig().set("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s.");
 			plugin.getConfig().set("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat.");
+			plugin.getConfig().set("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing).");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
@@ -94,6 +95,7 @@ public class Config {
 		plugin.strings.put("kitinfo", plugin.getConfig().getString("ArcherGames.strings.kitinfo"));
 		plugin.strings.put("kitgiven", plugin.getConfig().getString("ArcherGames.strings.kitgiven"));
 		plugin.strings.put("nochat", plugin.getConfig().getString("ArcherGames.strings.nochat"));
+		plugin.strings.put("respawn", plugin.getConfig().getString("ArcherGames.strings.respawn"));
 		loadKits();
 	}
 

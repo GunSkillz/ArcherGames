@@ -107,6 +107,7 @@ public class PlayerEventListener implements Listener {
 			} catch (VanishNotLoadedException ex) {
 				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
 			}
+			event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 		}
 	}
 }
