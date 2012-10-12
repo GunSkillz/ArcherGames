@@ -21,10 +21,6 @@ import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.ItemStack;
 
-
-
-
-
 public class ArcherGames extends JavaPlugin {
 
 	public boolean debug = false;
@@ -62,7 +58,9 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("archergames").setExecutor(new ArcherGamesCommandExecutor(this));
 
 		log.info("ArcherGames is enabled!");
-		if(debug){ log.info("Debug mode is enabled!"); }
+		if (debug) {
+			log.info("Debug mode is enabled!");
+		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
 	}

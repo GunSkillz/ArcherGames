@@ -13,24 +13,23 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import static org.bukkit.enchantments.Enchantment.*;
 
-
 public class Config {
 
-	
 	private ArcherGames plugin;
+
 	/**
-	 * 
+	 *
 	 * @param plugin
 	 */
-	public Config(ArcherGames plugin){
+	public Config(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
-	public void loadConfiguration(){
-		if(!(plugin.getConfig().getDouble("ArcherGames.technical.version") == 0.1)){
+	public void loadConfiguration() {
+		if (!(plugin.getConfig().getDouble("ArcherGames.technical.version") == 0.1)) {
 			plugin.getConfig().set("ArcherGames.technical.debug", false);
 			plugin.getConfig().set("ArcherGames.technical.version", 0.1);
 			ArrayList<String> voteSites = new ArrayList<String>();
@@ -74,11 +73,10 @@ public class Config {
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.startPosition = new Location(
-			plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
-			plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
-			plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
-			plugin.getConfig().getInt("ArcherGames.game.startPosition.z")
-		);
+				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
+				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
+				plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
+				plugin.getConfig().getInt("ArcherGames.game.startPosition.z"));
 		plugin.strings.put("startnotenoughplayers", plugin.getConfig().getString("ArcherGames.strings.startnotenoughplayers"));
 		plugin.strings.put("starting", plugin.getConfig().getString("ArcherGames.strings.starting"));
 		plugin.strings.put("invincibilityend", plugin.getConfig().getString("ArcherGames.strings.invincibilityend"));
@@ -91,32 +89,32 @@ public class Config {
 		plugin.strings.put("kitinfo", plugin.getConfig().getString("ArcherGames.strings.kitinfo"));
 		plugin.strings.put("kitgiven", plugin.getConfig().getString("ArcherGames.strings.kitgiven"));
 		loadKits();
+	}
+
+	/**
+	 * Load the Kits form the Config
+	 *
+	 */
+	public void loadKits() {
+		ArrayList<ItemStack> temp;
+		for (String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
+			temp = new ArrayList<ItemStack>();
+			String s = plugin.getConfig().getString("ArcherGames.kits." + key);
+			for (String str : s.split(",")) {
+				try {
+					ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
+					if (!(Integer.parseInt(str.split(":")[2]) < 0)) {
+						itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
+					}
+					temp.add(itemStack);
+				} catch (NumberFormatException e) {
+					plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
+					if (plugin.debug) {
+						e.printStackTrace();
+					}
+				}
+			}
+			plugin.kits.put(key, temp);
 		}
-		
-		/**
-		 * Load the Kits form the Config
-		 * 
-		 */
-		   public void loadKits(){
-			   ArrayList<ItemStack> temp;
-			   for(String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)){
-				   temp = new ArrayList<ItemStack>();
-				   String s = plugin.getConfig().getString("ArcherGames.kits." + key);
-				   for(String str : s.split(",")){
-						try{
-						ItemStack itemStack = new ItemStack( Material.getMaterial(Integer.parseInt( str.split(":")[0] )), Integer.parseInt(str.split(":")[1]));
-						if(!(Integer.parseInt(str.split(":")[2]) < 0)){
-							itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));	
-						}
-						temp.add( itemStack );
-						} catch (NumberFormatException e) {
-							plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit "+key+" is not configured correctly!");
-							if(plugin.debug){
-								e.printStackTrace();
-							}
-						}
-				   }
-				   plugin.kits.put(key, temp);
-			   }
-		}
+	}
 }

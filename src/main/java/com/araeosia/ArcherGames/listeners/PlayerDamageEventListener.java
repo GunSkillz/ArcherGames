@@ -10,25 +10,24 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
+public class PlayerDamageEventListener implements Listener {
 
-public class PlayerDamageEventListener implements Listener{
-	
 	public ArcherGames plugin;
-	
-	public PlayerDamageEventListener(ArcherGames plugin){
+
+	public PlayerDamageEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
 
 	/**
-	 * 
-	 * @param event 
+	 *
+	 * @param event
 	 */
 	@EventHandler
-	public void onDamageEvent(final EntityDamageEvent event){
-		if(event.getEntity() instanceof Player){
+	public void onDamageEvent(final EntityDamageEvent event) {
+		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(ServerWide.getArcher(player).isAlive())){
-				if(event.getCause() != DamageCause.VOID){
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(ServerWide.getArcher(player).isAlive())) {
+				if (event.getCause() != DamageCause.VOID) {
 					event.setCancelled(true);
 				}
 			}
