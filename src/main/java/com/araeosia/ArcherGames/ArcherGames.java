@@ -32,6 +32,7 @@ public class ArcherGames extends JavaPlugin {
 	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
+	public ServerWide serverwide;
 
 	/**
 	 *
@@ -40,6 +41,7 @@ public class ArcherGames extends JavaPlugin {
 	public void onEnable() {
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
+		serverwide = new ServerWide(this);
 		config = new Config(this);
 		config.loadConfiguration();
 		// Events

@@ -2,7 +2,6 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
-import com.araeosia.ArcherGames.ServerWide;
 import org.bukkit.entity.Player;
 
 import org.bukkit.event.EventHandler;
@@ -25,8 +24,8 @@ public class PlayerDeathEventListener implements Listener {
 	public void onDeathEvent(final PlayerDeathEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (ServerWide.getArcher(player).isAlive())) {
-				ServerWide.killPlayer(event.getEntity());
+			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
+				plugin.serverwide.killPlayer(event.getEntity());
 				// TODO: Get the cause. If it's a player, give them some points.
 			}
 		}

@@ -37,13 +37,13 @@ public class ScheduledTasks {
 							// Pre-game
 							switch ((preGameCountdown - currentLoop)) {
 								case 60:
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("1 minute"));
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("1 minute"));
 									break;
 								case 30:
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("30 seconds"));
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("30 seconds"));
 									break;
 								case 15:
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("15 seconds"));
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format("15 seconds"));
 									break;
 								case 10:
 								case 9:
@@ -55,7 +55,7 @@ public class ScheduledTasks {
 								case 3:
 								case 2:
 								case 1:
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format((preGameCountdown - currentLoop) + " second(s)"));
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starttimeleft").format((preGameCountdown - currentLoop) + " second(s)"));
 									break;
 							}
 							if (currentLoop >= preGameCountdown) {
@@ -63,14 +63,14 @@ public class ScheduledTasks {
 									plugin.log.info("Attempting to start...");
 								}
 								// Time to start.
-								if (ServerWide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
+								if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
-									ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 									gameStatus = 2;
-//								for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
+//								for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
 									for (Player p : plugin.getServer().getOnlinePlayers()) {
-										if (ServerWide.getArcher(p).isReady) {
+										if (plugin.serverwide.getArcher(p).isReady) {
 											p.teleport(plugin.startPosition);
 										}
 									}
@@ -89,7 +89,7 @@ public class ScheduledTasks {
 									plugin.log.info("Invincibility has ended.");
 								}
 								// Invincibility is over.
-								ServerWide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
+								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("invincibilityend"));
 								gameStatus = 3;
 								currentLoop = -1;
 							}
@@ -105,9 +105,9 @@ public class ScheduledTasks {
 									plugin.log.info("Overtime has started.");
 								}
 								// Game time is up.
-								ServerWide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
-								for (Archer a : ServerWide.livingPlayers) {
-									ServerWide.getPlayer(a).teleport(plugin.startPosition);
+								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
+								for (Archer a : plugin.serverwide.livingPlayers) {
+									plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 								}
 								gameStatus = 4;
 								currentLoop = -1;
@@ -117,12 +117,12 @@ public class ScheduledTasks {
 							break;
 						case 4:
 							// Overtime
-							if (ServerWide.livingPlayers.size() <= 1) {
+							if (plugin.serverwide.livingPlayers.size() <= 1) {
 								if (plugin.debug) {
 									plugin.log.info("Game has ended.");
 								}
 								// Game is finally over. We have a winner.
-								ServerWide.sendMessageToAllPlayers(plugin.strings.get("gameended"));
+								plugin.serverwide.handleGameEnd();
 								gameStatus = 5;
 								currentLoop = -1;
 							}
@@ -156,11 +156,12 @@ public class ScheduledTasks {
 
 	public void startGame(boolean force) {
 		if (force) {
-			ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+			plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 			gameStatus = 2;
-//			for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
+			currentLoop = 0;
+//			for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (ServerWide.getArcher(p).isReady) {
+				if (plugin.serverwide.getArcher(p).isReady) {
 					p.teleport(plugin.startPosition);
 				}
 			}
@@ -169,18 +170,24 @@ public class ScheduledTasks {
 				plugin.log.info("Attempting to start early...");
 			}
 			// Time to start.
-			if (ServerWide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
-				ServerWide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
+			if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+				plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 			} else { // There's enough players, let's start!
-				ServerWide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+				plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 				gameStatus = 2;
-//				for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) ServerWide.getPlayer(a).getInventory().add(is);
+				currentLoop = 0;
+//				for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
 				for (Player p : plugin.getServer().getOnlinePlayers()) {
-					if (ServerWide.getArcher(p).isReady) {
+					if (plugin.serverwide.getArcher(p).isReady) {
 						p.teleport(plugin.startPosition);
 					}
 				}
 			}
 		}
+	}
+	public void endGame(){
+		plugin.serverwide.handleGameEnd();
+		gameStatus = 5;
+		currentLoop = 0;
 	}
 }
