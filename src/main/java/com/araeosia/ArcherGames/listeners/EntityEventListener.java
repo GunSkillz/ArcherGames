@@ -18,7 +18,6 @@ public class EntityEventListener implements Listener {
 	}
 
 	// TODO: Mob targeting triggers, mob damage triggers.
-	
 	/**
 	 *
 	 * @param event
@@ -26,16 +25,19 @@ public class EntityEventListener implements Listener {
 	@EventHandler
 	public void onProjectileHit(final ProjectileHitEvent event) {
 		if (event.getEntity() instanceof Arrow) {
-			event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 2F);
-			if(plugin.configToggles.get("arrowDelete")){
-				event.getEntity().remove();
+			if (event.getEntity().getShooter() instanceof Player) {
+				event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 2F);
+				if (plugin.configToggles.get("arrowDelete")) {
+					event.getEntity().remove();
+				}
 			}
 		}
 	}
+
 	@EventHandler
-	public void onHungerChange(final FoodLevelChangeEvent event){
-		if(event.getEntity() instanceof Player){
-			if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+	public void onHungerChange(final FoodLevelChangeEvent event) {
+		if (event.getEntity() instanceof Player) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
 				event.setCancelled(true);
 			}
 		}
