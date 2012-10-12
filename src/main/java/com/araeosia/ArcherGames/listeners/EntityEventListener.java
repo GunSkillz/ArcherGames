@@ -1,9 +1,12 @@
 package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
+import com.araeosia.ArcherGames.ScheduledTasks;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
 public class EntityEventListener implements Listener {
@@ -26,6 +29,14 @@ public class EntityEventListener implements Listener {
 			event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 2F);
 			if(plugin.configToggles.get("arrowDelete")){
 				event.getEntity().remove();
+			}
+		}
+	}
+	@EventHandler
+	public void onHungerChange(final FoodLevelChangeEvent event){
+		if(event.getEntity() instanceof Player){
+			if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+				event.setCancelled(true);
 			}
 		}
 	}
