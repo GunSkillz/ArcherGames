@@ -6,14 +6,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-public class ProjectileHitEventListener implements Listener {
+public class EntityEventListener implements Listener {
 
 	public ArcherGames plugin;
 
-	public ProjectileHitEventListener(ArcherGames plugin) {
+	public EntityEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
 
+	// TODO: Mob targeting triggers, mob damage triggers.
+	
 	/**
 	 *
 	 * @param event
