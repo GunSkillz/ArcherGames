@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class ArcherGames extends JavaPlugin {
 
@@ -27,6 +29,8 @@ public class ArcherGames extends JavaPlugin {
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
 	public ServerWide serverwide;
+	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
+	public static Economy econ = null;
 
 	/**
 	 *
@@ -53,6 +57,11 @@ public class ArcherGames extends JavaPlugin {
 		if (debug) {
 			log.info("Debug mode is enabled!");
 		}
+		if (!setupEconomy() ) {
+            log.info(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
 	}
@@ -66,4 +75,15 @@ public class ArcherGames extends JavaPlugin {
 		log.info("ArcherGames is disabled.");
 
 	}
+	private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }
 }

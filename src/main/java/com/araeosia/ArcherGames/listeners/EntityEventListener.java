@@ -23,7 +23,10 @@ public class EntityEventListener implements Listener {
 	@EventHandler
 	public void onProjectileHit(final ProjectileHitEvent event) {
 		if (event.getEntity() instanceof Arrow) {
-			event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 3F);
+			event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 2F);
+			if(plugin.configToggles.get("arrowDelete")){
+				event.getEntity().remove();
+			}
 		}
 	}
 }

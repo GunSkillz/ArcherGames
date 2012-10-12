@@ -32,6 +32,7 @@ public class Config {
 		if (!(plugin.getConfig().getDouble("ArcherGames.technical.version") == 0.1)) {
 			plugin.getConfig().set("ArcherGames.technical.debug", false);
 			plugin.getConfig().set("ArcherGames.technical.version", 0.1);
+			plugin.getConfig().set("ArcherGames.toggles.arrowDelete", true);
 			ArrayList<String> voteSites = new ArrayList<String>();
 			voteSites.add("http://ow.ly/cpQI0");
 			voteSites.add("http://ow.ly/cmwer");
@@ -80,6 +81,7 @@ public class Config {
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.y"),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.z"));
+		plugin.configToggles.put("arrowDelete", plugin.getConfig().getBoolean("ArcherGames.toggles.arrowDelete"));
 		plugin.strings.put("startnotenoughplayers", plugin.getConfig().getString("ArcherGames.strings.startnotenoughplayers"));
 		plugin.strings.put("starting", plugin.getConfig().getString("ArcherGames.strings.starting"));
 		plugin.strings.put("invincibilityend", plugin.getConfig().getString("ArcherGames.strings.invincibilityend"));

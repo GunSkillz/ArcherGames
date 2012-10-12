@@ -4,15 +4,19 @@ import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.kitteh.vanish.staticaccess.VanishNoPacket;
+import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
 public class PlayerEventListener implements Listener {
 
@@ -28,11 +32,11 @@ public class PlayerEventListener implements Listener {
 	 *
 	 * @param event
 	 */
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler
 	public void onLoginEvent(final PlayerLoginEvent event) {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
-		event.getPlayer().sendMessage(plugin.strings.get("joinedgame").format(event.getPlayer().getName(), plugin.strings.get("servername")));
+		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		if (playersDisconnected.containsKey(event.getPlayer().getName())) {
 			plugin.getServer().getScheduler().cancelTask(playersDisconnected.get(event.getPlayer().getName())); // Cancel that kill task.
 		}
@@ -86,7 +90,23 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onQuitEvent(final PlayerQuitEvent event) {
 		if (!Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
-			int taskID = plugin.scheduler.playerKillCountdown(event.getPlayer().getName());
+			plugin.serverwide.killPlayer(event.getPlayer().getName());
+		}
+	}
+
+	@EventHandler
+	public void onRespawnEvent(final PlayerRespawnEvent event) {
+		if (!Archer.getByName(event.getPlayer().getName()).isAlive()) {
+			try {
+				if (!VanishNoPacket.isVanished(event.getPlayer().getName())) {
+					if (plugin.debug) {
+						plugin.log.info(event.getPlayer().getName() + " respawned and was made invisible.");
+					}
+					VanishNoPacket.toggleVanishSilent(event.getPlayer());
+				}
+			} catch (VanishNotLoadedException ex) {
+				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
 	}
 }
