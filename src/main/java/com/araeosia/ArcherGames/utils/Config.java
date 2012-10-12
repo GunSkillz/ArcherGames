@@ -47,6 +47,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
 			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
 			plugin.getConfig().set("ArcherGames.timers.shutdownTimer", 30); // 30 seconds until the server reboots.
+			plugin.getConfig().set("ArcherGames.timers.howLongToWait", new Long(600));
 			plugin.getConfig().set("ArcherGames.game.startPosition.world", plugin.getServer().getWorlds().get(0).getName()); // Fetch the default world
 			plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
 			plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
@@ -63,6 +64,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!");
 			plugin.getConfig().set("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: ");
 			plugin.getConfig().set("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s.");
+			plugin.getConfig().set("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat.");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
@@ -71,6 +73,7 @@ public class Config {
 		plugin.scheduler.gameOvertimeCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameOvertimeCountdown");
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
+		plugin.scheduler.howLongToWait = plugin.getConfig().getLong("ArcherGames.timers.howLongToWait");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.startPosition = new Location(
 				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
@@ -88,6 +91,7 @@ public class Config {
 		plugin.strings.put("voteinfo", plugin.getConfig().getString("ArcherGames.vote.info"));
 		plugin.strings.put("kitinfo", plugin.getConfig().getString("ArcherGames.strings.kitinfo"));
 		plugin.strings.put("kitgiven", plugin.getConfig().getString("ArcherGames.strings.kitgiven"));
+		plugin.strings.put("nochat", plugin.getConfig().getString("ArcherGames.strings.nochat"));
 		loadKits();
 	}
 

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Location;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.ItemStack;
 

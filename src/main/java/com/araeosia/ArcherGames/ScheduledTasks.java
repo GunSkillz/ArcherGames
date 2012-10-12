@@ -16,6 +16,7 @@ public class ScheduledTasks {
 	public int shutdownTimer; // Time after the game ends until the server shuts down.
 	public int minPlayersToStart;
 	public int schedulerTaskID;
+	public long howLongToWait;
 
 	public ScheduledTasks(ArcherGames plugin) {
 		this.plugin = plugin;
@@ -189,5 +190,13 @@ public class ScheduledTasks {
 		plugin.serverwide.handleGameEnd();
 		gameStatus = 5;
 		currentLoop = 0;
+	}
+	public int playerKillCountdown(final String playerName){
+		return plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+			public void run(){
+				// They haven't come back.
+				plugin.serverwide.killPlayer(playerName);
+			}
+		}, new Long(howLongToWait));
 	}
 }

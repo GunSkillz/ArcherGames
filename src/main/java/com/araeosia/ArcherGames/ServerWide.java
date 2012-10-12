@@ -18,9 +18,9 @@ public class ServerWide {
 		this.plugin = plugin;
 	}
 
-	public void killPlayer(Player player) {
-		livingPlayers.remove(getArcher(player));
-		getArcher(player).kill();
+	public void killPlayer(String playerName) {
+		livingPlayers.remove(Archer.getByName(playerName));
+		Archer.getByName(playerName).kill();
 	}
 
 	public ArrayList<Archer> getNotReadyPlayers() {
