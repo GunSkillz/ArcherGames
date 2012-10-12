@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 public class ScheduledTasks {
 
 	public ArcherGames plugin;
-	public static int gameStatus;
+	public static int gameStatus=1;
 	public int currentLoop; // In loops
 	public int preGameCountdown; // Time before anything starts. Players choose kits.
 	public int gameInvincibleCountdown; // Time while players are invincible.
