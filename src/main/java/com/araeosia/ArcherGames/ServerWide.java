@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  */
 public class ServerWide {
 
-	public static ArrayList<Archer> livingPlayers;
+	public static ArrayList<Archer> livingPlayers = new ArrayList<Archer>();
 
 	public static void killPlayer(Player player) {
 		livingPlayers.remove(getArcher(player));
