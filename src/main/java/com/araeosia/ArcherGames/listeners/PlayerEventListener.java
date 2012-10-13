@@ -82,7 +82,10 @@ public class PlayerEventListener implements Listener {
 			Player player = (Player) event.getEntity();
 			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
 				plugin.serverwide.killPlayer(event.getEntity().getName());
-				// TODO: Get the cause. If it's a player, give them some points.
+				
+				if(event.getEntity().getKiller() instanceof Player){
+//					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
+				}
 			}
 		}
 	}

@@ -5,11 +5,15 @@ import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.listeners.EntityEventListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Location;
@@ -31,6 +35,7 @@ public class ArcherGames extends JavaPlugin {
 	public ServerWide serverwide;
 	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
 	public static Economy econ = null;
+	public Connection conn;
 
 	/**
 	 *
@@ -86,4 +91,20 @@ public class ArcherGames extends JavaPlugin {
         econ = rsp.getProvider();
         return econ != null;
     }
+
+	public void dbConnect() {
+		try {
+			if(conn.isValid(1) || conn == null || conn.isClosed()){
+				java.util.Properties conProperties = new java.util.Properties();
+				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username") );
+				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password") );
+				conProperties.put("autoReconnect", "true");
+				conProperties.put("maxReconnects", "3");
+				String uri = "jdbc:mysql://"+this.getConfig().getString("Archerames.mysql.hostname")+":"+this.getConfig().getString("ArcherGames.mysql.port")+"/"+this.getConfig().getString("ArcherGames.mysql.database");
+					conn = DriverManager.getConnection(uri, conProperties);
+			}
+		} catch (SQLException ex) {
+			log.log(Level.SEVERE, "Unable to connect to database!");
+		}
+	}
 }
