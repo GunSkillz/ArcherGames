@@ -6,9 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-public class CommandHandler implements CommandExecutor {
+public class CommandHandler implements CommandExecutor, Listener {
 
 	public ArcherGames plugin;
 
@@ -16,6 +17,15 @@ public class CommandHandler implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+	/**
+	 *
+	 * @param sender
+	 * @param cmd
+	 * @param commandLabel
+	 * @param args
+	 * @return
+	 */
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("vote")) {
 			sender.sendMessage(plugin.strings.get("voteinfo"));
@@ -41,12 +51,12 @@ public class CommandHandler implements CommandExecutor {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("listkits")) {
 			sender.sendMessage(plugin.strings.get("kitinfo"));
-			String kits = new String();
+			String kits = "";
 			for (String s : plugin.kits.keySet()) {
 				kits += s + ", ";
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
-		} else if (args.length != 0) {
+		} else if (cmd.getName().equalsIgnoreCase("kit") || args.length != 0) {
 			if (plugin.kits.containsKey(args[0])) {
 				Archer.getByName(sender.getName()).selectKit(args[0]);
 				sender.sendMessage(plugin.strings.get("kitinfo").format(args[0]));
@@ -61,11 +71,18 @@ public class CommandHandler implements CommandExecutor {
 		}
 		return false;
 	}
+
 	/**
 	 *
 	 * @param event
 	 */
 	@EventHandler
 	public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).canTalk) {
+			if (!event.getMessage().contains("kit")) {
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(plugin.strings.get("nocommand"));
+			}
+		}
 	}
 }

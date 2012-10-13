@@ -51,6 +51,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
 		// Commands
+		this.getServer().getPluginManager().registerEvents(new CommandHandler(this), this);
 		this.getCommand("kit").setExecutor(new CommandHandler(this));
 		this.getCommand("listkits").setExecutor(new CommandHandler(this));
 		this.getCommand("vote").setExecutor(new CommandHandler(this));
@@ -62,11 +63,11 @@ public class ArcherGames extends JavaPlugin {
 		if (debug) {
 			log.info("Debug mode is enabled!");
 		}
-		if (!setupEconomy() ) {
-            log.info(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
+		if (!setupEconomy()) {
+			log.info(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
 	}
@@ -80,28 +81,29 @@ public class ArcherGames extends JavaPlugin {
 		log.info("ArcherGames is disabled.");
 
 	}
+
 	private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        econ = rsp.getProvider();
-        return econ != null;
-    }
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		econ = rsp.getProvider();
+		return econ != null;
+	}
 
 	public void dbConnect() {
 		try {
-			if(conn.isValid(1) || conn == null || conn.isClosed()){
+			if (conn.isValid(1) || conn == null || conn.isClosed()) {
 				java.util.Properties conProperties = new java.util.Properties();
-				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username") );
-				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password") );
+				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username"));
+				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));
 				conProperties.put("autoReconnect", "true");
 				conProperties.put("maxReconnects", "3");
-				String uri = "jdbc:mysql://"+this.getConfig().getString("Archerames.mysql.hostname")+":"+this.getConfig().getString("ArcherGames.mysql.port")+"/"+this.getConfig().getString("ArcherGames.mysql.database");
-					conn = DriverManager.getConnection(uri, conProperties);
+				String uri = "jdbc:mysql://" + this.getConfig().getString("Archerames.mysql.hostname") + ":" + this.getConfig().getString("ArcherGames.mysql.port") + "/" + this.getConfig().getString("ArcherGames.mysql.database");
+				conn = DriverManager.getConnection(uri, conProperties);
 			}
 		} catch (SQLException ex) {
 			log.log(Level.SEVERE, "Unable to connect to database!");
