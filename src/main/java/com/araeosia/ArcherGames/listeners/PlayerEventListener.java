@@ -23,7 +23,7 @@ public class PlayerEventListener implements Listener {
 	public ArcherGames plugin;
 	public int howLongToWait; // How long do we wait?
 	public HashMap<String, Integer> playersDisconnected = new HashMap<String, Integer>();
-
+	public static HashMap<String, Integer> naggerTask = new HashMap<String, Integer>();
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
@@ -37,9 +37,7 @@ public class PlayerEventListener implements Listener {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
-		if (playersDisconnected.containsKey(event.getPlayer().getName())) {
-			plugin.getServer().getScheduler().cancelTask(playersDisconnected.get(event.getPlayer().getName())); // Cancel that kill task.
-		}
+		naggerTask.put(event.getPlayer().getName(), plugin.scheduler.nagPlayerKit(event.getPlayer().getName()));
 	}
 
 	/**

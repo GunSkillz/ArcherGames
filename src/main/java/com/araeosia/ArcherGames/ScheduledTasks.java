@@ -16,7 +16,7 @@ public class ScheduledTasks {
 	public int shutdownTimer; // Time after the game ends until the server shuts down.
 	public int minPlayersToStart;
 	public int schedulerTaskID;
-	public long howLongToWait;
+	public long nagTime;
 
 	public ScheduledTasks(ArcherGames plugin) {
 		this.plugin = plugin;
@@ -66,7 +66,7 @@ public class ScheduledTasks {
 									plugin.log.info("Attempting to start...");
 								}
 								// Time to start.
-								if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+								if (plugin.serverwide.livingPlayers.size() >= minPlayersToStart) { // There aren't enough players.
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
@@ -109,8 +109,10 @@ public class ScheduledTasks {
 								}
 								// Game time is up.
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
-								for (Archer a : plugin.serverwide.livingPlayers) {
-									plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
+								for (Player p : plugin.getServer().getOnlinePlayers()) {
+										if (plugin.serverwide.getArcher(p).isReady) {
+											p.teleport(plugin.startPosition);
+										}
 								}
 								gameStatus = 4;
 								currentLoop = -1;
@@ -188,17 +190,17 @@ public class ScheduledTasks {
 			}
 		}
 	}
+	public int nagPlayerKit(final String playerName){
+		plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
+		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+			public void run(){
+				plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
+			}
+		}, new Long(nagTime*20), new Long(nagTime*20));
+	}
 	public void endGame(){
 		plugin.serverwide.handleGameEnd();
 		gameStatus = 5;
 		currentLoop = 0;
-	}
-	public int playerKillCountdown(final String playerName){
-		return plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-			public void run(){
-				// They haven't come back.
-				plugin.serverwide.killPlayer(playerName);
-			}
-		}, new Long(howLongToWait));
 	}
 }
