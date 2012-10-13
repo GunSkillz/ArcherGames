@@ -22,8 +22,8 @@ public class PlayerEventListener implements Listener {
 
 	public ArcherGames plugin;
 	public int howLongToWait; // How long do we wait?
-	public static HashMap<String, Integer> naggerTask;
-
+	public HashMap<String, Integer> playersDisconnected = new HashMap<String, Integer>();
+	public static HashMap<String, Integer> naggerTask = new HashMap<String, Integer>();
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
@@ -81,8 +81,8 @@ public class PlayerEventListener implements Listener {
 			Player player = (Player) event.getEntity();
 			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
 				plugin.serverwide.killPlayer(event.getEntity().getName());
-				
-				if(event.getEntity().getKiller() instanceof Player){
+
+				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
 				}
 			}

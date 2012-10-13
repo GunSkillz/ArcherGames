@@ -63,6 +63,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s.");
 			plugin.getConfig().set("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat.");
 			plugin.getConfig().set("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing).");
+			plugin.getConfig().set("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit.");
 			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
 			plugin.getConfig().set("ArcherGames.mysql.username", "");
 			plugin.getConfig().set("ArcherGames.mysql.password", "");
