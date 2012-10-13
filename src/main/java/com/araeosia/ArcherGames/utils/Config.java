@@ -69,6 +69,11 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat.");
 			plugin.getConfig().set("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing).");
 			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
+			plugin.getConfig().set("ArcherGames.mysql.username", "");
+			plugin.getConfig().set("ArcherGames.mysql.password", "");
+			plugin.getConfig().set("ArcherGames.mysql.port", 3306);
+			plugin.getConfig().set("ArcherGames.mysql.database", "");
+			plugin.getConfig().set("ArcherGames.mysql.hostname", "");
 			plugin.saveConfig();
 		}
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
