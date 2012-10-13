@@ -22,7 +22,6 @@ public class PlayerEventListener implements Listener {
 
 	public ArcherGames plugin;
 	public int howLongToWait; // How long do we wait?
-	public HashMap<String, Integer> playersDisconnected = new HashMap<String, Integer>();
 	public static HashMap<String, Integer> naggerTask = new HashMap<String, Integer>();
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
