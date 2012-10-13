@@ -1,6 +1,5 @@
 package com.araeosia.ArcherGames;
 
-import com.araeosia.ArcherGames.CommandHandler;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
@@ -28,7 +27,7 @@ public class ArcherGames extends JavaPlugin {
 	public ScheduledTasks scheduler;
 	public static Logger log;
 	public List<String> voteSites;
-	public Location startPosition;
+	public Location startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
@@ -69,6 +68,8 @@ public class ArcherGames extends JavaPlugin {
         }
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
+		dbConnect();
+		
 	}
 
 	/**

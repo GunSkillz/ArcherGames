@@ -20,13 +20,17 @@ public class Database {
 		this.plugin = plugin;
 	}
 	
-	public static void addPoints(String name, int points) throws SQLException{
+	public void setupTables() throws SQLException{
 		plugin.dbConnect();
 		
 		PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS points(name varchar(20), points integer)");
 		s.executeUpdate();
 		s.close();
-		s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES (?,?)");
+	}
+	public static void addPoints(String name, int points) throws SQLException{
+		plugin.dbConnect();
+		
+		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES (?,?)");
 		s.setString(1, name);
 		s.setInt(2, points);
 		s.executeUpdate();
