@@ -22,7 +22,7 @@ public class PlayerEventListener implements Listener {
 
 	public ArcherGames plugin;
 	public int howLongToWait; // How long do we wait?
-	public HashMap<String, Integer> naggerTask;
+	public static HashMap<String, Integer> naggerTask;
 
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
