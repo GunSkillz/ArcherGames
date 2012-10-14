@@ -70,6 +70,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("stats").setExecutor(new CommandHandler(this));
 		this.getCommand("archergames").setExecutor(new CommandHandler(this));
 		this.getCommand("chunk").setExecutor(new CommandHandler(this));
+		this.getCommand("pay").setExecutor(new CommandHandler(this));
 
 		log.info("ArcherGames is enabled!");
 		if (debug) {
