@@ -107,7 +107,7 @@ public class ArcherGames extends JavaPlugin {
 				if(debug){
 					log.info(conProperties.toString());
 				}
-				String uri = "jdbc:mysql://" + this.getConfig().getString("Archerames.mysql.hostname") + ":" + this.getConfig().getString("ArcherGames.mysql.port") + "/" + this.getConfig().getString("ArcherGames.mysql.database");
+				String uri = "jdbc:mysql://" + this.getConfig().getString("ArcherGames.mysql.hostname") + ":" + this.getConfig().getString("ArcherGames.mysql.port") + "/" + this.getConfig().getString("ArcherGames.mysql.database");
 				if(debug){
 					log.info(uri);
 				}
