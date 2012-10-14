@@ -74,6 +74,14 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("chunk")){
 			
+		} else if (cmd.getName().equalsIgnoreCase("lockdown")){
+			if (sender.hasPermission("archergames.admin")){
+				plugin.getConfig().set("ArcherGames.toggles.lockdownMode", !plugin.configToggles.get("ArcherGames.toggles.lockdownMode"));
+				plugin.saveConfig();
+				return true;
+			}else{
+				return false;
+			}
 		}
 		return false;
 	}

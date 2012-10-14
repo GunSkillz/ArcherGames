@@ -32,6 +32,10 @@ public class PlayerEventListener implements Listener {
 	 */
 	@EventHandler
 	public void onLoginEvent(final PlayerLoginEvent event) {
+		if(plugin.configToggles.get("lockdownMode")){
+			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
+			return;
+		}
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
 	}
