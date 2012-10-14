@@ -24,65 +24,65 @@ public class Config {
 	 *
 	 */
 	public void loadConfiguration() {
-		if (!(plugin.getConfig().getDouble("ArcherGames.technical.version") == 0.1)) {
-			plugin.getConfig().set("ArcherGames.technical.debug", false);
-			plugin.getConfig().set("ArcherGames.technical.version", 0.1);
-			plugin.getConfig().set("ArcherGames.toggles.arrowDelete", true);
-			ArrayList<String> voteSites = new ArrayList<String>();
-			voteSites.add("http://ow.ly/cpQI0");
-			voteSites.add("http://ow.ly/cmwer");
-			voteSites.add("http://ow.ly/cmnPu");
-			voteSites.add("http://ow.ly/cmDIF");
-			voteSites.add("http://ow.ly/cmP18");
-			voteSites.add("http://ow.ly/cmETB");
-			voteSites.add("http://ow.ly/dVcsF");
-			voteSites.add("http://ow.ly/eggLe");
-			plugin.getConfig().set("ArcherGames.vote.info", "§gVote on these sites for $3000 each!");
-			plugin.getConfig().set("ArcherGames.vote.sites", voteSites);
-			plugin.getConfig().set("ArcherGames.vote.howMuchToGive", 3000);
-			plugin.getConfig().set("ArcherGames.timers.preGameCountdown", 120); // 2 minutes for everyone to get in game
-			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
-			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
-			plugin.getConfig().set("ArcherGames.timers.shutdownTimer", 30); // 30 seconds until the server reboots.
-			plugin.getConfig().set("ArcherGames.timers.nagTime", 30);
-			/*
-			 * plugin.getConfig().set("ArcherGames.game.startPosition.world",
-			 * plugin.getServer().getWorlds().get(0).getName()); // Fetch the
-			 * default world
-			 * plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
-			 * plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
-			 * plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
-			 */
-			plugin.getConfig().set("ArcherGames.game.minPlayersToStart", 5);
-			plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
-			plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players.");
-			plugin.getConfig().set("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies.");
-			plugin.getConfig().set("ArcherGames.strings.invincibilityend", "[ArcherGames] Your minute of invincibility is up! Let the games begin...");
-			plugin.getConfig().set("ArcherGames.strings.overtimestart", "[ArcherGames] Overtime has started! Fight to the death!");
-			plugin.getConfig().set("ArcherGames.strings.gameended", "[ArcherGames] The game is over!");
-			plugin.getConfig().set("ArcherGames.strings.serverclosekick", "The server is rebooting.");
-			plugin.getConfig().set("ArcherGames.strings.joinedgame", "[ArcherGames] Welcome %s to %s, make sure to read your book for information!");
-			plugin.getConfig().set("ArcherGames.strings.servername", "ArcherGamesServer");
-			plugin.getConfig().set("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!");
-			plugin.getConfig().set("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: ");
-			plugin.getConfig().set("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s.");
-			plugin.getConfig().set("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat.");
-			plugin.getConfig().set("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing).");
-			plugin.getConfig().set("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit.");
-			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
-			plugin.getConfig().set("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --");
-			plugin.getConfig().set("ArcherGames.irc.botname", "AG-SERVER1");
-			plugin.getConfig().set("ArcherGames.irc.host", "irc.esper.net");
-			plugin.getConfig().set("ArcherGames.irc.password", "asdfasdf");
-			plugin.getConfig().set("ArcherGames.irc.port", 6667);
-			plugin.getConfig().set("ArcherGames.irc.channel", "#araeosia");
-			plugin.getConfig().set("ArcherGames.mysql.username", "");
-			plugin.getConfig().set("ArcherGames.mysql.password", "");
-			plugin.getConfig().set("ArcherGames.mysql.port", 3306);
-			plugin.getConfig().set("ArcherGames.mysql.database", "");
-			plugin.getConfig().set("ArcherGames.mysql.hostname", "");
-			plugin.saveConfig();
-		}
+		plugin.getConfig().set("ArcherGames.technical.debug", plugin.getConfig().get("ArcherGames.technical.debug", false));
+		plugin.getConfig().set("ArcherGames.technical.version", plugin.getConfig().get("ArcherGames.technical.version", 0.1));
+		plugin.getConfig().set("ArcherGames.toggles.arrowDelete", plugin.getConfig().get("ArcherGames.toggles.arrowDelete", true));
+		ArrayList<String> voteSites = new ArrayList<String>();
+		voteSites.add("http://ow.ly/cpQI0");
+		voteSites.add("http://ow.ly/cmwer");
+		voteSites.add("http://ow.ly/cmnPu");
+		voteSites.add("http://ow.ly/cmDIF");
+		voteSites.add("http://ow.ly/cmP18");
+		voteSites.add("http://ow.ly/cmETB");
+		voteSites.add("http://ow.ly/dVcsF");
+		voteSites.add("http://ow.ly/eggLe");
+		plugin.getConfig().set("ArcherGames.vote.info", plugin.getConfig().get("ArcherGames.vote.info", "§gVote on these sites for $3000 each!"));
+		plugin.getConfig().set("ArcherGames.vote.sites", plugin.getConfig().get("ArcherGames.vote.sites", voteSites));
+		plugin.getConfig().set("ArcherGames.vote.howMuchToGive", plugin.getConfig().get("ArcherGames.vote.howMuchToGive", 3000));
+		plugin.getConfig().set("ArcherGames.timers.preGameCountdown", plugin.getConfig().get("ArcherGames.timers.preGameCountdown", 120)); // 2 minutes for everyone to get in game
+		plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", plugin.getConfig().get("ArcherGames.timers.gameInvincibleCountdown", 60)); // 1 minute for everyone to get far enough away from each other
+		plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", plugin.getConfig().get("ArcherGames.timers.gameOvertimeCountdown", 600)); // 10 minutes to play before we force the round to end
+		plugin.getConfig().set("ArcherGames.timers.shutdownTimer", plugin.getConfig().get("ArcherGames.timers.shutdownTimer", 30)); // 30 seconds until the server reboots.
+		plugin.getConfig().set("ArcherGames.timers.nagTime", plugin.getConfig().get("ArcherGames.timers.nagTime", 30));
+		/*
+		 * plugin.getConfig().set("ArcherGames.game.startPosition.world",
+		 * plugin.getServer().getWorlds().get(0).getName()); // Fetch the
+		 * default world
+		 * plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
+		 * plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
+		 * plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
+		 */
+		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
+//		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl"););
+		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
+		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
+		plugin.getConfig().set("ArcherGames.strings.invincibilityend", plugin.getConfig().get("ArcherGames.strings.invincibilityend", "[ArcherGames] Your minute of invincibility is up! Let the games begin..."));
+		plugin.getConfig().set("ArcherGames.strings.overtimestart", plugin.getConfig().get("ArcherGames.strings.overtimestart", "[ArcherGames] Overtime has started! Fight to the death!"));
+		plugin.getConfig().set("ArcherGames.strings.gameended", plugin.getConfig().get("ArcherGames.strings.gameended", "[ArcherGames] The game is over!"));
+		plugin.getConfig().set("ArcherGames.strings.serverclosekick", plugin.getConfig().get("ArcherGames.strings.serverclosekick", "The server is rebooting."));
+		plugin.getConfig().set("ArcherGames.strings.joinedgame", plugin.getConfig().get("ArcherGames.strings.joinedgame", "[ArcherGames] Welcome %s to %s, make sure to read your book for information!"));
+		plugin.getConfig().set("ArcherGames.strings.servername", plugin.getConfig().get("ArcherGames.strings.servername", "ArcherGamesServer"));
+		plugin.getConfig().set("ArcherGames.strings.starttimeleft", plugin.getConfig().get("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!"));
+		plugin.getConfig().set("ArcherGames.strings.kitinfo", plugin.getConfig().get("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: "));
+		plugin.getConfig().set("ArcherGames.strings.kitgiven", plugin.getConfig().get("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s."));
+		plugin.getConfig().set("ArcherGames.strings.nochat", plugin.getConfig().get("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat."));
+		plugin.getConfig().set("ArcherGames.strings.respawn", plugin.getConfig().get("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing)."));
+		plugin.getConfig().set("ArcherGames.strings.nocommand", plugin.getConfig().get("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit."));
+		plugin.getConfig().set("ArcherGames.strings.kitnag", plugin.getConfig().get("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kit [kit]."));
+		plugin.getConfig().set("ArcherGames.strings.playervoted", plugin.getConfig().get("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --"));
+		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
+		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
+		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
+		plugin.getConfig().set("ArcherGames.irc.port", plugin.getConfig().getInt("ArcherGames.irc.port", 6667));
+		plugin.getConfig().set("ArcherGames.irc.channel", plugin.getConfig().get("ArcherGames.irc.channel", "#araeosia"));
+		plugin.getConfig().set("ArcherGames.mysql.username", plugin.getConfig().get("ArcherGames.mysql.username", ""));
+		plugin.getConfig().set("ArcherGames.mysql.password", plugin.getConfig().get("ArcherGames.mysql.password", ""));
+		plugin.getConfig().set("ArcherGames.mysql.port", plugin.getConfig().get("ArcherGames.mysql.port", 3306));
+		plugin.getConfig().set("ArcherGames.mysql.database", plugin.getConfig().get("ArcherGames.mysql.database", ""));
+		plugin.getConfig().set("ArcherGames.mysql.hostname", plugin.getConfig().get("ArcherGames.mysql.database", ""));
+		plugin.saveConfig();
+		
+		
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
 		plugin.scheduler.preGameCountdown = plugin.getConfig().getInt("ArcherGames.timers.preGameCountdown");
 		plugin.scheduler.gameInvincibleCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameInvincibleCountdown");

@@ -60,10 +60,11 @@ public class CommandHandler implements CommandExecutor, Listener {
 			if (plugin.kits.containsKey(args[0])) {
 				plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
 				Archer.getByName(sender.getName()).selectKit(args[0]);
-				sender.sendMessage(plugin.strings.get("kitinfo").format(args[0]));
+				sender.sendMessage(String.format(plugin.strings.get("kitgivin"), args[0]));
 				return true;
 			}
-		} else if (plugin.debug) {
+		} else if (plugin.debug && cmd.getName().equalsIgnoreCase("ArcherGames")) {
+			
 			if (args[0].equalsIgnoreCase("startGame")) {
 				ScheduledTasks.gameStatus = 2;
 				plugin.log.info("[ArcherGames/Debug]: Game force-started by " + sender.getName());
