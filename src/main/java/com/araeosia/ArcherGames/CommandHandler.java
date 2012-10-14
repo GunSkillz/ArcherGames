@@ -80,7 +80,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 	@EventHandler
 	public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event) {
 		if (!plugin.serverwide.getArcher(event.getPlayer()).canTalk) {
-			if (!event.getMessage().contains("kit")) {
+			if (!event.getMessage().startsWith("/kit") || !event.getMessage().startsWith("/listkits")) {
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(plugin.strings.get("nocommand"));
 			}
