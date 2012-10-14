@@ -29,7 +29,7 @@ public class EntityEventListener implements Listener {
 		if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
 			if (event.getEntity() instanceof Arrow) {
 				if (event.getEntity().getShooter() instanceof Player) {
-					event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 2F);
+					event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), new Float(plugin.arrowExplosionFactor));
 					if (plugin.configToggles.get("arrowDelete")) {
 						event.getEntity().remove();
 					}

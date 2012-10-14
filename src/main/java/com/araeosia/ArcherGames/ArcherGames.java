@@ -37,6 +37,7 @@ public class ArcherGames extends JavaPlugin {
 	public Database db;
 	public IRCBot IRCBot;
 	public Economy econ;
+	public double arrowExplosionFactor;
 
 	/**
 	 *
