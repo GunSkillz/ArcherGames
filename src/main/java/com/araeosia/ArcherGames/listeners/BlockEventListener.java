@@ -83,9 +83,9 @@ public class BlockEventListener implements Listener {
 				if (sign.getLine(0).equals("§1[Enchant]")) {
 					event.setCancelled(true);
 					// Line 2: Any, Line 3: Enchantment:Level Line 4: Price
-					double price = new Double(sign.getLine(4).substring(1));
+					double price = new Double(sign.getLine(3).substring(1));
 					if (plugin.econ.hasBalance(event.getPlayer().getName(), price)) {
-						String[] data = sign.getLine(3).split(":");
+						String[] data = sign.getLine(2).split(":");
 						Enchantment enchantment = Enchantment.getByName(data[0]);
 						ItemStack itemInHand = event.getPlayer().getInventory().getItemInHand();
 						Boolean isOkay = true;
@@ -107,9 +107,9 @@ public class BlockEventListener implements Listener {
 				} else if (sign.getLine(0).equals("§1[Buy]")) {
 					event.setCancelled(true);
 					// Line 2: Quantity, Line 3: Item name, Line 4: Price
-					double price = new Double(sign.getLine(4).substring(1));
+					double price = new Double(sign.getLine(3).substring(1));
 					if (plugin.econ.hasBalance(event.getPlayer().getName(), price)) {
-						String[] data = sign.getLine(3).split(":");
+						String[] data = sign.getLine(2).split(":");
 						ItemStack itemToGive = new ItemStack(Material.getMaterial(data[0]), Integer.parseInt(data[1]));
 						event.getPlayer().getInventory().addItem(itemToGive);
 						plugin.econ.takePlayer(event.getPlayer().getName(), price);
