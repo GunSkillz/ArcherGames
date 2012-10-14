@@ -26,6 +26,7 @@ public class Config {
 	public void loadConfiguration() {
 		plugin.getConfig().set("ArcherGames.technical.debug", plugin.getConfig().get("ArcherGames.technical.debug", false));
 		plugin.getConfig().set("ArcherGames.toggles.arrowDelete", plugin.getConfig().get("ArcherGames.toggles.arrowDelete", true));
+		plugin.getConfig().set("ArcherGames.toggles.lockdownMode", plugin.getConfig().get("ArcherGames.toggles.lockdownMode", false));
 		ArrayList<String> voteSites = new ArrayList<String>();
 		voteSites.add("http://ow.ly/cpQI0");
 		voteSites.add("http://ow.ly/cmwer");
@@ -119,6 +120,9 @@ public class Config {
 		 * plugin.getConfig().getInt("ArcherGames.game.startPosition.z"));
 		 */
 		plugin.configToggles.put("arrowDelete", plugin.getConfig().getBoolean("ArcherGames.toggles.arrowDelete"));
+		plugin.configToggles.put("lockdownMode", plugin.getConfig().getBoolean("ArcherGames.toggles.lockdownMode"));
+		plugin.getConfig().set("ArcherGames.toggles.lockdownMode", false);
+		plugin.saveConfig();
 		plugin.strings.put("startnotenoughplayers", plugin.getConfig().getString("ArcherGames.strings.startnotenoughplayers"));
 		plugin.strings.put("starting", plugin.getConfig().getString("ArcherGames.strings.starting"));
 		plugin.strings.put("invincibilityend", plugin.getConfig().getString("ArcherGames.strings.invincibilityend"));

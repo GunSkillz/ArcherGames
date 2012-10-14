@@ -2,6 +2,8 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
+import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -9,6 +11,7 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BlockEventListener implements Listener {
 
@@ -49,6 +52,19 @@ public class BlockEventListener implements Listener {
 	public void onInventoryOpen(final InventoryOpenEvent event){
 		if(ScheduledTasks.gameStatus==1){
 			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onBlockInteract(final PlayerInteractEvent event){
+		if(event.hasBlock()){
+			if(event.getClickedBlock().getState() instanceof Sign){
+				Sign sign = (Sign) event.getClickedBlock().getState();
+				if(sign.getLine(1)=="§3[Enchant]"){
+					// Line 2: Any, Line 3: Enchantment:Level Line 4: Price
+				}else if(sign.getLine(2)=="§3[Buy]"){
+					// Line 2: Quantity, Line 3: Item name, Line 4: Price
+				}
+			}
 		}
 	}
 }
