@@ -56,6 +56,7 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
 		naggerTask.put(event.getPlayer().getName(), taskID);
+		event.getPlayer().getInventory().clear();
 		if (!event.getPlayer().getInventory().contains(Material.BOOK)) {
 			BookItem bi = new BookItem(new ItemStack(387, 1));
 			bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
