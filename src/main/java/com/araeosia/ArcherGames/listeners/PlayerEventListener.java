@@ -43,6 +43,7 @@ public class PlayerEventListener implements Listener {
 		naggerTask.put(event.getPlayer().getName(), taskID);
 		// TODO: Give them a book if they don't have one.
 		plugin.db.recordJoin(event.getPlayer().getName());
+		event.setJoinMessage("");
 	}
 
 	/**
