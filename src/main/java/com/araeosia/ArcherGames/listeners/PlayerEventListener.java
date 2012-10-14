@@ -123,12 +123,14 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onPlayerDropItem(final PlayerDropItemEvent event){
 		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
+			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
 	}
 	@EventHandler
 	public void onPlayerPickupItem(final PlayerPickupItemEvent event){
 		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
+			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
 	}
