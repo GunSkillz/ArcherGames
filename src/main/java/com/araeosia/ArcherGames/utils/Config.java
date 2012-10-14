@@ -134,9 +134,6 @@ public class Config {
 					temp.add(itemStack);
 				} catch (NumberFormatException e) {
 					plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
-					if (plugin.debug) {
-						e.printStackTrace();
-					}
 				}
 			}
 			plugin.kits.put(key, temp);

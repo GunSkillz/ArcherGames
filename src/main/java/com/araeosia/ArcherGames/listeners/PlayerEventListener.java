@@ -94,6 +94,7 @@ public class PlayerEventListener implements Listener {
 		if (!Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
 			plugin.serverwide.killPlayer(event.getPlayer().getName());
 		}
+		plugin.db.recordQuit(event.getPlayer().getName());
 	}
 
 	@EventHandler

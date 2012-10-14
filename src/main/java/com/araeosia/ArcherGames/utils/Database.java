@@ -43,4 +43,8 @@ public class Database {
 		
 		
 	}
+
+	public void recordQuit(String name) {
+		plugin.dbConnect();
+	}
 }
