@@ -7,6 +7,7 @@ import com.araeosia.ArcherGames.utils.BookItem;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,6 +38,13 @@ public class PlayerEventListener implements Listener {
 		if (plugin.configToggles.get("lockdownMode") && event.getPlayer().hasPermission("archergames.overrides.lockdown")) {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
+		}
+		if(event.getPlayer().isOp()){
+			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName());
+		} else if(event.getPlayer().hasPermission("ArcherGames.color.mod")){
+			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName());
+		} else if(event.getPlayer().hasPermission("ArcherGames.color.god")){
+			event.getPlayer().setDisplayName(ChatColor.GOLD +""+ ChatColor.ITALIC + event.getPlayer().getName());
 		}
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
