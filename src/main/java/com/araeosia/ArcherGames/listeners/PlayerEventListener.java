@@ -34,7 +34,7 @@ public class PlayerEventListener implements Listener {
 	 */
 	@EventHandler
 	public void onLoginEvent(final PlayerLoginEvent event) {
-		if(plugin.configToggles.get("lockdownMode")){
+		if(plugin.configToggles.get("lockdownMode") && event.getPlayer().hasPermission("archergames.overrides.lockdown")){
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
@@ -67,7 +67,7 @@ public class PlayerEventListener implements Listener {
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		// If the player is allowed to talk, pass their message on, Else cancel the event
 		Archer archer = Archer.getByName(event.getPlayer().getName());
-		if (!archer.canTalk && !event.getPlayer().hasPermission("archergames.chat.override")) {
+		if (!archer.canTalk && !event.getPlayer().hasPermission("archergames.overrides.chat")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("nochat"));
 		}

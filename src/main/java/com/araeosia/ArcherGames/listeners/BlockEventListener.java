@@ -23,7 +23,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(final BlockBreakEvent event){
-		if(ScheduledTasks.gameStatus==1){
+		if(ScheduledTasks.gameStatus==1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
@@ -36,21 +36,21 @@ public class BlockEventListener implements Listener {
 	}
 	@EventHandler
 	public void onBlockPlace(final BlockPlaceEvent event){
-		if(ScheduledTasks.gameStatus==1){
+		if(ScheduledTasks.gameStatus==1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
 	}
 	@EventHandler
 	public void onBlockIgnite(final BlockIgniteEvent event){
-		if(ScheduledTasks.gameStatus==1){
+		if(ScheduledTasks.gameStatus==1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
 	}
 	@EventHandler
 	public void onInventoryOpen(final InventoryOpenEvent event){
-		if(ScheduledTasks.gameStatus==1){
+		if(ScheduledTasks.gameStatus==1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")){
 			event.setCancelled(true);
 		}
 	}
