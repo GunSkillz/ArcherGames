@@ -173,8 +173,8 @@ public class ScheduledTasks {
 			}
 		}
 	}
-	public int nagPlayerKit(final String playerName){
-		plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
+	public int nagPlayerKit(final Player player){
+		player.sendMessage(plugin.strings.get("kitnag"));
 		/*return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
 			public void run(){
 				plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));

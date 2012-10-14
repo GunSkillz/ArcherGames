@@ -37,7 +37,8 @@ public class PlayerEventListener implements Listener {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
-		naggerTask.put(event.getPlayer().getName(), plugin.scheduler.nagPlayerKit(event.getPlayer().getName()));
+		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
+		naggerTask.put(event.getPlayer().getName(), taskID);
 		// TODO: Give them a book if they don't have one.
 		plugin.db.recordJoin(event.getPlayer().getName());
 	}
