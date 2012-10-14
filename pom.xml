@@ -30,6 +30,10 @@
       <id>worldborder-repo</id>
       <url>http://repo.mhonline.fr/archiva/repository/mhonline</url>
     </repository>
+    <repository>
+      <id>onarandombox-repo</id>
+      <url>http://repo.onarandombox.com/content/groups/public</url>
+    </repository>
   </repositories>
 
   <dependencies>
