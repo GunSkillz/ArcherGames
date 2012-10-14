@@ -56,7 +56,8 @@ public class ScheduledTasks {
 										for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
 											plugin.serverwide.getPlayer(a).getInventory().addItem(is);
 										}
-										plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
+										plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
+										//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 										plugin.serverwide.getPlayer(a).setAllowFlight(false);
 									}
 								}

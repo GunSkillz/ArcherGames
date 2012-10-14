@@ -2,7 +2,9 @@ package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.ArrayList;
+import java.util.Random;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,6 +16,7 @@ public class ServerWide {
 	public ArrayList<Archer> livingPlayers = new ArrayList<Archer>();
 	public ArcherGames plugin;
 	public String winner;
+	public Random r = new Random();
 
 	public ServerWide(ArcherGames plugin){
 		this.plugin = plugin;
@@ -74,5 +77,15 @@ public class ServerWide {
 		// Announce the winner, announce the runners up, give winners their money.
 		winner = livingPlayers.get(0).getName();
 		sendMessageToAllPlayers(plugin.strings.get("gameended"));
+	}
+
+	public void tpToRandomLocation(Player player) {
+		int x = r.nextInt(64 + 1) - 32;
+		int z = r.nextInt(64 + 1) - 32;
+		
+		x = player.getWorld().getSpawnLocation().getBlockX() + x;
+		z = player.getWorld().getSpawnLocation().getBlockZ() + z;
+		
+		player.teleport(new Location(player.getWorld(), x, player.getWorld().getHighestBlockYAt(x, z), z));
 	}
 }
