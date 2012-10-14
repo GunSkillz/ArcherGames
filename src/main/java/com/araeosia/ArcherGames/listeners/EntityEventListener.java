@@ -60,7 +60,7 @@ public class EntityEventListener implements Listener {
 	@EventHandler
 	public void onMobDamaged(final EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 				event.setCancelled(true);
 			}
 		}
