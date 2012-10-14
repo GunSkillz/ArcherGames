@@ -67,6 +67,13 @@ public class BlockEventListener implements Listener {
 	@EventHandler
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		if (event.hasBlock()) {
+			if(plugin.debug){
+				plugin.log.info(event.toString());
+				if(event.getClickedBlock().getState() instanceof Sign){
+					Sign sign = (Sign) event.getClickedBlock().getState();
+					plugin.log.info(sign.toString());
+				}
+			}
 			if(event.getClickedBlock() instanceof Chest){
 				if(ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")){
 					event.setCancelled(true);
