@@ -79,6 +79,11 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
 		plugin.getConfig().set("ArcherGames.irc.port", plugin.getConfig().getInt("ArcherGames.irc.port", 6667));
 		plugin.getConfig().set("ArcherGames.irc.channel", plugin.getConfig().get("ArcherGames.irc.channel", "#araeosia"));
+		plugin.getConfig().set("ArcherGames.startbook.title", plugin.getConfig().get("ArcherGames.startbook.title", "Rule Book"));
+		plugin.getConfig().set("ArcherGames.startbook.author", plugin.getConfig().get("ArcherGames.startbook.author", "Server"));
+		String[] strs = new String[10];
+		strs[0] = "Welcome to ArcherGames!\n§0\nYou may access help with /help.\n§0\nYou may see avalible commands with /commands.";
+		plugin.getConfig().set("ArcherGames.startbook.pages", plugin.getConfig().get("ArcherGames.startbook.pages", strs));
 		plugin.getConfig().set("ArcherGames.mysql.username", plugin.getConfig().get("ArcherGames.mysql.username", ""));
 		plugin.getConfig().set("ArcherGames.mysql.password", plugin.getConfig().get("ArcherGames.mysql.password", ""));
 		plugin.getConfig().set("ArcherGames.mysql.port", plugin.getConfig().get("ArcherGames.mysql.port", 3306));
