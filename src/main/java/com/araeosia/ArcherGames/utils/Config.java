@@ -83,7 +83,12 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.startbook.title", plugin.getConfig().get("ArcherGames.startbook.title", "Rule Book"));
 		plugin.getConfig().set("ArcherGames.startbook.author", plugin.getConfig().get("ArcherGames.startbook.author", "Server"));
 		String[] strs = new String[10];
-		strs[0] = "Welcome to ArcherGames!\n§0\nYou may access help with /help.\n§0\nYou may see avalible commands with /commands.";
+		strs[0] = "Welcome to §4§nArcherGames!\n§0This book will tell you all about:\n§0How to play\n§0Commands\n§0General Info\n§0Kits\n§0Voting";
+		strs[1] = "§1§nHow to play:\n§0You will first need to pick a kit. To do this type /listkits to display all avalible kits. From there type /kit [kitname]. All kits come with a bow. Premium kits can be bought from: http://eyeofender.com/archergames.html\n§0\nYour aim is to survive with your trusty bow and plant a arrow through your enemies skull and kill them! Be the last man standing and win §4$50,000!";
+		strs[2] = "§1§nCommands:\n§0\n/chunk\n/ride\n/track <player> (§4Donors Only§0)\n/money\n/baltop\n/credtop\n/stats [players]\n/credits\n/commands\n/help\n/time";
+		strs[3] = "§1§nGeneral Info: ArcherGames is based around bows. All kits come with a bow and arrows. This gametype will help you master archery.\n§0\nOwners name-tags are: §4RED\n§0Moderator name tags are: §eYELLOW\n§0God and Ridiculous name-tags are: §gGOLD\n§0Elite name-tags are §5PURPLE\n§0VIP name-tags are: §aGREEN\n§0Donor name-tags are: §9LIGHT BLUE\n§0\nFor more info, visit http://www.eyeofender.com/";
+		strs[4] = "§1§nKits: In ArcherGames, you have free kits and premium kits. Premium kits are be bought off: http://www.eyeofender.com/ The popular premium kits are: God\nRidiculous\nElite-Diamond\nElite-Tank\nDonor-infinity\nVIP-Sharpshooter\nThe popular free kits are:\nFire\nExplode\n§0\nTo put these kits on, type /kit <kitname>. If you didn’t purchase the kit then you can’t put it on and play with it!";
+		strs[5] = "§1§nVoting: For voting for ArcherGames, you will receive money which then you will be able to spend on armour, food and enchantments! Voting links:\n§0\n§4http://ow.ly/cpQI0\n§6http://ow.ly/cmwer\n§9http://ow.ly/cmnPu\n§0http://ow.ly/cmDIF\n§3http://ow.ly/cmP18\n§5http://ow.ly/cmETB\n§8http://ow.ly/dVcsF\n§9http://ow.ly/eggLe";
 		plugin.getConfig().set("ArcherGames.startbook.pages", plugin.getConfig().get("ArcherGames.startbook.pages", strs));
 		plugin.getConfig().set("ArcherGames.mysql.username", plugin.getConfig().get("ArcherGames.mysql.username", ""));
 		plugin.getConfig().set("ArcherGames.mysql.password", plugin.getConfig().get("ArcherGames.mysql.password", ""));
