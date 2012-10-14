@@ -106,7 +106,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return false;
 			}
 		} else if(cmd.getName().equalsIgnoreCase("time")){
-			sender.sendMessage(ChatColor.GREEN + (plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop + " seconds left to game start."));
+			sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") +", "+((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
 		} else if(cmd.getName().equalsIgnoreCase("timer")){
 			if(args.length != 0){
 				if(sender.hasPermission("ArcherGames.admin")){
