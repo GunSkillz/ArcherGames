@@ -37,30 +37,8 @@ public class ScheduledTasks {
 								plugin.log.info((preGameCountdown - currentLoop) + " seconds until game starts.");
 							}
 							// Pre-game
-							switch ((preGameCountdown - currentLoop)) {
-								case 60:
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), "1 minute"));
-									break;
-								case 30:
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), "30 seconds"));
-									break;
-								case 15:
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), "15 seconds"));
-									break;
-								case 10:
-								case 9:
-								case 8:
-								case 7:
-								case 6:
-								case 5:
-								case 4:
-								case 3:
-								case 2:
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (preGameCountdown-currentLoop)+" seconds"));
-									break;
-								case 1:
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), "1 second"));
-									break;
+							if(preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop % 60 == 0 || preGameCountdown - currentLoop < 60) {
+									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) / 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown-currentLoop)+ " second" + ((preGameCountdown-currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
 								if (plugin.debug) {
