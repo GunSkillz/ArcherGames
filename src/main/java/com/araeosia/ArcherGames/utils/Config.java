@@ -94,7 +94,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.mysql.password", plugin.getConfig().get("ArcherGames.mysql.password", ""));
 		plugin.getConfig().set("ArcherGames.mysql.port", plugin.getConfig().get("ArcherGames.mysql.port", 3306));
 		plugin.getConfig().set("ArcherGames.mysql.database", plugin.getConfig().get("ArcherGames.mysql.database", ""));
-		plugin.getConfig().set("ArcherGames.mysql.hostname", plugin.getConfig().get("ArcherGames.mysql.database", ""));
+		plugin.getConfig().set("ArcherGames.mysql.hostname", plugin.getConfig().get("ArcherGames.mysql.hostname", ""));
 		plugin.saveConfig();
 		
 		
