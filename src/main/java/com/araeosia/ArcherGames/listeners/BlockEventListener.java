@@ -68,10 +68,9 @@ public class BlockEventListener implements Listener {
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		if (event.hasBlock()) {
 			if(plugin.debug){
-				plugin.log.info(event.toString());
 				if(event.getClickedBlock().getState() instanceof Sign){
 					Sign sign = (Sign) event.getClickedBlock().getState();
-					plugin.log.info(sign.toString());
+					plugin.log.info(sign.getLine(1));
 				}
 			}
 			if(event.getClickedBlock() instanceof Chest){
