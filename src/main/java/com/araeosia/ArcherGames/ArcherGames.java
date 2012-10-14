@@ -84,9 +84,6 @@ public class ArcherGames extends JavaPlugin {
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
-		if (debug) {
-			log.info(strings.toString());
-		}
 	}
 
 	/**

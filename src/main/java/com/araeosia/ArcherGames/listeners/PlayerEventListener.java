@@ -36,6 +36,7 @@ public class PlayerEventListener implements Listener {
 	public void onLoginEvent(final PlayerLoginEvent event) {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
+		event.getPlayer().setAllowFlight(true);
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
 		naggerTask.put(event.getPlayer().getName(), taskID);
@@ -112,6 +113,9 @@ public class PlayerEventListener implements Listener {
 				}
 			} catch (VanishNotLoadedException ex) {
 				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			if(!event.getPlayer().getAllowFlight()){
+				event.getPlayer().setAllowFlight(true);
 			}
 			event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 		}

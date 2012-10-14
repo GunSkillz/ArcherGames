@@ -37,8 +37,8 @@ public class ScheduledTasks {
 								plugin.log.info((preGameCountdown - currentLoop) + " seconds until game starts.");
 							}
 							// Pre-game
-							if(preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop % 60 == 0 || preGameCountdown - currentLoop < 10 || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) {
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown-currentLoop)+ " second" + ((preGameCountdown-currentLoop != 1) ? "s" : ""))));
+							if (preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop % 60 == 0 || preGameCountdown - currentLoop < 10 || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) {
+								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
 								if (plugin.debug) {
@@ -50,15 +50,12 @@ public class ScheduledTasks {
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 									gameStatus = 2;
-								for(Archer a : plugin.serverwide.livingPlayers){
-									for(ItemStack is : plugin.kits.get(a.getKitName())){
-										plugin.serverwide.getPlayer(a).getInventory().addItem(is);
-									}
-								}
-									for (Player p : plugin.getServer().getOnlinePlayers()) {
-										if (plugin.serverwide.getArcher(p).isReady) {
-											p.teleport(plugin.startPosition);
+									for (Archer a : plugin.serverwide.livingPlayers) {
+										for (ItemStack is : plugin.kits.get(a.getKitName())) {
+											plugin.serverwide.getPlayer(a).getInventory().addItem(is);
 										}
+										plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
+										plugin.serverwide.getPlayer(a).setAllowFlight(false);
 									}
 								}
 								currentLoop = -1;
@@ -93,9 +90,9 @@ public class ScheduledTasks {
 								// Game time is up.
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
 								for (Player p : plugin.getServer().getOnlinePlayers()) {
-										if (plugin.serverwide.getArcher(p).isReady) {
-											p.teleport(plugin.startPosition);
-										}
+									if (plugin.serverwide.getArcher(p).isReady) {
+										p.teleport(plugin.startPosition);
+									}
 								}
 								gameStatus = 4;
 								currentLoop = -1;
@@ -173,15 +170,18 @@ public class ScheduledTasks {
 			}
 		}
 	}
-	public int nagPlayerKit(final Player player){
+
+	public int nagPlayerKit(final Player player) {
 		player.sendMessage(plugin.strings.get("kitnag"));
-		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
-			public void run(){
+		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
+
+			public void run() {
 				player.sendMessage(plugin.strings.get("kitnag"));
 			}
-		}, new Long(nagTime*20), new Long(nagTime*20));
+		}, new Long(nagTime * 20), new Long(nagTime * 20));
 	}
-	public void endGame(){
+
+	public void endGame() {
 		plugin.serverwide.handleGameEnd();
 		gameStatus = 5;
 		currentLoop = 0;
