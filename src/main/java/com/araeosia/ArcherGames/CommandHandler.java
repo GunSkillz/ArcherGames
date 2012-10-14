@@ -60,7 +60,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("kit") || args.length != 0) {
+		} else if (cmd.getName().equalsIgnoreCase("kit") && args.length != 0) {
 			if (plugin.kits.containsKey("ArcherGames.kits."+args[0])) {
 				if(sender.hasPermission("ArcherGames.kits." + args[0])){
 					if(!plugin.serverwide.livingPlayers.contains(Archer.getByName(sender.getName()))){
