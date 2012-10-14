@@ -27,7 +27,7 @@ public class VotifierListener implements Listener {
     public void onVotifierEvent(VotifierEvent event) {
 		Vote vote = event.getVote();
 		String message = vote.getUsername()+"§"+vote.getServiceName()+"§"+vote.getAddress()+"§"+vote.getTimeStamp();
-		IRCBot.bot.sendMessage(IRCBot.channel, message);
+		plugin.IRCBot.bot.sendMessage(plugin.IRCBot.channel, message);
 		if(plugin.getServer().getPlayer(vote.getUsername())!=null){
 			ArcherGames.econ.depositPlayer(plugin.getServer().getPlayer(vote.getUsername()).getName(), 3000);
 		}

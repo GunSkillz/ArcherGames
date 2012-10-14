@@ -13,8 +13,8 @@ public class IRCBot extends ListenerAdapter implements Listener {
 	public String botname;
 	public String host;
 	public int port;
-	public static String channel;
-	public static PircBotX bot;
+	public String channel;
+	public PircBotX bot;
 	public String password;
 	public int howMuchToGive;
 

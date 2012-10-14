@@ -23,6 +23,7 @@ public class PlayerEventListener implements Listener {
 	public ArcherGames plugin;
 	public int howLongToWait; // How long do we wait?
 	public static HashMap<String, Integer> naggerTask = new HashMap<String, Integer>();
+
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
@@ -85,6 +86,7 @@ public class PlayerEventListener implements Listener {
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
 				}
+				event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation()); // Theatric effect.
 			}
 		}
 	}
