@@ -85,6 +85,11 @@
                   <shadedPattern>com.araeosia.pircbotx</shadedPattern>
                 </relocation>
               </relocations>
+              <artifactSet>
+                <includes>
+                  <include>org.pircbotx:pircbotx</include>
+                </includes>
+              </artifactSet>
             </configuration>
           </execution>
         </executions>
