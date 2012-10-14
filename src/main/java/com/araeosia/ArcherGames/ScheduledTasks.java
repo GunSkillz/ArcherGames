@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.Bukkit;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class ScheduledTasks {
 
@@ -71,7 +72,11 @@ public class ScheduledTasks {
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 									gameStatus = 2;
-//								for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
+								for(Archer a : plugin.serverwide.livingPlayers){
+									for(ItemStack is : plugin.kits.get(a.getKitName())){
+										plugin.serverwide.getPlayer(a).getInventory().addItem(is);
+									}
+								}
 									for (Player p : plugin.getServer().getOnlinePlayers()) {
 										if (plugin.serverwide.getArcher(p).isReady) {
 											p.teleport(plugin.startPosition);
