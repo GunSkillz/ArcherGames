@@ -27,7 +27,7 @@ public class ArcherGames extends JavaPlugin {
 	public boolean debug = false;
 	public Config config;
 	public ScheduledTasks scheduler;
-	public static Logger log;
+	public Logger log;
 	public List<String> voteSites;
 	public Location startPosition;
 	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
