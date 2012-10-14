@@ -21,6 +21,7 @@ public class ServerWide {
 	public void killPlayer(String playerName) {
 		livingPlayers.remove(Archer.getByName(playerName));
 		Archer.getByName(playerName).kill();
+		sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), livingPlayers.size()));
 	}
 
 	public ArrayList<Archer> getNotReadyPlayers() {
