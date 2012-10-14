@@ -13,6 +13,7 @@ public class ServerWide {
 
 	public ArrayList<Archer> livingPlayers = new ArrayList<Archer>();
 	public ArcherGames plugin;
+	public String winner;
 
 	public ServerWide(ArcherGames plugin){
 		this.plugin = plugin;
@@ -71,6 +72,7 @@ public class ServerWide {
 	}
 	public void handleGameEnd(){
 		// Announce the winner, announce the runners up, give winners their money.
+		winner = livingPlayers.get(0).getName();
 		sendMessageToAllPlayers(plugin.strings.get("gameended"));
 	}
 }
