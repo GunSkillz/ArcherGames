@@ -51,15 +51,7 @@ public class ScheduledTasks {
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
-									gameStatus = 2;
-									for (Archer a : plugin.serverwide.livingPlayers) {
-										for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
-											plugin.serverwide.getPlayer(a).getInventory().addItem(is);
-										}
-										plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
-										//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
-										plugin.serverwide.getPlayer(a).setAllowFlight(false);
-									}
+									plugin.scheduler.startGame();
 								}
 								currentLoop = -1;
 							}
@@ -143,35 +135,17 @@ public class ScheduledTasks {
 		}
 	}
 
-	public void startGame(boolean force) {
-		if (force) {
-			plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
-			gameStatus = 2;
-			currentLoop = 0;
-//			for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
-			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (plugin.serverwide.getArcher(p).isReady) {
-					p.teleport(plugin.startPosition);
-				}
+	public void startGame() {
+		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+		currentLoop = 0;
+		gameStatus = 2;
+		for (Archer a : plugin.serverwide.livingPlayers) {
+			for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
+				plugin.serverwide.getPlayer(a).getInventory().addItem(is);
 			}
-		} else {
-			if (plugin.debug) {
-				plugin.log.info("Attempting to start early...");
-			}
-			// Time to start.
-			if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
-				plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
-			} else { // There's enough players, let's start!
-				plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
-				gameStatus = 2;
-				currentLoop = 0;
-//				for(Archer a : plugin.getArchers) for(ItemStack is : plugin.kits.get(Archer.getKit())) plugin.serverwide.getPlayer(a).getInventory().add(is);
-				for (Player p : plugin.getServer().getOnlinePlayers()) {
-					if (plugin.serverwide.getArcher(p).isReady) {
-						p.teleport(plugin.startPosition);
-					}
-				}
-			}
+			plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
+			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
+			plugin.serverwide.getPlayer(a).setAllowFlight(false);
 		}
 	}
 
