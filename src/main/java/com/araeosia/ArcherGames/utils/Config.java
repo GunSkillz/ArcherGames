@@ -44,14 +44,6 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", plugin.getConfig().get("ArcherGames.timers.gameOvertimeCountdown", 600)); // 10 minutes to play before we force the round to end
 		plugin.getConfig().set("ArcherGames.timers.shutdownTimer", plugin.getConfig().get("ArcherGames.timers.shutdownTimer", 30)); // 30 seconds until the server reboots.
 		plugin.getConfig().set("ArcherGames.timers.nagTime", plugin.getConfig().get("ArcherGames.timers.nagTime", 30));
-		/*
-		 * plugin.getConfig().set("ArcherGames.game.startPosition.world",
-		 * plugin.getServer().getWorlds().get(0).getName()); // Fetch the
-		 * default world
-		 * plugin.getConfig().set("ArcherGames.game.startPosition.x", 0);
-		 * plugin.getConfig().set("ArcherGames.game.startPosition.y", 64);
-		 * plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
-		 */
 		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
 		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
 		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 2));
@@ -76,6 +68,11 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.nochestediting", plugin.getConfig().get("ArcherGames.strings.nochestediting", "§4You cannot access this until the game begins!"));
 		plugin.getConfig().set("ArcherGames.strings.nodroppickup", plugin.getConfig().get("ArcherGames.strings.nodroppickup", "§4You cannot drop or pick up items until the game begins!"));
 		plugin.getConfig().set("ArcherGames.strings.playersleft", plugin.getConfig().get("ArcherGames.strings.playersleft", "§c%s players remaining."));
+		plugin.getConfig().set("ArcherGames.strings.pingreply1", plugin.getConfig().get("ArcherGames.strings.pingreply1", "Game starts in %s."));
+		plugin.getConfig().set("ArcherGames.strings.pingreply2", plugin.getConfig().get("ArcherGames.strings.pingreply2", "Game in progress!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply3", plugin.getConfig().get("ArcherGames.strings.pingreply3", "Game in progress!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply4", plugin.getConfig().get("ArcherGames.strings.pingreply4", "Game is in overtime!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply5", plugin.getConfig().get("ArcherGames.strings.pingreply5", "%s has won, and the server is rebooting."));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
@@ -145,6 +142,11 @@ public class Config {
 		plugin.strings.put("nodroppickup", plugin.getConfig().getString("ArcherGames.strings.nodroppickup"));
 		plugin.strings.put("playersleft", plugin.getConfig().getString("ArcherGames.strings.playersleft"));
 		plugin.strings.put("servername", plugin.getConfig().getString("ArcherGames.strings.servername"));
+		plugin.strings.put("pingreply1", plugin.getConfig().getString("ArcherGames.strings.pingreply1"));
+		plugin.strings.put("pingreply2", plugin.getConfig().getString("ArcherGames.strings.pingreply2"));
+		plugin.strings.put("pingreply3", plugin.getConfig().getString("ArcherGames.strings.pingreply3"));
+		plugin.strings.put("pingreply4", plugin.getConfig().getString("ArcherGames.strings.pingreply4"));
+		plugin.strings.put("pingreply5", plugin.getConfig().getString("ArcherGames.strings.pingreply5"));
 		loadKits();
 	}
 

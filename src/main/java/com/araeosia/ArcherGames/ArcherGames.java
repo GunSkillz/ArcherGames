@@ -1,11 +1,8 @@
 package com.araeosia.ArcherGames;
 
-import com.araeosia.ArcherGames.listeners.BlockEventListener;
+import com.araeosia.ArcherGames.listeners.*;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
-import com.araeosia.ArcherGames.listeners.PlayerEventListener;
-import com.araeosia.ArcherGames.listeners.EntityEventListener;
-import com.araeosia.ArcherGames.listeners.VotifierListener;
 import com.araeosia.ArcherGames.utils.Database;
 import com.araeosia.ArcherGames.utils.Economy;
 import com.araeosia.ArcherGames.utils.IRCBot;
@@ -22,7 +19,6 @@ import java.util.logging.Level;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class ArcherGames extends JavaPlugin {
 
@@ -61,6 +57,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new VotifierListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new BlockEventListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new ServerEventListener(this), this);
 		// Commands
 		this.getServer().getPluginManager().registerEvents(new CommandHandler(this), this);
 		this.getCommand("kit").setExecutor(new CommandHandler(this));
