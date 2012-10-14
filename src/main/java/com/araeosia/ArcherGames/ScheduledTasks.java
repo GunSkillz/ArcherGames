@@ -175,11 +175,12 @@ public class ScheduledTasks {
 	}
 	public int nagPlayerKit(final String playerName){
 		plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
-		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
+		/*return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable(){
 			public void run(){
 				plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
 			}
-		}, new Long(nagTime*20), new Long(nagTime*20));
+		}, new Long(nagTime*20), new Long(nagTime*20));*/
+		return 5;
 	}
 	public void endGame(){
 		plugin.serverwide.handleGameEnd();
