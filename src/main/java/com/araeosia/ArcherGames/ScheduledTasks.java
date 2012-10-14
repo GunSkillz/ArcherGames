@@ -38,7 +38,7 @@ public class ScheduledTasks {
 							}
 							// Pre-game
 							if(preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop % 60 == 0 || preGameCountdown - currentLoop < 60) {
-									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) / 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown-currentLoop)+ " second" + ((preGameCountdown-currentLoop != 1) ? "s" : ""))));
+									plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown-currentLoop)+ " second" + ((preGameCountdown-currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
 								if (plugin.debug) {
