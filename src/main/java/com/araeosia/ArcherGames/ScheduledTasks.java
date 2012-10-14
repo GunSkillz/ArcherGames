@@ -53,7 +53,7 @@ public class ScheduledTasks {
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 									gameStatus = 2;
 									for (Archer a : plugin.serverwide.livingPlayers) {
-										for (ItemStack is : plugin.kits.get(a.getKitName())) {
+										for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
 											plugin.serverwide.getPlayer(a).getInventory().addItem(is);
 										}
 										plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
