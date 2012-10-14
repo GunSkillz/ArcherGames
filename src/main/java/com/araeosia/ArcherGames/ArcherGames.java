@@ -106,7 +106,13 @@ public class ArcherGames extends JavaPlugin {
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));
 				conProperties.put("autoReconnect", "true");
 				conProperties.put("maxReconnects", "3");
+				if(debug){
+					log.info(conProperties.toString());
+				}
 				String uri = "jdbc:mysql://" + this.getConfig().getString("Archerames.mysql.hostname") + ":" + this.getConfig().getString("ArcherGames.mysql.port") + "/" + this.getConfig().getString("ArcherGames.mysql.database");
+				if(debug){
+					log.info(uri);
+				}
 				conn = DriverManager.getConnection(uri, conProperties);
 			}
 		} catch (SQLException ex) {

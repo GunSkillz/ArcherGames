@@ -21,4 +21,12 @@ public class Economy {
 	public double getBalance(String name){
 		return 0;
 	}
+	public boolean hasBalance(String name, double Balance){
+		double balanceNow = getBalance(name);
+		if((balanceNow-Balance)>=0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
