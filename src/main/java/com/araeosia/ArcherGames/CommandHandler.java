@@ -35,10 +35,10 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("money")) {
 			if (args.length == 0) {
-				//sender.sendMessage(plugin.econ.getBalance(sender.getName()).getBalance()); //Or something
+				sender.sendMessage(ChatColor.GREEN + sender.getName()+"'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
 				return true;
 			} else {
-				//player.sendMessage(plugin.econ.getBalance(args[0]).getBalance()); //Or something
+				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is "+plugin.econ.getBalance(args[0])); //Or something
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("stats")) {
