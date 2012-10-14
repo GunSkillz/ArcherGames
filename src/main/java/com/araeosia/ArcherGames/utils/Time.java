@@ -5,23 +5,23 @@ public class Time {
 		String output="";
 		if(Seconds/3600>=1){
 			// There's hours.
-			int Hours = Seconds%3600;
+			int Hours = (int) Math.floor(Seconds/3600);
 			if(Hours>1){
 				output = output+" "+Hours+" hours";
 			}else{
 				output = output+" "+Hours+" hour";
 			}
-			Seconds=(Seconds-((Seconds%3600)*3600));
+			Seconds=(Seconds-(Hours*3600));
 		}
 		if(Seconds/60>=1){
 			// There's minutes.
-			int Minutes = Seconds%60;
+			int Minutes = (int) Math.floor(Seconds/60);
 			if(Minutes>1){
 				output = output+" "+Minutes+" minutes";
 			}else{
 				output = output+" "+Minutes+" minute";
 			}
-			Seconds=(Seconds-((Seconds%60)*60));
+			Seconds=(Seconds-(Minutes*60));
 		}
 		if(Seconds>=1){
 			// There's seconds.
@@ -37,7 +37,7 @@ public class Time {
 		String output="";
 		if(Seconds/3600>=1){
 			// There's hours.
-			int Hours = Seconds%3600;
+			int Hours = (int) Math.floor(Seconds/3600);
 			if(Hours>1){
 				return Hours+" hours";
 			}else{
@@ -46,7 +46,7 @@ public class Time {
 		}
 		if(Seconds/60>=1){
 			// There's minutes.
-			int Minutes = Seconds%60;
+			int Minutes = (int) Math.floor(Seconds/60);
 			if(Minutes>1){
 				return Minutes+" minutes";
 			}else{

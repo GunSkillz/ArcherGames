@@ -68,11 +68,11 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.nochestediting", plugin.getConfig().get("ArcherGames.strings.nochestediting", "§4You cannot access this until the game begins!"));
 		plugin.getConfig().set("ArcherGames.strings.nodroppickup", plugin.getConfig().get("ArcherGames.strings.nodroppickup", "§4You cannot drop or pick up items until the game begins!"));
 		plugin.getConfig().set("ArcherGames.strings.playersleft", plugin.getConfig().get("ArcherGames.strings.playersleft", "§c%s players remaining."));
-		plugin.getConfig().set("ArcherGames.strings.pingreply1", plugin.getConfig().get("ArcherGames.strings.playersleft", "Game starts in %s."));
-		plugin.getConfig().set("ArcherGames.strings.pingreply2", plugin.getConfig().get("ArcherGames.strings.playersleft", "Game in progress!"));
-		plugin.getConfig().set("ArcherGames.strings.pingreply3", plugin.getConfig().get("ArcherGames.strings.playersleft", "Game in progress!"));
-		plugin.getConfig().set("ArcherGames.strings.pingreply4", plugin.getConfig().get("ArcherGames.strings.playersleft", "Game is in overtime!"));
-		plugin.getConfig().set("ArcherGames.strings.pingreply5", plugin.getConfig().get("ArcherGames.strings.playersleft", "%s has won, and the server is rebooting."));
+		plugin.getConfig().set("ArcherGames.strings.pingreply1", plugin.getConfig().get("ArcherGames.strings.pingreply1", "Game starts in %s."));
+		plugin.getConfig().set("ArcherGames.strings.pingreply2", plugin.getConfig().get("ArcherGames.strings.pingreply2", "Game in progress!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply3", plugin.getConfig().get("ArcherGames.strings.pingreply3", "Game in progress!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply4", plugin.getConfig().get("ArcherGames.strings.pingreply4", "Game is in overtime!"));
+		plugin.getConfig().set("ArcherGames.strings.pingreply5", plugin.getConfig().get("ArcherGames.strings.pingreply5", "%s has won, and the server is rebooting."));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
