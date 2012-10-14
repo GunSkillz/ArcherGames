@@ -79,14 +79,12 @@
               <goal>shade</goal>
             </goals>
             <configuration>
-              <filters>
-                <filter>
-                  <artifact>pircbotx:pircbotx</artifact>
-                  <includes>
-                    <include>org/pircbotx/**</include>
-                  </includes>
-                </filter>
-              </filters>
+              <relocations>
+                <relocation>
+                  <pattern>org.pircbotx</pattern>
+                  <shadedPattern>org.pircbotx</shadedPattern>
+                </relocation>
+              </relocations>
             </configuration>
           </execution>
         </executions>

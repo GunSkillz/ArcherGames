@@ -67,8 +67,8 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit.");
 			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
 			plugin.getConfig().set("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --");
-			plugin.getConfig().set("ArcherGames.irc.user", "AG-SLAVE1");
-			plugin.getConfig().set("ArcherGames.irc.network", "irc.esper.net");
+			plugin.getConfig().set("ArcherGames.irc.botname", "AG-SLAVE1");
+			plugin.getConfig().set("ArcherGames.irc.host", "irc.esper.net");
 			plugin.getConfig().set("ArcherGames.irc.password", "asdfasdf");
 			plugin.getConfig().set("ArcherGames.irc.port", 6667);
 			plugin.getConfig().set("ArcherGames.irc.channel", "#araeosia");
@@ -87,7 +87,11 @@ public class Config {
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
 		plugin.scheduler.nagTime = plugin.getConfig().getLong("ArcherGames.timers.nagTime");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
-		plugin.IRCBot.howMuchToGive = plugin.getConfig().getInt("ArcherGames.vote.howMuchToGive");
+		plugin.IRCBot.host = plugin.getConfig().getString("ArcherGames.irc.host");
+		plugin.IRCBot.botname = plugin.getConfig().getString("ArcherGames.irc.botname");
+		plugin.IRCBot.password = plugin.getConfig().getString("ArcherGames.irc.password");
+		plugin.IRCBot.channel = plugin.getConfig().getString("ArcherGames.irc.channel");
+		plugin.IRCBot.port = plugin.getConfig().getInt("ArcherGames.irc.port");
 		/*plugin.startPosition = new Location(
 				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
