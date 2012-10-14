@@ -72,6 +72,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					Player player = (Player) sender;
 					player.getWorld().unloadChunk(player.getLocation().getChunk());
 					player.getWorld().loadChunk(player.getLocation().getChunk());
+					player.sendMessage(ChatColor.GREEN + "Chunk Reloaded.");
 				} else{
 					return false;
 				}
@@ -87,6 +88,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 						if(Double.parseDouble(args[1]) > 0){
 							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
 							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
+							sender.sendMessage(ChatColor.GREEN + "$"+args[0] + " paid to " + args[0]);
 						}
 					} catch(Exception e){
 						return false;
@@ -97,19 +99,34 @@ public class CommandHandler implements CommandExecutor, Listener {
 			} else {
 				return false;
 			}
+		} else if(cmd.getName().equalsIgnoreCase("time")){
+			sender.sendMessage(ChatColor.GREEN + (plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop + " seconds left to game start."));
+		} else if(cmd.getName().equalsIgnoreCase("timer")){
+			if(args.length != 0){
+				if(sender.hasPermission("ArcherGames.admin")){
+					try{
+						plugin.scheduler.preGameCountdown = Integer.parseInt(args[0]);
+						plugin.scheduler.currentLoop = 0;
+						sender.sendMessage(ChatColor.GREEN + "Time left set to " + args[0] + " seconds left.");
+					}catch (Exception e){
+						sender.sendMessage(ChatColor.RED + "Time could not be set.");
+					}
+				}
+			}
 		} else if (plugin.debug && cmd.getName().equalsIgnoreCase("ArcherGames")) {
 			
 			if (args[0].equalsIgnoreCase("startGame")) {
 				ScheduledTasks.gameStatus = 2;
+				sender.sendMessage(ChatColor.GREEN + "Game started.");
 				plugin.log.info("[ArcherGames/Debug]: Game force-started by " + sender.getName());
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("chunk")){
 			
 		} else if (cmd.getName().equalsIgnoreCase("lockdown")){
 			if (sender.hasPermission("archergames.admin")){
 				plugin.getConfig().set("ArcherGames.toggles.lockdownMode", !plugin.configToggles.get("ArcherGames.toggles.lockdownMode"));
 				plugin.saveConfig();
+				sender.sendMessage(ChatColor.GREEN + "LockDown mode toggled.");
 				return true;
 			}else{
 				return false;

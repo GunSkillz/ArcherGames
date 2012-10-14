@@ -52,7 +52,7 @@ public class Database {
 			
 			plugin.conn.close();
 			
-		} catch(SQLException e) {
+		} catch(Exception e) {
 			
 		}
 	}
