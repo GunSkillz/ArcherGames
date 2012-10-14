@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.listeners.EntityEventListener;
+import com.araeosia.ArcherGames.utils.IRCBot;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class ArcherGames extends JavaPlugin {
 	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
 	public static Economy econ = null;
 	public Connection conn;
+	public IRCBot IRCBot;
 
 	/**
 	 *
@@ -45,6 +47,7 @@ public class ArcherGames extends JavaPlugin {
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
 		serverwide = new ServerWide(this);
+		IRCBot = new IRCBot(this);
 		config = new Config(this);
 		config.loadConfiguration();
 		// Events
@@ -68,10 +71,16 @@ public class ArcherGames extends JavaPlugin {
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
+		log.info("Connecting to IRC server...");
+		try {
+			IRCBot.setupBot();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
 		dbConnect();
-		
+
 	}
 
 	/**
@@ -98,7 +107,7 @@ public class ArcherGames extends JavaPlugin {
 
 	public void dbConnect() {
 		try {
-			if (conn == null || conn.isValid(1)  || conn.isClosed()) {
+			if (conn == null || conn.isValid(1) || conn.isClosed()) {
 				java.util.Properties conProperties = new java.util.Properties();
 				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username"));
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));

@@ -39,6 +39,7 @@ public class Config {
 			voteSites.add("http://ow.ly/eggLe");
 			plugin.getConfig().set("ArcherGames.vote.info", "§gVote on these sites for $3000 each!");
 			plugin.getConfig().set("ArcherGames.vote.sites", voteSites);
+			plugin.getConfig().set("ArcherGames.vote.howMuchToGive", 3000);
 			plugin.getConfig().set("ArcherGames.timers.preGameCountdown", 120); // 2 minutes for everyone to get in game
 			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
 			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
@@ -65,6 +66,12 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing).");
 			plugin.getConfig().set("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit.");
 			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
+			plugin.getConfig().set("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --");
+			plugin.getConfig().set("ArcherGames.irc.user", "AG-SLAVE1");
+			plugin.getConfig().set("ArcherGames.irc.network", "irc.esper.net");
+			plugin.getConfig().set("ArcherGames.irc.password", "asdfasdf");
+			plugin.getConfig().set("ArcherGames.irc.port", 6667);
+			plugin.getConfig().set("ArcherGames.irc.channel", "#araeosia");
 			plugin.getConfig().set("ArcherGames.mysql.username", "");
 			plugin.getConfig().set("ArcherGames.mysql.password", "");
 			plugin.getConfig().set("ArcherGames.mysql.port", 3306);
@@ -80,6 +87,7 @@ public class Config {
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
 		plugin.scheduler.nagTime = plugin.getConfig().getLong("ArcherGames.timers.nagTime");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
+		plugin.IRCBot.howMuchToGive = plugin.getConfig().getInt("ArcherGames.vote.howMuchToGive");
 		/*plugin.startPosition = new Location(
 				plugin.getServer().getWorld(plugin.getConfig().getString("ArcherGames.game.startPosition.world")),
 				plugin.getConfig().getInt("ArcherGames.game.startPosition.x"),
@@ -100,6 +108,7 @@ public class Config {
 		plugin.strings.put("nochat", plugin.getConfig().getString("ArcherGames.strings.nochat"));
 		plugin.strings.put("respawn", plugin.getConfig().getString("ArcherGames.strings.respawn"));
 		plugin.strings.put("kitnag", plugin.getConfig().getString("ArcherGames.strings.kitnag"));
+		plugin.strings.put("playervoted", plugin.getConfig().getString("ArcherGames.strings.playervoted"));
 		loadKits();
 	}
 
