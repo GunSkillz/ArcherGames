@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.listeners.EntityEventListener;
+import com.araeosia.ArcherGames.utils.Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ public class ArcherGames extends JavaPlugin {
 	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
 	public static Economy econ = null;
 	public Connection conn;
+	public Database db;
 
 	/**
 	 *
@@ -47,6 +49,7 @@ public class ArcherGames extends JavaPlugin {
 		serverwide = new ServerWide(this);
 		config = new Config(this);
 		config.loadConfiguration();
+		db = new Database(this);
 		// Events
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);

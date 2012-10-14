@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class Database {
 	
-	public static ArcherGames plugin;
+	public ArcherGames plugin;
 	
 	public Database(ArcherGames plugin){
 		this.plugin = plugin;
@@ -27,7 +27,7 @@ public class Database {
 		s.executeUpdate();
 		s.close();
 	}
-	public static void addPoints(String name, int points) throws SQLException{
+	public void addPoints(String name, int points) throws SQLException{
 		plugin.dbConnect();
 		
 		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES (?,?)");
@@ -36,5 +36,11 @@ public class Database {
 		s.executeUpdate();
 		s.close();
 		plugin.conn.close();
+	}
+
+	public void recordJoin(String name) {
+		plugin.dbConnect();
+		
+		
 	}
 }

@@ -38,6 +38,7 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		naggerTask.put(event.getPlayer().getName(), plugin.scheduler.nagPlayerKit(event.getPlayer().getName()));
 		// TODO: Give them a book if they don't have one.
+		plugin.db.recordJoin(event.getPlayer().getName());
 	}
 
 	/**

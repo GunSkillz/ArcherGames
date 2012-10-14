@@ -45,7 +45,7 @@ public class ServerWide {
 		for (Player p : Bukkit.getServer().getOnlinePlayers()) {
 			p.sendMessage(message);
 		}
-		ArcherGames.log.info("[ArcherGames]: " + message);
+		plugin.log.info("[ArcherGames]: " + message);
 	}
 
 	public Player getPlayer(Archer a) {
