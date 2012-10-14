@@ -90,8 +90,20 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
+				if(plugin.serverwide.livingPlayers.size() == 3){
+					plugin.econ.givePlayer(event.getEntity().getName(), 5000);
+				} else if(plugin.serverwide.livingPlayers.size() == 2){
+					plugin.econ.givePlayer(event.getEntity().getName(), 10000);
+				}
 				plugin.serverwide.killPlayer(event.getEntity().getName());
 
+				if(plugin.serverwide.livingPlayers.size() == 1){
+					for(Archer a : plugin.serverwide.livingPlayers){ // should only be one player, the winner
+						plugin.econ.givePlayer(a.getName(), 15000);
+						plugin.db.addWin(player.getName());
+					}
+				}
+				
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
 				}

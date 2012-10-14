@@ -80,7 +80,7 @@ public class ArcherGames extends JavaPlugin {
 		try {
 			IRCBot.setupBot();
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(debug) e.printStackTrace();
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
