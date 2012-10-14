@@ -80,7 +80,7 @@ public class BlockEventListener implements Listener {
 			}
 			if (event.getClickedBlock().getState() instanceof Sign) {
 				Sign sign = (Sign) event.getClickedBlock().getState();
-				if (sign.getLine(0).equals("§3[Enchant]")) {
+				if (sign.getLine(0).equals("§1[Enchant]")) {
 					event.setCancelled(true);
 					// Line 2: Any, Line 3: Enchantment:Level Line 4: Price
 					double price = new Double(sign.getLine(4).substring(1));
@@ -104,7 +104,7 @@ public class BlockEventListener implements Listener {
 					} else {
 						event.getPlayer().sendMessage(plugin.strings.get("notenoughmoney"));
 					}
-				} else if (sign.getLine(0).equals("§3[Buy]")) {
+				} else if (sign.getLine(0).equals("§1[Buy]")) {
 					event.setCancelled(true);
 					// Line 2: Quantity, Line 3: Item name, Line 4: Price
 					double price = new Double(sign.getLine(4).substring(1));
