@@ -73,6 +73,8 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.pingreply3", plugin.getConfig().get("ArcherGames.strings.pingreply3", "Game in progress!"));
 		plugin.getConfig().set("ArcherGames.strings.pingreply4", plugin.getConfig().get("ArcherGames.strings.pingreply4", "Game is in overtime!"));
 		plugin.getConfig().set("ArcherGames.strings.pingreply5", plugin.getConfig().get("ArcherGames.strings.pingreply5", "%s has won, and the server is rebooting."));
+		plugin.getConfig().set("ArcherGames.strings.enchantmentconflict", plugin.getConfig().get("ArcherGames.strings.enchantmentconflict", "§4This enchantment conflicts with a current enchantment."));
+		plugin.getConfig().set("ArcherGames.strings.notenoughmoney", plugin.getConfig().get("ArcherGames.strings.notenoughmoney", "§4You do not have enough money to buy/enchant that."));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
@@ -147,6 +149,9 @@ public class Config {
 		plugin.strings.put("pingreply3", plugin.getConfig().getString("ArcherGames.strings.pingreply3"));
 		plugin.strings.put("pingreply4", plugin.getConfig().getString("ArcherGames.strings.pingreply4"));
 		plugin.strings.put("pingreply5", plugin.getConfig().getString("ArcherGames.strings.pingreply5"));
+		plugin.strings.put("pingreply5", plugin.getConfig().getString("ArcherGames.strings.pingreply5"));
+		plugin.strings.put("enchantmentconflict", plugin.getConfig().getString("ArcherGames.strings.enchantmentconflict"));
+		plugin.strings.put("notenoughmoney", plugin.getConfig().getString("ArcherGames.strings.notenoughmoney"));
 		loadKits();
 	}
 
