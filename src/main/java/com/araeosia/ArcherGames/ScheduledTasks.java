@@ -1,7 +1,8 @@
 package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
-import org.bukkit.Bukkit;
+import com.wimbli.WorldBorder.BorderData;
+import com.wimbli.WorldBorder.Config;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +19,7 @@ public class ScheduledTasks {
 	public int minPlayersToStart;
 	public int schedulerTaskID;
 	public int nagTime;
+	public int overtimeWorldRadius;
 
 	public ScheduledTasks(ArcherGames plugin) {
 		this.plugin = plugin;
@@ -94,6 +96,7 @@ public class ScheduledTasks {
 										p.teleport(plugin.startPosition);
 									}
 								}
+								Config.setBorder(plugin.startPosition.getWorld().getName(), overtimeWorldRadius, plugin.startPosition.getBlockX(), plugin.startPosition.getBlockZ(), true); // World border
 								gameStatus = 4;
 								currentLoop = -1;
 								// TODO: World border shrinking.

@@ -1,7 +1,7 @@
 name: ArcherGames
 version: 0.1
 main: com.araeosia.ArcherGames.ArcherGames
-depend: [Vault, VanishNoPacket, Votifier]
+depend: [Vault, VanishNoPacket, Votifier, WorldBorder]
 
 commands:
   vote:

@@ -54,6 +54,7 @@ public class Config {
 			 * plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
 			 */
 			plugin.getConfig().set("ArcherGames.game.minPlayersToStart", 5);
+			plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", 50);
 			plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl");
 			plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players.");
 			plugin.getConfig().set("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies.");
@@ -93,6 +94,7 @@ public class Config {
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
 		plugin.scheduler.nagTime = plugin.getConfig().getInt("ArcherGames.timers.nagTime");
+		plugin.scheduler.overtimeWorldRadius = plugin.getConfig().getInt("ArcherGames.game.overtimeWorldRadius");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.IRCBot.host = plugin.getConfig().getString("ArcherGames.irc.host");
 		plugin.IRCBot.botname = plugin.getConfig().getString("ArcherGames.irc.botname");
