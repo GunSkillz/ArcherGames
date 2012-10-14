@@ -119,6 +119,7 @@ public class Config {
 		plugin.strings.put("respawn", plugin.getConfig().getString("ArcherGames.strings.respawn"));
 		plugin.strings.put("kitnag", plugin.getConfig().getString("ArcherGames.strings.kitnag"));
 		plugin.strings.put("playervoted", plugin.getConfig().getString("ArcherGames.strings.playervoted"));
+		plugin.strings.put("nocommand", plugin.getConfig().getString("ArcherGames.strings.nocommand"));
 		loadKits();
 	}
 
