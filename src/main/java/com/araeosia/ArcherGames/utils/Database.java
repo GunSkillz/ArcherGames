@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.bukkit.entity.Player;
 
@@ -18,15 +20,43 @@ public class Database {
 	
 	public Database(ArcherGames plugin){
 		this.plugin = plugin;
+		
+		//Init tables
+		
+		plugin.dbConnect();
+		try {
+			
+			PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS points(name varchar(20), points integer)");
+			s.executeUpdate();
+			s.close();
+			
+					
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS money(name varchar(20), points integer)");
+			s.executeUpdate();
+			s.close();
+			
+			
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS wins(id NOT NULL AUTO_INCREMENT, name varchar(20))");
+			s.executeUpdate();
+			s.close();
+			
+			
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS joins(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
+			s.executeUpdate();
+			s.close();
+			
+			
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS quits(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
+			s.executeUpdate();
+			s.close();
+			
+			plugin.conn.close();
+			
+		} catch(SQLException e) {
+			
+		}
 	}
 	
-	public void setupTables() throws SQLException{
-		plugin.dbConnect();
-		
-		PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS points(name varchar(20), points integer)");
-		s.executeUpdate();
-		s.close();
-	}
 	public void addPoints(String name, int points) throws SQLException{
 		plugin.dbConnect();
 		
@@ -39,13 +69,34 @@ public class Database {
 	}
 
 	public void recordJoin(String name) {
-		plugin.dbConnect();
 		
+		try{
+			plugin.dbConnect();
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES (?,?)");
+			s.setString(1, name);
+			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			s.executeUpdate();
+			s.close();
+			plugin.conn.close();
+		} catch (SQLException e){
+			
+		}
 		
 	}
 
 	public void recordQuit(String name) {
-		plugin.dbConnect();
+		
+		try{
+			plugin.dbConnect();
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES (?,?)");
+			s.setString(1, name);
+			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			s.executeUpdate();
+			s.close();
+			plugin.conn.close();
+		} catch (SQLException e){
+			
+		}
 	}
 
 	public void setMoney(String name, double d) {
@@ -80,5 +131,18 @@ public class Database {
 			}
 		
 		return money;
+	}
+
+	public void addWin(String name) {
+		plugin.dbConnect();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO wins (name) VALUES (?)");
+			s.setString(1, name);
+			s.executeUpdate();
+			s.close();
+		plugin.conn.close();
+		} catch (SQLException e){
+			
+		}
 	}
 }

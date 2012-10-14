@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -64,6 +65,37 @@ public class CommandHandler implements CommandExecutor, Listener {
 				Archer.getByName(sender.getName()).selectKit(args[0]);
 				sender.sendMessage(String.format(plugin.strings.get("kitgivin"), args[0]));
 				return true;
+			}
+		} else if(cmd.getName().equalsIgnoreCase("chunk")){
+			if(!(ScheduledTasks.gameStatus == 1)){
+				if(sender instanceof Player){
+					Player player = (Player) sender;
+					player.getWorld().unloadChunk(player.getLocation().getChunk());
+					player.getWorld().loadChunk(player.getLocation().getChunk());
+				} else{
+					return false;
+				}
+			} else{
+				return false;
+			}
+			
+			
+		} else if(cmd.getName().equalsIgnoreCase("pay")){
+			if(args.length != 0){
+				if(args.length != 1){
+					try {
+						if(Double.parseDouble(args[1]) > 0){
+							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
+							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
+						}
+					} catch(Exception e){
+						return false;
+					}
+				} else {
+					return false;
+				}
+			} else {
+				return false;
 			}
 		} else if (plugin.debug && cmd.getName().equalsIgnoreCase("ArcherGames")) {
 			

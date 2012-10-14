@@ -3,6 +3,7 @@ package com.araeosia.ArcherGames.listeners;
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
 import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.utils.BookItem;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +46,11 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
 		naggerTask.put(event.getPlayer().getName(), taskID);
-		// TODO: Give them a book if they don't have one.
+		BookItem bi = new BookItem(new ItemStack(387, 1));
+		bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
+		bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
+		bi.setPages((String[]) plugin.getConfig().get("ArcherGames.startbook.pages"));
+		event.getPlayer().getInventory().addItem(bi.getItemStack());
 		plugin.db.recordJoin(event.getPlayer().getName());
 		event.setJoinMessage("");
 	}
@@ -89,8 +94,20 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
+				if(plugin.serverwide.livingPlayers.size() == 3){
+					plugin.econ.givePlayer(event.getEntity().getName(), 5000);
+				} else if(plugin.serverwide.livingPlayers.size() == 2){
+					plugin.econ.givePlayer(event.getEntity().getName(), 10000);
+				}
 				plugin.serverwide.killPlayer(event.getEntity().getName());
 
+				if(plugin.serverwide.livingPlayers.size() == 1){
+					for(Archer a : plugin.serverwide.livingPlayers){ // should only be one player, the winner
+						plugin.econ.givePlayer(a.getName(), 15000);
+						plugin.db.addWin(player.getName());
+					}
+				}
+				
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
 				}

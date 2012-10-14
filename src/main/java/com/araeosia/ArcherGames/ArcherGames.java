@@ -69,6 +69,8 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("money").setExecutor(new CommandHandler(this));
 		this.getCommand("stats").setExecutor(new CommandHandler(this));
 		this.getCommand("archergames").setExecutor(new CommandHandler(this));
+		this.getCommand("chunk").setExecutor(new CommandHandler(this));
+		this.getCommand("pay").setExecutor(new CommandHandler(this));
 
 		log.info("ArcherGames is enabled!");
 		if (debug) {
@@ -78,7 +80,7 @@ public class ArcherGames extends JavaPlugin {
 		try {
 			IRCBot.setupBot();
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(debug) e.printStackTrace();
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
