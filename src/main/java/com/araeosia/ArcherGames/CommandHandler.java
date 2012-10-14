@@ -61,10 +61,16 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sender.sendMessage(ChatColor.GREEN + kits);
 		} else if (cmd.getName().equalsIgnoreCase("kit") || args.length != 0) {
 			if (plugin.kits.containsKey(args[0])) {
-				plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
-				Archer.getByName(sender.getName()).selectKit(args[0]);
-				sender.sendMessage(String.format(plugin.strings.get("kitgivin"), args[0]));
-				return true;
+				if(sender.hasPermission("ArcherGames.kits." + args[0])){
+					plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
+					Archer.getByName(sender.getName()).selectKit(args[0]);
+					sender.sendMessage(String.format(plugin.strings.get("kitgivin"), args[0]));
+					return true;
+				} else {
+					sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
+				}
+			} else {
+				sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
 			}
 		} else if(cmd.getName().equalsIgnoreCase("chunk")){
 			if(!(ScheduledTasks.gameStatus == 1)){

@@ -168,7 +168,7 @@ public class Config {
 					plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
 				}
 			}
-			plugin.kits.put(key, temp);
+			plugin.kits.put("ArcherGames.kits."+key, temp);
 		}
 	}
 }
