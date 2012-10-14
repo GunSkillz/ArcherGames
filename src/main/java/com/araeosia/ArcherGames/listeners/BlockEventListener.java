@@ -48,9 +48,11 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockIgnite(final BlockIgniteEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")) {
-			event.setCancelled(true);
-			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
+		if (event.getCause().equals(BlockIgniteEvent.IgniteCause.FLINT_AND_STEEL)) {
+			if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")) { // ERROR!
+				event.setCancelled(true);
+				event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
+			}
 		}
 	}
 
@@ -87,19 +89,19 @@ public class BlockEventListener implements Listener {
 							event.getPlayer().getInventory().setItemInHand(newItemStack);
 						}
 						plugin.econ.takePlayer(event.getPlayer().getName(), price);
-					}else{
+					} else {
 						event.getPlayer().sendMessage(plugin.strings.get("notenoughmoney"));
 					}
 				} else if (sign.getLine(2).equals("§3[Buy]")) {
 					event.setCancelled(true);
 					// Line 2: Quantity, Line 3: Item name, Line 4: Price
 					double price = new Double(sign.getLine(4).substring(1));
-					if(plugin.econ.hasBalance(event.getPlayer().getName(), price)){
+					if (plugin.econ.hasBalance(event.getPlayer().getName(), price)) {
 						String[] data = sign.getLine(3).split(":");
 						ItemStack itemToGive = new ItemStack(Material.getMaterial(data[0]), Integer.parseInt(data[1]));
 						event.getPlayer().getInventory().addItem(itemToGive);
 						plugin.econ.takePlayer(event.getPlayer().getName(), price);
-					}else{
+					} else {
 						event.getPlayer().sendMessage(plugin.strings.get("notenoughmoney"));
 					}
 				}
