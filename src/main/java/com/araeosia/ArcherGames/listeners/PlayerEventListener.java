@@ -11,10 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.kitteh.vanish.staticaccess.VanishNoPacket;
 import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
@@ -36,6 +33,9 @@ public class PlayerEventListener implements Listener {
 	public void onLoginEvent(final PlayerLoginEvent event) {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
+	}
+	@EventHandler
+	public void onJoinEvent(final PlayerJoinEvent event){
 		event.getPlayer().setAllowFlight(true);
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
