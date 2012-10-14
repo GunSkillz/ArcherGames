@@ -1,6 +1,7 @@
 package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
+import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,6 +17,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 	public CommandHandler(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
+	public HashMap<String, Integer> chunkReloads;
 
 	/**
 	 *
@@ -70,6 +72,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 				plugin.log.info("[ArcherGames/Debug]: Game force-started by " + sender.getName());
 				return true;
 			}
+		} else if (cmd.getName().equalsIgnoreCase("chunk")){
+			
 		}
 		return false;
 	}
