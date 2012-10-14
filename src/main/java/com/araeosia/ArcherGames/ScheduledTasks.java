@@ -17,7 +17,7 @@ public class ScheduledTasks {
 	public int shutdownTimer; // Time after the game ends until the server shuts down.
 	public int minPlayersToStart;
 	public int schedulerTaskID;
-	public long nagTime;
+	public int nagTime;
 
 	public ScheduledTasks(ArcherGames plugin) {
 		this.plugin = plugin;

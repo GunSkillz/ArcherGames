@@ -44,7 +44,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", 60); // 1 minute for everyone to get far enough away from each other
 			plugin.getConfig().set("ArcherGames.timers.gameOvertimeCountdown", 600); // 10 minutes to play before we force the round to end
 			plugin.getConfig().set("ArcherGames.timers.shutdownTimer", 30); // 30 seconds until the server reboots.
-			plugin.getConfig().set("ArcherGames.timers.nagTime", new Long(30));
+			plugin.getConfig().set("ArcherGames.timers.nagTime", 30);
 			/*
 			 * plugin.getConfig().set("ArcherGames.game.startPosition.world",
 			 * plugin.getServer().getWorlds().get(0).getName()); // Fetch the
@@ -89,7 +89,7 @@ public class Config {
 		plugin.scheduler.gameOvertimeCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameOvertimeCountdown");
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
-		plugin.scheduler.nagTime = plugin.getConfig().getLong("ArcherGames.timers.nagTime");
+		plugin.scheduler.nagTime = plugin.getConfig().getInt("ArcherGames.timers.nagTime");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.IRCBot.host = plugin.getConfig().getString("ArcherGames.irc.host");
 		plugin.IRCBot.botname = plugin.getConfig().getString("ArcherGames.irc.botname");
