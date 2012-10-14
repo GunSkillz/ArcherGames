@@ -25,7 +25,6 @@ public class Config {
 	 */
 	public void loadConfiguration() {
 		plugin.getConfig().set("ArcherGames.technical.debug", plugin.getConfig().get("ArcherGames.technical.debug", false));
-		plugin.getConfig().set("ArcherGames.technical.version", plugin.getConfig().get("ArcherGames.technical.version", 0.1));
 		plugin.getConfig().set("ArcherGames.toggles.arrowDelete", plugin.getConfig().get("ArcherGames.toggles.arrowDelete", true));
 		ArrayList<String> voteSites = new ArrayList<String>();
 		voteSites.add("http://ow.ly/cpQI0");
@@ -53,6 +52,7 @@ public class Config {
 		 * plugin.getConfig().set("ArcherGames.game.startPosition.z", 0);
 		 */
 		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
+		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
 //		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl"););
 		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
 		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
@@ -70,6 +70,9 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.nocommand", plugin.getConfig().get("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit."));
 		plugin.getConfig().set("ArcherGames.strings.kitnag", plugin.getConfig().get("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kit [kit]."));
 		plugin.getConfig().set("ArcherGames.strings.playervoted", plugin.getConfig().get("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --"));
+		plugin.getConfig().set("ArcherGames.strings.noblockediting", plugin.getConfig().get("ArcherGames.strings.noblockediting", "§4You cannot edit blocks until the game begins!"));
+		plugin.getConfig().set("ArcherGames.strings.nochestediting", plugin.getConfig().get("ArcherGames.strings.nochestediting", "§4You cannot access this until the game begins!"));
+		plugin.getConfig().set("ArcherGames.strings.nodroppickup", plugin.getConfig().get("ArcherGames.strings.nodroppickup", "§4You cannot drop or pick up items until the game begins!"));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
@@ -90,6 +93,7 @@ public class Config {
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
 		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
 		plugin.scheduler.nagTime = plugin.getConfig().getInt("ArcherGames.timers.nagTime");
+		plugin.scheduler.overtimeWorldRadius = plugin.getConfig().getInt("ArcherGames.game.overtimeWorldRadius");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
 		plugin.IRCBot.host = plugin.getConfig().getString("ArcherGames.irc.host");
 		plugin.IRCBot.botname = plugin.getConfig().getString("ArcherGames.irc.botname");
@@ -120,6 +124,9 @@ public class Config {
 		plugin.strings.put("kitnag", plugin.getConfig().getString("ArcherGames.strings.kitnag"));
 		plugin.strings.put("playervoted", plugin.getConfig().getString("ArcherGames.strings.playervoted"));
 		plugin.strings.put("nocommand", plugin.getConfig().getString("ArcherGames.strings.nocommand"));
+		plugin.strings.put("noblockediting", plugin.getConfig().getString("ArcherGames.strings.noblockediting"));
+		plugin.strings.put("nochestediting", plugin.getConfig().getString("ArcherGames.strings.nochestediting"));
+		plugin.strings.put("nodroppickup", plugin.getConfig().getString("ArcherGames.strings.nodroppickup"));
 		loadKits();
 	}
 

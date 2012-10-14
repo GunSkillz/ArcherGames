@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.listeners.BlockEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
@@ -58,6 +59,7 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new VotifierListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new BlockEventListener(this), this);
 		// Commands
 		this.getServer().getPluginManager().registerEvents(new CommandHandler(this), this);
 		this.getCommand("kit").setExecutor(new CommandHandler(this));
@@ -84,9 +86,6 @@ public class ArcherGames extends JavaPlugin {
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
-		if (debug) {
-			log.info(strings.toString());
-		}
 	}
 
 	/**

@@ -11,10 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.kitteh.vanish.staticaccess.VanishNoPacket;
 import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
@@ -36,8 +33,13 @@ public class PlayerEventListener implements Listener {
 	public void onLoginEvent(final PlayerLoginEvent event) {
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
+	}
+	@EventHandler
+	public void onJoinEvent(final PlayerJoinEvent event){
+		event.getPlayer().setAllowFlight(true);
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
-		naggerTask.put(event.getPlayer().getName(), plugin.scheduler.nagPlayerKit(event.getPlayer().getName()));
+		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
+		naggerTask.put(event.getPlayer().getName(), taskID);
 		// TODO: Give them a book if they don't have one.
 		plugin.db.recordJoin(event.getPlayer().getName());
 	}
@@ -112,7 +114,24 @@ public class PlayerEventListener implements Listener {
 			} catch (VanishNotLoadedException ex) {
 				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
 			}
+			if(!event.getPlayer().getAllowFlight()){
+				event.getPlayer().setAllowFlight(true);
+			}
 			event.getPlayer().sendMessage(plugin.strings.get("respawn"));
+		}
+	}
+	@EventHandler
+	public void onPlayerDropItem(final PlayerDropItemEvent event){
+		if(ScheduledTasks.gameStatus==1){
+			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
+			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onPlayerPickupItem(final PlayerPickupItemEvent event){
+		if(ScheduledTasks.gameStatus==1){
+			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
+			event.setCancelled(true);
 		}
 	}
 }
