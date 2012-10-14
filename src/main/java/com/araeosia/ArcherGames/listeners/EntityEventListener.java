@@ -6,6 +6,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
@@ -38,6 +39,16 @@ public class EntityEventListener implements Listener {
 	public void onHungerChange(final FoodLevelChangeEvent event) {
 		if (event.getEntity() instanceof Player) {
 			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
+				event.setCancelled(true);
+			}
+		}
+	}
+
+	@EventHandler
+	public void onMobTarget(final EntityTargetLivingEntityEvent event) {
+		if (event.getTarget() instanceof Player) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
+				// Shouldn't be targetting them!
 				event.setCancelled(true);
 			}
 		}
