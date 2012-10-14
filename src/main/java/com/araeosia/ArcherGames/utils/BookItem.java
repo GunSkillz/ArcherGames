@@ -101,7 +101,7 @@ public class BookItem {
 			pages.add(new NBTTagString("1", ""));
 		} else {
 			for (int i = 0; i < newpages.length; i++) {
-				if (newpages[i] != null) {
+				if (newpages[i] != null && newpages[i].length()!=0) {
 					pages.add(new NBTTagString("" + pages.size() + "", newpages[i]));
 				}
 			}
