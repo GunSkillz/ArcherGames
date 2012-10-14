@@ -73,6 +73,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --");
 			plugin.getConfig().set("ArcherGames.strings.noblockediting", "§4You cannot edit blocks until the game begins!");
 			plugin.getConfig().set("ArcherGames.strings.nochestediting", "§4You cannot access this until the game begins!");
+			plugin.getConfig().set("ArcherGames.strings.nodroppickup", "§4You cannot drop or pick up items until the game begins!");
 			plugin.getConfig().set("ArcherGames.irc.botname", "AG-SERVER1");
 			plugin.getConfig().set("ArcherGames.irc.host", "irc.esper.net");
 			plugin.getConfig().set("ArcherGames.irc.password", "asdfasdf");
@@ -124,6 +125,7 @@ public class Config {
 		plugin.strings.put("nocommand", plugin.getConfig().getString("ArcherGames.strings.nocommand"));
 		plugin.strings.put("noblockediting", plugin.getConfig().getString("ArcherGames.strings.noblockediting"));
 		plugin.strings.put("nochestediting", plugin.getConfig().getString("ArcherGames.strings.nochestediting"));
+		plugin.strings.put("nodroppickup", plugin.getConfig().getString("ArcherGames.strings.nodroppickup"));
 		loadKits();
 	}
 

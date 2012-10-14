@@ -120,4 +120,16 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 		}
 	}
+	@EventHandler
+	public void onPlayerDropItem(final PlayerDropItemEvent event){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
+			event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onPlayerPickupItem(final PlayerPickupItemEvent event){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
+			event.setCancelled(true);
+		}
+	}
 }

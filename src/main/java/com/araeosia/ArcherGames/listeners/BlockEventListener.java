@@ -20,34 +20,34 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(final BlockBreakEvent event){
-		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
 	}
 	@EventHandler
 	public void onBlockBurn(final BlockBurnEvent event){
-		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
 			event.setCancelled(true);
 		}
 	}
 	@EventHandler
 	public void onBlockPlace(final BlockPlaceEvent event){
-		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
 	}
 	@EventHandler
 	public void onBlockIgnite(final BlockIgniteEvent event){
-		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
 	}
 	@EventHandler
 	public void onInventoryOpen(final InventoryOpenEvent event){
-		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2 || ScheduledTasks.gameStatus==5){
+		if(ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus==2){
 			event.setCancelled(true);
 		}
 	}
