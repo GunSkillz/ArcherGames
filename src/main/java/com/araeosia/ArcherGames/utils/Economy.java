@@ -14,12 +14,12 @@ public class Economy {
 		plugin.db.setMoney(name, getBalance(name) + give);
 	}
 	
-	public void takePlayer(String name, double balance){
-		
+	public void takePlayer(String name, double take){
+		plugin.db.setMoney(name, getBalance(name) - take );
 	}
 	
 	public double getBalance(String name){
-		return 0;
+		return plugin.db.getMoney(name);
 	}
 	public boolean hasBalance(String name, double Balance){
 		double balanceNow = getBalance(name);
