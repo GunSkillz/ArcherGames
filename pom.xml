@@ -65,6 +65,11 @@
       <artifactId>WorldBorder</artifactId>
       <version>1.5.5-MHO</version>
     </dependency>
+    <dependency>
+      <groupId>com.vexsoftware</groupId>
+      <artifactId>votifier</artifactId>
+      <version>1.8</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
