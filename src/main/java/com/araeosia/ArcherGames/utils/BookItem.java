@@ -15,6 +15,9 @@ package com.araeosia.ArcherGames.utils;
  *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Modified by AgentK: Added checks to prevent blank strings from attempting write on lines 84 and 108. 10/14/2012.
+ * 
  */
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
