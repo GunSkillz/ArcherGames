@@ -27,7 +27,7 @@ public class ArcherGames extends JavaPlugin {
 	public ScheduledTasks scheduler;
 	public static Logger log;
 	public List<String> voteSites;
-	public Location startPosition = getServer().getWorlds().get(0).getSpawnLocation();
+	public Location startPosition;
 	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
@@ -41,6 +41,7 @@ public class ArcherGames extends JavaPlugin {
 	 */
 	@Override
 	public void onEnable() {
+		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
 		serverwide = new ServerWide(this);
