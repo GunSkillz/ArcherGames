@@ -49,7 +49,7 @@ public class PlayerEventListener implements Listener {
 		BookItem bi = new BookItem(new ItemStack(387, 1));
 		bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
 		bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
-		bi.setPages((String[]) plugin.getConfig().get("ArcherGames.startbook.pages"));
+		bi.setPages((String[]) plugin.getConfig().getStringList("ArcherGames.startbook.pages").toArray()); // ERROR!
 		event.getPlayer().getInventory().addItem(bi.getItemStack());
 		plugin.db.recordJoin(event.getPlayer().getName());
 		event.setJoinMessage("");
