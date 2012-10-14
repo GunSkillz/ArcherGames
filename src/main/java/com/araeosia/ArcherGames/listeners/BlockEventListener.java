@@ -3,6 +3,7 @@ package com.araeosia.ArcherGames.listeners;
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
 import org.bukkit.Material;
+import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -66,6 +67,11 @@ public class BlockEventListener implements Listener {
 	@EventHandler
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		if (event.hasBlock()) {
+			if(event.getClickedBlock() instanceof Chest){
+				if(ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")){
+					event.setCancelled(true);
+				}
+			}
 			if (event.getClickedBlock().getState() instanceof Sign) {
 				Sign sign = (Sign) event.getClickedBlock().getState();
 				if (sign.getLine(1).equals("§3[Enchant]")) {
