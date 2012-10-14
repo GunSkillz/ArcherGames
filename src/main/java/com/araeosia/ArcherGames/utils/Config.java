@@ -46,7 +46,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.timers.nagTime", plugin.getConfig().get("ArcherGames.timers.nagTime", 30));
 		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
 		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
-		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 2));
+		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.arrowExplosionFactor", 2));
 //		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl"););
 		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
 		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
@@ -95,7 +95,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.mysql.hostname", plugin.getConfig().get("ArcherGames.mysql.hostname", ""));
 		plugin.saveConfig();
 		
-		
+		plugin.arrowExplosionFactor = plugin.getConfig().getDouble("ArcherGames.game.arrowExplosionFactor");
 		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
 		plugin.scheduler.preGameCountdown = plugin.getConfig().getInt("ArcherGames.timers.preGameCountdown");
 		plugin.scheduler.gameInvincibleCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameInvincibleCountdown");
