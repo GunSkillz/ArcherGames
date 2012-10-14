@@ -79,7 +79,9 @@ public class BookItem {
 			pages.add(new NBTTagString("1", ""));
 		} else {
 			for (int i = 0; i < newpages.length; i++) {
-				pages.add(new NBTTagString("" + i + "", newpages[i]));
+				if (newpages[i] != null && newpages[i].length() != 0) {
+					pages.add(new NBTTagString("" + i + "", newpages[i]));
+				}
 			}
 		}
 		tags.set("pages", pages);
@@ -101,7 +103,7 @@ public class BookItem {
 			pages.add(new NBTTagString("1", ""));
 		} else {
 			for (int i = 0; i < newpages.length; i++) {
-				if (newpages[i] != null && newpages[i].length()!=0) {
+				if (newpages[i] != null && newpages[i].length() != 0) {
 					pages.add(new NBTTagString("" + pages.size() + "", newpages[i]));
 				}
 			}
