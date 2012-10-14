@@ -67,7 +67,7 @@ public class Config {
 			plugin.getConfig().set("ArcherGames.strings.nocommand", "§4You may not use this command until you choose a kit.");
 			plugin.getConfig().set("ArcherGames.strings.kitnag", "§4Before the game begins, you need to choose a kit with /kitchoose.");
 			plugin.getConfig().set("ArcherGames.strings.playervoted", "§a-- %s voted for $3000! Type /vote for money! --");
-			plugin.getConfig().set("ArcherGames.irc.botname", "AG-SLAVE1");
+			plugin.getConfig().set("ArcherGames.irc.botname", "AG-SERVER1");
 			plugin.getConfig().set("ArcherGames.irc.host", "irc.esper.net");
 			plugin.getConfig().set("ArcherGames.irc.password", "asdfasdf");
 			plugin.getConfig().set("ArcherGames.irc.port", 6667);

@@ -37,14 +37,12 @@ public class IRCBot extends ListenerAdapter implements Listener {
 
 	@Override
 	public void onMessage(final MessageEvent event) {
-		if (event.getUser().equals("AG-MASTER")) {
-			//User§ServiceName§Address§Timestamp
-			String message = event.getMessage();
-			String[] data = message.split("§");
-			plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("playervoted"), data[0]));
-			if (plugin.getServer().getPlayer(data[0]) != null) {
-				ArcherGames.econ.depositPlayer(plugin.getServer().getPlayer(data[0]).getName(), 3000);
-			}
+		//User§ServiceName§Address§Timestamp
+		String message = event.getMessage();
+		String[] data = message.split("§");
+		plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("playervoted"), data[0]));
+		if (plugin.getServer().getPlayer(data[0]) != null) {
+			ArcherGames.econ.depositPlayer(plugin.getServer().getPlayer(data[0]).getName(), 3000);
 		}
 	}
 }

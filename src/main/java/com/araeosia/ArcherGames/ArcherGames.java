@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.listeners.EntityEventListener;
+import com.araeosia.ArcherGames.listeners.VotifierListener;
 import com.araeosia.ArcherGames.utils.Database;
 import com.araeosia.ArcherGames.utils.IRCBot;
 import java.sql.Connection;
@@ -56,6 +57,7 @@ public class ArcherGames extends JavaPlugin {
 		// Events
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
+		this.getServer().getPluginManager().registerEvents(new VotifierListener(this), this);
 		// Commands
 		this.getServer().getPluginManager().registerEvents(new CommandHandler(this), this);
 		this.getCommand("kit").setExecutor(new CommandHandler(this));
