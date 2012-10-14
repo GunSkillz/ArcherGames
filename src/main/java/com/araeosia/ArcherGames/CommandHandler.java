@@ -56,7 +56,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
 			String kits = "";
 			for (String s : plugin.kits.keySet()) {
-				kits += s.split(".")[1] + ", ";
+				kits += s.replace("ArcherGames.kits.", "") + ", ";
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
 			return true;
