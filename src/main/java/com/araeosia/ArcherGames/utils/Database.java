@@ -47,4 +47,38 @@ public class Database {
 	public void recordQuit(String name) {
 		plugin.dbConnect();
 	}
+
+	public void setMoney(String name, double d) {
+		plugin.dbConnect();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO money (name,balance) VALUES (?,?)");
+			s.setString(1, name);
+			s.setDouble(2, d);
+			s.executeUpdate();
+			s.close();
+		plugin.conn.close();
+		} catch (SQLException e){
+			
+		}
+	}
+	
+	public double getMoney(String name){
+		plugin.dbConnect();
+		double money = 0;
+		
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM money WHERE name=?");
+			s.setString(1, name);
+			ResultSet set = s.executeQuery();
+		
+			money = set.getDouble(1);
+		
+			s.close();
+			plugin.conn.close();
+			} catch (SQLException e){
+			
+			}
+		
+		return money;
+	}
 }

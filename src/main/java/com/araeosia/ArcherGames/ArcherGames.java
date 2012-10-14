@@ -7,6 +7,7 @@ import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.listeners.EntityEventListener;
 import com.araeosia.ArcherGames.listeners.VotifierListener;
 import com.araeosia.ArcherGames.utils.Database;
+import com.araeosia.ArcherGames.utils.Economy;
 import com.araeosia.ArcherGames.utils.IRCBot;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +18,6 @@ import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
-import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,16 +37,17 @@ public class ArcherGames extends JavaPlugin {
 	public HashMap<String, String> strings = new HashMap<String, String>();
 	public ServerWide serverwide;
 	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
-	public static Economy econ = null;
 	public Connection conn;
 	public Database db;
 	public IRCBot IRCBot;
+	public Economy econ;
 
 	/**
 	 *
 	 */
 	@Override
 	public void onEnable() {
+		econ = new Economy(this);
 		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
@@ -73,11 +74,6 @@ public class ArcherGames extends JavaPlugin {
 		if (debug) {
 			log.info("Debug mode is enabled!");
 		}
-		if (!setupEconomy()) {
-			log.info(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
 		log.info("Connecting to IRC server...");
 		try {
 			IRCBot.setupBot();
@@ -96,18 +92,6 @@ public class ArcherGames extends JavaPlugin {
 		this.getServer().getScheduler().cancelTask(scheduler.schedulerTaskID); // Kill the loop.
 		log.info("ArcherGames is disabled.");
 
-	}
-
-	private boolean setupEconomy() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			return false;
-		}
-		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-		if (rsp == null) {
-			return false;
-		}
-		econ = rsp.getProvider();
-		return econ != null;
 	}
 
 	public void dbConnect() {
