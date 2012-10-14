@@ -58,6 +58,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sender.sendMessage(ChatColor.GREEN + kits);
 		} else if (cmd.getName().equalsIgnoreCase("kit") || args.length != 0) {
 			if (plugin.kits.containsKey(args[0])) {
+				plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
 				Archer.getByName(sender.getName()).selectKit(args[0]);
 				sender.sendMessage(plugin.strings.get("kitinfo").format(args[0]));
 				return true;
