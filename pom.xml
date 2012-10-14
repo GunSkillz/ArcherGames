@@ -82,7 +82,7 @@
               <relocations>
                 <relocation>
                   <pattern>org.pircbotx</pattern>
-                  <shadedPattern>org.pircbotx</shadedPattern>
+                  <shadedPattern>com.araeosia.pircbotx</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>
