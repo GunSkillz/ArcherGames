@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.BookItem;
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +50,10 @@ public class PlayerEventListener implements Listener {
 		BookItem bi = new BookItem(new ItemStack(387, 1));
 		bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
 		bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
-		bi.setPages((String[]) plugin.getConfig().getStringList("ArcherGames.startbook.pages").toArray()); // ERROR!
+		String[] newPages;
+		newPages = new String[10];
+		String[] pages = plugin.getConfig().getStringList("ArcherGames.startbook.pages").toArray(newPages);
+		bi.setPages(pages); // ERROR!
 		event.getPlayer().getInventory().addItem(bi.getItemStack());
 		plugin.db.recordJoin(event.getPlayer().getName());
 		event.setJoinMessage("");
