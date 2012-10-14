@@ -98,7 +98,7 @@ public class ArcherGames extends JavaPlugin {
 
 	public void dbConnect() {
 		try {
-			if (conn.isValid(1) || conn == null || conn.isClosed()) {
+			if (conn == null || conn.isValid(1)  || conn.isClosed()) {
 				java.util.Properties conProperties = new java.util.Properties();
 				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username"));
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));
