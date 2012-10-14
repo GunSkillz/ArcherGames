@@ -61,6 +61,10 @@ public class BlockEventListener implements Listener {
 				Sign sign = (Sign) event.getClickedBlock().getState();
 				if(sign.getLine(1)=="§3[Enchant]"){
 					// Line 2: Any, Line 3: Enchantment:Level Line 4: Price
+					double price = new Double(sign.getLine(4).substring(1));
+					if(plugin.econ.hasBalance(event.getPlayer().getName(), price)){
+						String[] data = sign.getLine(3).split(":");
+					}
 				}else if(sign.getLine(2)=="§3[Buy]"){
 					// Line 2: Quantity, Line 3: Item name, Line 4: Price
 				}
