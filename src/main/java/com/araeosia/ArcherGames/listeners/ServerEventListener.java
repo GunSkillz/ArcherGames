@@ -20,6 +20,9 @@ public class ServerEventListener implements Listener {
 			case 1:
 				String timeLeft = Time.getShortString(plugin.scheduler.preGameCountdown-plugin.scheduler.currentLoop);
 				motdOutput = String.format(plugin.strings.get("pingreply1"), timeLeft);
+				if(plugin.debug){
+					plugin.log.info(motdOutput);
+				}
 				break;
 			case 2:
 				motdOutput = plugin.strings.get("pingreply2");
