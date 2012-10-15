@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -113,6 +115,9 @@ public class PlayerEventListener implements Listener {
 						attacker.sendMessage(plugin.strings.get("nopvp"));
 					}
 				}else{
+					if((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus == 5){
+						event.getDamager().remove();
+					}
 					event.setCancelled(true);
 				}
 			}
