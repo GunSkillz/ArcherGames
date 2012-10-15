@@ -201,10 +201,10 @@ public class Config {
 						}
 						temp.add(itemStack);
 					} catch (NumberFormatException e) {
-						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
+						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key+" "+key2 + " is not configured correctly!");
 					}
 				}
-				plugin.kits.put("ArcherGames.kits."+key+key2, temp);
+				plugin.kits.put("ArcherGames.kits."+key+"."+key2, temp);
 			}
 		}
 	}
