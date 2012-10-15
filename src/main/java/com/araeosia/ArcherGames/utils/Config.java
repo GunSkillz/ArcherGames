@@ -47,27 +47,25 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
 		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
 		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.arrowExplosionFactor", 2));
-		/*
-		 * Kits to write:
-		 * Donor Infinity: Bow (Infinity Enchantment), Full gold armor (Blast protection I), Explosive Arrows
-		 * Donor Lucky: Bow, 32 Arrows, 5 XP Potions, 1 enchantment table, Leather armor (Black protection I)
-		 * Donor Feeder: Bow, 32 Arrows, 2 Golden Apples, Leather Armor (Projectile protection I)
-		 * Donor Juggernaut: Bow, 32 Arrows, Full iron armor (Blast protection I)
-		 * VIP Healer: Bow, 64 Arrows, 5 potions of regeneration, full leather armor
-		 * VIP Sharpshooter: Bow (Power IV), 64 arrows, full iron armor (projectile protection I)
-		 * VIP punch: Bow (Punch II), Wooden Sword (Knockback II), 64 arrows, full iron armor (Projectile protection I)
-		 * VIP Wizard: Bow, 64 arrows, 32 XP Potions, 48 bookshelves, full iron armor, enchanting table
-		 * VIP Chef: Bow, 64 arrows, 2 pork chops, 2 steak, 2 cooked chicken, 2 cooked fish, full iron armor (projectile protection I)
-		 * VIP Beastmaker: Bow, 64 arrows, 4 wolf eggs, 16 bones, full iron armor (blast protection I)
-		 * Elite Diamond: Bow (Power V), 128 arrows, full diamond armor (blast protection I), explosive ability
-		 * Elite Miner: Bow (Power V), iron pick (Efficiency V), 128 arrows, full iron armor (blast protection II), explosive ability
-		 * Elite baker: Bow (Power V), 128 arrows, 10 cakes, full iron armor (blast protection II), explosive ability
-		 * Elite prophet: Bow, Diamond sword (God sword), 128 arrows, explosive ability
-		 * Overpowered Ridiculous: Bow (Power V), Diamond Sword (Sharpness V), Diamond pick (Efficiency V), Diamond shovel (Efficiency V), diamond axe (efficiency V), 3 enderpearls, 256 arrows, 5 cooked porkchops, 1 golden apple, full diamond armor (maxed out all lvl III), explosive ability
-		 * Overpowered God: Bow (Maxed out everything), Diamond Sword (God sword), Diamond pickaxe (Efficiency V), 1 arrow (Infinity), 3 enderpearls, 2 swiftness II potions, 2 strength II potions, 2 golden apples (enchanted), 10 cooked porkchops, full diamond armor (maxed out lvl VII), explosive ability
-		 * 
-		 */
-//		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl"););
+		// Kits
+		plugin.getConfig().set("ArcherGames.kits.Donor.Infinity", plugin.getConfig().get("ArcherGames.kits.Donor.Infinity", "261:0:51:1:1,262:0:-1:0:1,314:0:3:1:1,315:0:3:1:1,316:0:3:1:1,317:0:3:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.Donor.Lucky", plugin.getConfig().get("ArcherGames.kits.Donor.Lucky", "261:0:-1:0:1,262:0:-1:0:32,384:0:-1:0:5,116:0:-1:0:1,298:0:3:1:1,299:0:3:1:1,300:0:3:1:1,301:0:3:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.Donor.Feeder", plugin.getConfig().get("ArcherGames.kits.Donor.Feeder", "261:0:-1:0:1,262:0:-1:0:32,322:0:-1:0:2,298:0:4:1:1,299:0:4:1:1,300:0:4:1:1,301:0:4:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.Donor.Juggernaut", plugin.getConfig().get("ArcherGames.kits.Donor.Juggernaut", "261:0:-1:0:1,262:0:-1:0:32,306:0:3:1:1,307:0:3:1:1,308:0:3:1:1,309:0:3:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Healer", plugin.getConfig().get("ArcherGames.kits.VIP.Healer", "261:0:-1:0:1,262:0:-1:0:64,373:8193:-1:0:5,298:0:-1,0:1,299:0:-1,0:1,300:0:-1,0:1,301:0:-1,0:1"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Sharpshooter", plugin.getConfig().get("ArcherGames.kits.VIP.Sharpshooter", "261:0:48:4:1,262:0:-1:0:64,306:0:4:1:1,307:0:4:1:1,308:0:4:1:1,309:0:4:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Punch", plugin.getConfig().get("ArcherGames.kits.VIP.Punch", "261:0:49:2:1,262:0:-1:0:64,268:0:19:2:1,306:0:4:1:1,307:0:4:1:1,308:0:4:1:1,309:0:4:1:1"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Wizard", plugin.getConfig().get("ArcherGames.kits.VIP.Wizard", "261:0:-1:0:1,262:0:-1:0:64,268:0:19:2:1,306:0:-1:0:1,307:0:-1:0:1,308:0:-1:0:1,309:0:-1:0:1,116:0:-1:0:1,384:0:-1:0:32,47:0:-1:0:48"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Chef", plugin.getConfig().get("ArcherGames.kits.VIP.Chef", "261:0:-1:0:1,262:0:-1:0:64,306:0:4:1:1,307:0:4:1:1,308:0:4:1:1,309:0:4:1:1,366:0:-1:0:2,319:0:-1:0:2,364:0:-1:0:2"));
+		plugin.getConfig().set("ArcherGames.kits.VIP.Beastmaker", plugin.getConfig().get("ArcherGames.kits.VIP.Beastmaker", "261:0:-1:0:1,262:0:-1:0:64,306:0:3:1:1,307:0:3:1:1,308:0:3:1:1,309:0:3:1:1,352:0:-1:0:16,383:95:-1:0:4"));
+		plugin.getConfig().set("ArcherGames.kits.Elite.Diamond", plugin.getConfig().get("ArcherGames.kits.Elite.Diamond", "261:0:48:5:1,262:0:-1:0:128,310:0:3:1:1,311:0:3:1:1,312:0:3:1:1,313:0:3:1:1")); // Explosive Ability?
+		plugin.getConfig().set("ArcherGames.kits.Elite.Miner", plugin.getConfig().get("ArcherGames.kits.Elite.Miner", "261:0:48:5:1,257:0:32:5:1,262:0:-1:0:128,306:0:3:3:1,307:0:3:3:1,308:0:3:3:1,309:0:3:3:1")); // Explosive Ability?
+		plugin.getConfig().set("ArcherGames.kits.Elite.Baker", plugin.getConfig().get("ArcherGames.kits.Elite.Baker", "261:0:48:5:1,262:0:-1:0:128,306:0:3:2:1,307:0:3:2:1,308:0:3:2:1,309:0:3:2:1,354:0:-1:0:10")); // Explosive Ability?
+		plugin.getConfig().set("ArcherGames.kits.Elite.Prophet", plugin.getConfig().get("ArcherGames.kits.Elite.Prophet", "261:0:48:5:1,262:0:-1:0:128,276:0:16~17~18~19~20~21:5~5~5~5~5~5:1")); // Explosive Ability?
+		plugin.getConfig().set("ArcherGames.kits.Overpowered.God", plugin.getConfig().get("ArcherGames.kits.Overpowered.God", "261:0:48:5:1,262:0:-1:0:128,276:0:16~17~18~19~20~21:5~5~5~5~5~5:1,261:0:48~49~50~51:5~5~5~5:1,262:0:-1:0:1,278:0:32:5:1,368:0:-1:0:3,373:8226:-1:0:2,373:8233:-1:0:2,322:1:-1:0:2,319:0:-1:0:10,310:0:0~1~3~4~5~6:5~5~5~5~5~5:1,311:0:0~1~3~4:5~5~5~5:1,312:0:0~1~3~4:5~5~5~5:1,313:0:0~1~2~3~4~6:5~5~5~5~5~5:1")); // Explosive Ability?
+		plugin.getConfig().set("ArcherGames.kits.OverPowered.Ridiculous", plugin.getConfig().get("ArcherGames.kits.OverPowered.Ridiculous", "261:0:48:5:1,276:0:16:5:1,278:0:32:5:1,277:0:32:5:1,279:0:32:5:1,368:0:-1:0:3,262:0:-1:0:256,322:1:-1:0:1,319:0:-1:0:5,310:0:0~1~3~4~5~6:3~3~3~3~3~3:1,311:0:0~1~3~4:3~3~3~3:1,312:0:0~1~3~4:3~3~3~3:1,313:0:0~1~2~3~4~6:3~3~3~3~3~3:1")); // Explosive Ability?
+		// Kits
+//		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl:amt"););
 		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
 		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
 		plugin.getConfig().set("ArcherGames.strings.invincibilityend", plugin.getConfig().get("ArcherGames.strings.invincibilityend", "[ArcherGames] Your minute of invincibility is up! Let the games begin..."));
@@ -191,19 +189,23 @@ public class Config {
 		ArrayList<ItemStack> temp;
 		for (String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
 			temp = new ArrayList<ItemStack>();
-			String s = plugin.getConfig().getString("ArcherGames.kits." + key);
-			for (String str : s.split(",")) {
-				try {
-					ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
-					if (!(Integer.parseInt(str.split(":")[2]) < 0)) {
-						itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2])), Integer.parseInt(str.split(":")[3]));
+			for(String key2 : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + key).getKeys(false)){
+				String s = plugin.getConfig().getString("ArcherGames.kits."+key+key2);
+				for (String str : s.split(",")) {
+					try {
+						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
+						if (!(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
+							for(int i = 0; i < str.split(":")[2].split("~").length; i++){
+								itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2].split("~")[i])), Integer.parseInt(str.split(":")[3].split("~")[i]));
+							}
+						}
+						temp.add(itemStack);
+					} catch (NumberFormatException e) {
+						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
 					}
-					temp.add(itemStack);
-				} catch (NumberFormatException e) {
-					plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
 				}
+				plugin.kits.put("ArcherGames.kits."+key+key2, temp);
 			}
-			plugin.kits.put("ArcherGames.kits."+key, temp);
 		}
 	}
 }
