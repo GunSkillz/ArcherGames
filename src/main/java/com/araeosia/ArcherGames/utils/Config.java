@@ -197,7 +197,7 @@ public class Config {
 				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".damage"));
 				if(plugin.getConfig().isConfigurationSection("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
 					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments").getKeys(false)){
-						itemStackToAdd.addEnchantment(Enchantment.getByName(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".level"));
+						itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".level"));
 					}
 				}
 				armorToAdd.put(type, itemStackToAdd);
@@ -208,7 +208,7 @@ public class Config {
 				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".id"), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".quantity"), (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".damage"));
 				if(plugin.getConfig().isSet("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments")){
 					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments").getKeys(false)){
-						itemStackToAdd.addEnchantment(Enchantment.getByName(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".level"));
+						itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".level"));
 					}
 				}
 				itemsToAdd.add(itemStackToAdd);
