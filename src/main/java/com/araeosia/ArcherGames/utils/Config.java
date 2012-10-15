@@ -190,7 +190,7 @@ public class Config {
 		for (String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
 			temp = new ArrayList<ItemStack>();
 			for(String key2 : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + key).getKeys(false)){
-				String s = plugin.getConfig().getString("ArcherGames.kits."+key+key2);
+				String s = plugin.getConfig().getString("ArcherGames.kits."+key+"."+key2);
 				for (String str : s.split(",")) {
 					try {
 						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
