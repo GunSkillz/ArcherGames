@@ -7,26 +7,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Kit {
-	private HashMap<Integer, ItemStack> armor;
+	private HashMap<String, ItemStack> armor;
 	private ArrayList<ItemStack> itemsToGive;
-	private ArcherGames plugin;
 	private String ability;
 	private String description;
 	private String permission;
 	private String name;
 	
-	public Kit (ArcherGames plugin){
-		this.plugin = plugin;
+	public Kit (){
 	}
 	public void giveToPlayer(Player player){
-		for(Integer key : armor.keySet()){
+		for(String key : armor.keySet()){
 			
 		}
 	}
-	public HashMap<Integer, ItemStack> getArmor(){
+	public HashMap<String, ItemStack> getArmor(){
 		return armor;
 	}
-	public void setArmor(HashMap<Integer, ItemStack> armor){
+	public void setArmor(HashMap<String, ItemStack> armor){
 		this.armor = armor;
 	}
 	public ArrayList<ItemStack> getItems(){
@@ -58,5 +56,11 @@ public class Kit {
 	}
 	public void setName(String name){
 		this.name = name;
+	}
+	@Override
+	public String toString(){
+		String output = new String();
+		output = "Name: "+name+", Ability: "+ability+", Description: "+description+", Permission: "+permission+", itemsToGive: "+itemsToGive.toString()+", armor: "+armor.toString();
+		return output;
 	}
 }
