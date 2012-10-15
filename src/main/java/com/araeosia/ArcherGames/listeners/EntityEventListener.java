@@ -9,11 +9,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 
 public class EntityEventListener implements Listener {
 
@@ -62,23 +58,25 @@ public class EntityEventListener implements Listener {
 	}
 
 	@EventHandler
-	public void onMobDamaged(final EntityDamageByEntityEvent event) {
-		if (event.getDamager() instanceof Player) {
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
-				event.setCancelled(true);
-			} else if(!(Archer.getByName(((Player) event.getDamager()).getName()).isAlive)){
-				event.setCancelled(true);
-			} else if(!(Archer.getByName(((Player) event.getEntity()).getName()).isAlive)){
-				event.setCancelled(true);
+	public void onMobDamaged(final EntityTargetEvent event) {
+		if (event instanceof EntityTargetLivingEntityEvent) {
+			EntityTargetLivingEntityEvent targetevent = (EntityTargetLivingEntityEvent) event;
+			if (targetevent.getTarget() instanceof Player) {
+				if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
+					event.setCancelled(true);
+				} else if (!(Archer.getByName(((Player) targetevent.getTarget()).getName()).isAlive)) {
+					event.setCancelled(true);
+				} else if (!(Archer.getByName(((Player) targetevent.getEntity()).getName()).isAlive)) {
+					event.setCancelled(true);
+				}
 			}
-		} 
-			
+		}
 	}
-	
+
 	@EventHandler
-	public void onEntityExplode(final EntityExplodeEvent event){
-		if(event.getEntity() instanceof Block){
-			if (((Block) event.getEntity()).getType() == Material.CHEST){
+	public void onEntityExplode(final EntityExplodeEvent event) {
+		if (event.getEntity() instanceof Block) {
+			if (((Block) event.getEntity()).getType() == Material.CHEST) {
 				event.setCancelled(true);
 			}
 		}
