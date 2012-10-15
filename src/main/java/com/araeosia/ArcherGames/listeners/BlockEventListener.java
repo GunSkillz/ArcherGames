@@ -88,7 +88,7 @@ public class BlockEventListener implements Listener {
 						String[] data = sign.getLine(2).split(":");
 						Enchantment enchantment = Enchantment.getByName(data[0]);
 						ItemStack itemInHand = event.getPlayer().getInventory().getItemInHand();
-						Boolean isOkay = true;
+						boolean isOkay = true;
 						for (Enchantment e : itemInHand.getEnchantments().keySet()) {
 							if (e.conflictsWith(enchantment) || e.equals(enchantment)) {
 								isOkay = false;

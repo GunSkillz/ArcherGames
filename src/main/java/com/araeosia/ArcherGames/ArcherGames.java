@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
@@ -39,6 +40,8 @@ public class ArcherGames extends JavaPlugin {
 	public IRCBot IRCBot;
 	public Economy econ;
 	public double arrowExplosionFactor;
+	public Random random;
+	public Archer winner;
 
 	/**
 	 *
@@ -54,6 +57,7 @@ public class ArcherGames extends JavaPlugin {
 		config = new Config(this);
 		config.loadConfiguration();
 		db = new Database(this);
+		random = new Random();
 		// Events
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);

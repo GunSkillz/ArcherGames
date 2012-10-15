@@ -120,7 +120,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					try{
 						plugin.scheduler.preGameCountdown = Integer.parseInt(args[0]);
 						plugin.scheduler.currentLoop = 0;
-						sender.sendMessage(ChatColor.GREEN + "Time left set to " + args[0] + " seconds left.");
+						sender.sendMessage(ChatColor.GREEN + "Time set to " + args[0] + " seconds left.");
 					}catch (Exception e){
 						sender.sendMessage(ChatColor.RED + "Time could not be set.");
 					}

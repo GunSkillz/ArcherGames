@@ -3,6 +3,7 @@ package com.araeosia.ArcherGames;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.wimbli.WorldBorder.BorderData;
 import com.wimbli.WorldBorder.Config;
+import org.bukkit.ChatColor;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -40,7 +41,7 @@ public class ScheduledTasks {
 							}
 							// Pre-game
 							if (preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) {
-								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
+								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((preGameCountdown - currentLoop) % 3600) == 0) ? ((preGameCountdown - currentLoop) / 60) + "hour" + ((((preGameCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
 								if (plugin.debug) {
@@ -78,6 +79,9 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameOvertimeCountdown - currentLoop) + " seconds until overtime starts.");
 							}
+							if((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 &&((currentLoop - gameOvertimeCountdown) / 60) == 30))))){
+								plugin.serverwide.sendMessageToAllPlayers( (currentLoop - gameOvertimeCountdown) % 60 == 0 ? currentLoop - gameOvertimeCountdown + " minutes until overtime starts" : (currentLoop - gameOvertimeCountdown) / 60 +" minutes and " + (currentLoop - gameOvertimeCountdown) % 60 + " seconds until overtime starts.");
+							}
 							if (currentLoop >= gameOvertimeCountdown) {
 								if (plugin.debug) {
 									plugin.log.info("Overtime has started.");
@@ -104,8 +108,6 @@ public class ScheduledTasks {
 								}
 								// Game is finally over. We have a winner.
 								plugin.serverwide.handleGameEnd();
-								gameStatus = 5;
-								currentLoop = -1;
 							}
 							currentLoop++;
 							break;
@@ -113,6 +115,9 @@ public class ScheduledTasks {
 							// Game finished, waiting for reset to pre-game
 							if (plugin.debug) {
 								plugin.log.info((shutdownTimer - currentLoop) + " seconds until server reboots.");
+							}
+							if(plugin.random.nextInt(20) == 10){
+								plugin.serverwide.sendMessageToAllPlayers(ChatColor.GREEN + "" + plugin.winner + " is the winner!");
 							}
 							if (currentLoop >= shutdownTimer) {
 								if (plugin.debug) {

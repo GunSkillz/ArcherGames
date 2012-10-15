@@ -54,6 +54,9 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onJoinEvent(final PlayerJoinEvent event) {
 		event.getPlayer().setAllowFlight(true);
+		if(ScheduledTasks.gameStatus >= 2){
+			//Vanish?
+		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
 		naggerTask.put(event.getPlayer().getName(), taskID);
@@ -63,7 +66,7 @@ public class PlayerEventListener implements Listener {
 			bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
 			bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
 			String[] newPages;
-			newPages = new String[10];
+			newPages = new String[11];
 			String[] pages = plugin.getConfig().getStringList("ArcherGames.startbook.pages").toArray(newPages);
 			bi.setPages(pages);
 			event.getPlayer().getInventory().addItem(bi.getItemStack());
@@ -137,6 +140,7 @@ public class PlayerEventListener implements Listener {
 					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
 						plugin.econ.givePlayer(a.getName(), 15000);
 						plugin.db.addWin(player.getName());
+						plugin.winner = a;
 					}
 				}
 
