@@ -80,6 +80,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
 				}
 			}
+			return true;
 		} else if(cmd.getName().equalsIgnoreCase("chunk")){
 			if(!(ScheduledTasks.gameStatus == 1)){
 				if(sender instanceof Player){
