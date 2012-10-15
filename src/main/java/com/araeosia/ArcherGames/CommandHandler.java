@@ -52,16 +52,14 @@ public class CommandHandler implements CommandExecutor, Listener {
 				//plugin.getStats(args[0]);
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("listkits")) {
+		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
 			String kits = "";
 			for (String s : plugin.kits.keySet()) {
 				kits += s.replace("ArcherGames.kits.", "") + ", ";
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
-			return true;
-		} else if (cmd.getName().equalsIgnoreCase("kit") && args.length != 0) {
-			if (plugin.kits.containsKey("ArcherGames.kits."+args[0])) {
+			if (args.length != 0 && plugin.kits.containsKey("ArcherGames.kits."+args[0])) {
 				if(sender.hasPermission("ArcherGames.kits." + args[0])){
 					if(!plugin.serverwide.livingPlayers.contains(Archer.getByName(sender.getName()))){
 						plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
