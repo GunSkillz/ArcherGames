@@ -40,18 +40,18 @@ commands:
   kit:
     description: Select a kit for the game
     usage: /kit (kitname)
-  listkits:
-    description: List avalible kits
-    usage: /listkits
+    aliases: [kits]
   howlong:
     description: Tell you how long until something happens.
     usage: /howlong
   pay:
     description: Pay another player.
     usage: /pay <playertosentto> <amount>
+    aliases: [givemoney]
   time:
     description: Show how much time is left in the game.
     usage: /time
+    alises: [timeleft]
   timer:
     description: Set how much time is left in the game.
     usage: /timer <time in seconds>
