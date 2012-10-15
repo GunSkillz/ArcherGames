@@ -14,12 +14,22 @@ public class Kit {
 	private String permission;
 	private String name;
 	
-	public Kit (){
-	}
 	public void giveToPlayer(Player player){
 		for(String key : armor.keySet()){
-			
+			if(key.equalsIgnoreCase("head")){
+				player.getInventory().setHelmet(armor.get(key));
+			}else if(key.equalsIgnoreCase("chest")){
+				player.getInventory().setChestplate(armor.get(key));
+			}else if(key.equalsIgnoreCase("pants")){
+				player.getInventory().setLeggings(armor.get(key));
+			}else if(key.equalsIgnoreCase("boots")){
+				player.getInventory().setBoots(armor.get(key));
+			}
 		}
+		for(ItemStack key : itemsToGive){
+			player.getInventory().addItem(key);
+		}
+		Archer.getByName(player.getName()).setAbility(ability);
 	}
 	public HashMap<String, ItemStack> getArmor(){
 		return armor;

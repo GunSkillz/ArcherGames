@@ -1,16 +1,16 @@
 package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
-import org.bukkit.entity.Player;
 
 public class Archer {
 
 	public boolean canTalk;
 	public String name;
 	public boolean isAlive;
-	public String kit;
+	public Kit kit;
 	public boolean isReady;
 	public int Score;
+	private String ability;
 
 	/**
 	 * Make a new player when they login
@@ -21,7 +21,6 @@ public class Archer {
 		this.name = playerName;
 		canTalk = false;
 		isAlive = true;
-		kit = "";
 		isReady = false;
 	}
 
@@ -65,7 +64,7 @@ public class Archer {
 	 *
 	 * @return
 	 */
-	public String getKitName() {
+	public Kit getKit() {
 		return kit;
 	}
 
@@ -74,7 +73,7 @@ public class Archer {
 	 *
 	 * @param kit
 	 */
-	public void selectKit(String kit) {
+	public void selectKit(Kit kit) {
 		this.kit = kit;
 	}
 
@@ -99,6 +98,12 @@ public class Archer {
 	 */
 	public String getName() {
 		return name;
+	}
+	public void setAbility(String abilities){
+		this.ability = ability;
+	}
+	public String getAbility(){
+		return ability;
 	}
 	// Static methods for use for monitoring and handling
 

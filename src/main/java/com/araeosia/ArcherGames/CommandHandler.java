@@ -1,6 +1,7 @@
 package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.utils.Kit;
 import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -55,25 +56,29 @@ public class CommandHandler implements CommandExecutor, Listener {
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
 			String kits = "";
-			for (String s : plugin.kits.keySet()) {
-				kits += s.replace("ArcherGames.kits.", "") + ", ";
+			for (Kit kit : plugin.kits) {
+				kits += kit.getName() + ", ";
 			}
 			sender.sendMessage(ChatColor.GREEN + kits);
-			if (args.length != 0 && plugin.kits.containsKey("ArcherGames.kits."+args[0])) {
-				if(sender.hasPermission("ArcherGames.kits." + args[0])){
-					if(!plugin.serverwide.livingPlayers.contains(Archer.getByName(sender.getName()))){
-						plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
+			if (args.length != 0) {
+				Kit selectedKit = new Kit();
+				Boolean isOkay = false;
+				for(Kit kit : plugin.kits){
+					if(args[0].equalsIgnoreCase(kit.getName())){
+						isOkay = true;
+						selectedKit = kit;
 					}
-					Archer.getByName(sender.getName()).selectKit(args[0]);
-					sender.sendMessage(String.format(plugin.strings.get("kitgiven"), args[0]));
-					return true;
-				} else {
-					sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
-					return true;
 				}
-			} else {
-				sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
-				return true;
+				if(isOkay){
+					if(sender.hasPermission(selectedKit.getPermission())){
+						Archer.getByName(sender.getName()).selectKit(selectedKit);
+						sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
+					}else{
+						sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
+					}
+				}else{
+					sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
+				}
 			}
 		} else if(cmd.getName().equalsIgnoreCase("chunk")){
 			if(!(ScheduledTasks.gameStatus == 1)){
