@@ -101,7 +101,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.irc.channel", plugin.getConfig().get("ArcherGames.irc.channel", "#araeosia"));
 		plugin.getConfig().set("ArcherGames.startbook.title", plugin.getConfig().get("ArcherGames.startbook.title", "Rule Book"));
 		plugin.getConfig().set("ArcherGames.startbook.author", plugin.getConfig().get("ArcherGames.startbook.author", "Server"));
-		String[] strs = new String[10];
+		String[] strs = new String[11];
 		strs[0] = "Welcome to §4§nArcherGames!\n§0This book will tell you all about:\n§0How to play\n§0Commands\n§0General Info\n§0Kits\n§0Voting";
 		strs[1] = "§1§nHow to play:\n§0You will first need to pick a kit. To do this type /listkits to display all avalible kits. From there type /kit [kitname]. All kits come with a bow. Premium kits can be bought from: http://eyeofender.com/archergames.html";
 		strs[2] = "Your aim is to survive with your trusty bow and plant a arrow through your enemies skull and kill them! Be the last man standing and win §4$50,000!";
