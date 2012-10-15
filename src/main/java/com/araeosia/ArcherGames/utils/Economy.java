@@ -1,6 +1,7 @@
 package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
+import java.util.HashMap;
 
 public class Economy {
 	
@@ -28,5 +29,8 @@ public class Economy {
 		}else{
 			return false;
 		}
+	}
+	public HashMap<String, Integer> getTopPlayers(){
+		return plugin.db.getTopPlayers();
 	}
 }
