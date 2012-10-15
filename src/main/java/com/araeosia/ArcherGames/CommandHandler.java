@@ -39,10 +39,10 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("money")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.GREEN + sender.getName()+"'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
+				sender.sendMessage(ChatColor.GREEN + sender.getName() + "'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is "+plugin.econ.getBalance(args[0])); //Or something
+				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.econ.getBalance(args[0])); //Or something
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("stats")) {
@@ -54,60 +54,68 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
-			sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
-			String kits = "";
-			for (Kit kit : plugin.kits) {
-				kits += kit.getName() + ", ";
-			}
-			sender.sendMessage(ChatColor.GREEN + kits);
 			if (args.length != 0) {
 				Kit selectedKit = new Kit();
 				Boolean isOkay = false;
-				for(Kit kit : plugin.kits){
-					if(args[0].equalsIgnoreCase(kit.getName())){
+				for (Kit kit : plugin.kits) {
+					if (args[0].equalsIgnoreCase(kit.getName())) {
 						isOkay = true;
 						selectedKit = kit;
 					}
 				}
-				if(isOkay){
-					if(sender.hasPermission(selectedKit.getPermission())){
+				if (isOkay) {
+					if (sender.hasPermission(selectedKit.getPermission())) {
 						Archer.getByName(sender.getName()).selectKit(selectedKit);
 						sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
-					}else{
+					} else {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
 					}
-				}else{
+				} else {
 					sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
 				}
+			} else {
+				sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
+				String kits = "";
+				String kitsNo = "";
+				for (Kit kit : plugin.kits) {
+					if (sender.hasPermission(kit.getPermission())) {
+						kits += kit.getName() + ", ";
+					} else {
+						kitsNo += kit.getName() + ", ";
+					}
+				}
+				sender.sendMessage(ChatColor.GREEN + kits);
+				sender.sendMessage(plugin.strings.get("kitnoaccessible"));
+				sender.sendMessage("§c" + kitsNo);
 			}
 			return true;
-		} else if(cmd.getName().equalsIgnoreCase("chunk")){
-			if(!(ScheduledTasks.gameStatus == 1)){
-				if(sender instanceof Player){
+		} else if (cmd.getName().equalsIgnoreCase("chunk")) {
+			if (!(ScheduledTasks.gameStatus == 1)) {
+				if (sender instanceof Player) {
 					Player player = (Player) sender;
 					player.getWorld().unloadChunk(player.getLocation().getChunk());
 					player.getWorld().loadChunk(player.getLocation().getChunk());
 					player.sendMessage(ChatColor.GREEN + "Chunk Reloaded.");
 					return true;
-				} else{
+				} else {
 					return false;
 				}
 			} else {
 				sender.sendMessage(ChatColor.RED + "You may not use this command yet.");
 				return true;
 			}
-			
-			
-		} else if(cmd.getName().equalsIgnoreCase("pay")){
-			if(args.length != 0){
-				if(args.length != 1){
+
+
+		} else if (cmd.getName().equalsIgnoreCase("pay")) {
+			if (args.length != 0) {
+				if (args.length != 1) {
 					try {
-						if(Double.parseDouble(args[1]) > 0){
+						if (Double.parseDouble(args[1]) > 0) {
 							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
 							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
-							sender.sendMessage(ChatColor.GREEN + "$"+args[0] + " paid to " + args[0]);
+							sender.sendMessage(ChatColor.GREEN + "$" + args[0] + " paid to " + args[0]);
 						}
-					} catch(Exception e){
+					} catch (Exception e) {
 						return false;
 					}
 				} else {
@@ -116,39 +124,39 @@ public class CommandHandler implements CommandExecutor, Listener {
 			} else {
 				return false;
 			}
-		} else if(cmd.getName().equalsIgnoreCase("time")){
-			sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") +", "+((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
+		} else if (cmd.getName().equalsIgnoreCase("time")) {
+			sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
 			return true;
-		} else if(cmd.getName().equalsIgnoreCase("timer")){
-			if(args.length != 0){
-				if(sender.hasPermission("ArcherGames.admin")){
-					try{
+		} else if (cmd.getName().equalsIgnoreCase("timer")) {
+			if (args.length != 0) {
+				if (sender.hasPermission("ArcherGames.admin")) {
+					try {
 						plugin.scheduler.preGameCountdown = Integer.parseInt(args[0]);
 						plugin.scheduler.currentLoop = 0;
 						sender.sendMessage(ChatColor.GREEN + "Time left set to " + args[0] + " seconds left.");
 						return true;
-					}catch (Exception e){
+					} catch (Exception e) {
 						sender.sendMessage(ChatColor.RED + "Time could not be set.");
 						return true;
 					}
 				}
 			}
 		} else if (plugin.debug && cmd.getName().equalsIgnoreCase("ArcherGames")) {
-			
+
 			if (args[0].equalsIgnoreCase("startGame")) {
 				ScheduledTasks.gameStatus = 2;
 				sender.sendMessage(ChatColor.GREEN + "Game started.");
 				plugin.log.info("[ArcherGames/Debug]: Game force-started by " + sender.getName());
 				return true;
 			}
-			
-		} else if (cmd.getName().equalsIgnoreCase("lockdown")){
-			if (sender.hasPermission("archergames.admin")){
+
+		} else if (cmd.getName().equalsIgnoreCase("lockdown")) {
+			if (sender.hasPermission("archergames.admin")) {
 				plugin.getConfig().set("ArcherGames.toggles.lockdownMode", !plugin.configToggles.get("ArcherGames.toggles.lockdownMode"));
 				plugin.saveConfig();
 				sender.sendMessage(ChatColor.GREEN + "LockDown mode toggled.");
 				return true;
-			}else{
+			} else {
 				return false;
 			}
 		}
