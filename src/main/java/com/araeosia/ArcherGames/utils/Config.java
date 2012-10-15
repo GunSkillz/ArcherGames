@@ -190,21 +190,21 @@ public class Config {
 		for (String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
 			temp = new ArrayList<ItemStack>();
 			for(String key2 : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + key).getKeys(false)){
-				String s = plugin.getConfig().getString("ArcherGames.kits."+key+key2);
+				String s = plugin.getConfig().getString("ArcherGames.kits."+key+"."+key2);
 				for (String str : s.split(",")) {
 					try {
-						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[4]), Short.parseShort(str.split(":")[1]));
-						if (!(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
+						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
+						if (str.split(":").length>2 && !(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
 							for(int i = 0; i < str.split(":")[2].split("~").length; i++){
 								itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2].split("~")[i])), Integer.parseInt(str.split(":")[3].split("~")[i]));
 							}
 						}
 						temp.add(itemStack);
 					} catch (NumberFormatException e) {
-						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key + " is not configured correctly!");
+						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key+" "+key2 + " is not configured correctly!");
 					}
 				}
-				plugin.kits.put("ArcherGames.kits."+key+key2, temp);
+				plugin.kits.put("ArcherGames.kits."+key+"."+key2, temp);
 			}
 		}
 	}
