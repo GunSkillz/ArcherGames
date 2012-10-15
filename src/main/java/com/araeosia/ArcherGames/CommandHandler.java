@@ -71,9 +71,11 @@ public class CommandHandler implements CommandExecutor, Listener {
 					return true;
 				} else {
 					sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
+					return true;
 				}
 			} else {
 				sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
+				return true;
 			}
 		} else if(cmd.getName().equalsIgnoreCase("chunk")){
 			if(!(ScheduledTasks.gameStatus == 1)){
@@ -82,11 +84,13 @@ public class CommandHandler implements CommandExecutor, Listener {
 					player.getWorld().unloadChunk(player.getLocation().getChunk());
 					player.getWorld().loadChunk(player.getLocation().getChunk());
 					player.sendMessage(ChatColor.GREEN + "Chunk Reloaded.");
+					return true;
 				} else{
 					return false;
 				}
-			} else{
-				return false;
+			} else {
+				sender.sendMessage(ChatColor.RED + "You may not use this command yet.");
+				return true;
 			}
 			
 			
