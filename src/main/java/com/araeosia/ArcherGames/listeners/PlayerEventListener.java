@@ -41,11 +41,11 @@ public class PlayerEventListener implements Listener {
 			return;
 		}
 		if(event.getPlayer().isOp()){
-			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName());
+			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
 		} else if(event.getPlayer().hasPermission("ArcherGames.color.mod")){
-			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName());
+			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
 		} else if(event.getPlayer().hasPermission("ArcherGames.color.god")){
-			event.getPlayer().setDisplayName(ChatColor.GOLD +""+ ChatColor.ITALIC + event.getPlayer().getName());
+			event.getPlayer().setDisplayName(ChatColor.GOLD +""+ ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
