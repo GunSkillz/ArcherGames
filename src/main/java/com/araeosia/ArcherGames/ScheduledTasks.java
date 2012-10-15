@@ -140,6 +140,7 @@ public class ScheduledTasks {
 		currentLoop = 0;
 		gameStatus = 2;
 		for (Archer a : plugin.serverwide.livingPlayers) {
+			plugin.serverwide.getPlayer(a).getInventory().clear();
 			for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
 				plugin.serverwide.getPlayer(a).getInventory().addItem(is);
 			}
