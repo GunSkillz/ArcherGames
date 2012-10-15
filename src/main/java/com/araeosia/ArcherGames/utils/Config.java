@@ -3,6 +3,7 @@ package com.araeosia.ArcherGames.utils;
 import com.araeosia.ArcherGames.ArcherGames;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -193,7 +194,9 @@ public class Config {
 			addon.setAbility(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Ability"));
 			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
 			for(String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor").getKeys(true)){
-				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, Short.parseShort(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Armor."+type+".damage")));
+				List<Short> list = plugin.getConfig().getShortList("ArcherGames.kits."+kitNumber+".Armor."+type+".damage");
+				Short damage = list.get(0);
+				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, damage);
 				if(plugin.getConfig().isSet("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
 					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments").getKeys(false)){
 						itemStackToAdd.addEnchantment(Enchantment.getByName(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".level"));
