@@ -10,31 +10,79 @@ ArcherGames:
           id: 0
           damage: 0
           enchantments:
-            name: Blast
-            level: 5
+            0:
+              name: Blast
+              level: 5
         Chest:
           id: 0
           damage: 0
           enchantments:
-            name: Blast
-            level: 5
+            0:
+              name: Blast
+              level: 5
         Pants:
           id: 0
           damage: 0
           enchantments:
-            name: Blast
-            level: 5
+            0:
+              name: Blast
+              level: 5
         Boots:
           id: 0
           damage: 0
           enchantments:
-            name: Blast
-            level: 5
+            0:
+              name: Blast
+              level: 5
       Items:
         0:
           id: 0
           damage: 0
           enchantments:
-            name: Infinity
-            level: 1
+            0:
+              name: Infinity
+              level: 1
+          quantity: 1
+    1:
+      Name: "Donor Infinity"
+      Permission: "Donor.Infinity"
+      Description: "Infinite arrows!"
+      Ability: Explosive
+      Armor:
+        Head:
+          id: 0
+          damage: 0
+          enchantments:
+            0:
+              name: Blast
+              level: 5
+        Chest:
+          id: 0
+          damage: 0
+          enchantments:
+            0:
+              name: Blast
+              level: 5
+        Pants:
+          id: 0
+          damage: 0
+          enchantments:
+            0:
+              name: Blast
+              level: 5
+        Boots:
+          id: 0
+          damage: 0
+          enchantments:
+            0:
+              name: Blast
+              level: 5
+      Items:
+        0:
+          id: 0
+          damage: 0
+          enchantments:
+            0:
+              name: Infinity
+              level: 1
           quantity: 1
