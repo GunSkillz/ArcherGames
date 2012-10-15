@@ -195,7 +195,7 @@ public class Config {
 			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
 			for(String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor").getKeys(true)){
 				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".damage"));
-				if(plugin.getConfig().isSet("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
+				if(plugin.getConfig().isConfigurationSection("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
 					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments").getKeys(false)){
 						itemStackToAdd.addEnchantment(Enchantment.getByName(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".level"));
 					}
