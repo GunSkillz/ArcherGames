@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
+import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
@@ -65,8 +66,13 @@ public class EntityEventListener implements Listener {
 		if (event.getDamager() instanceof Player) {
 			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 				event.setCancelled(true);
+			} else if(!(Archer.getByName(((Player) event.getDamager()).getName()).isAlive)){
+				event.setCancelled(true);
+			} else if(!(Archer.getByName(((Player) event.getEntity()).getName()).isAlive)){
+				event.setCancelled(true);
 			}
-		}
+		} 
+			
 	}
 	
 	@EventHandler
