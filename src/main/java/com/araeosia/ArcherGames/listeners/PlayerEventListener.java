@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
@@ -91,11 +92,26 @@ public class PlayerEventListener implements Listener {
 	 */
 	@EventHandler
 	public void onDamageEvent(final EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player) {
+		if (event.getEntity() instanceof Player && !event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
 				if (event.getCause() != EntityDamageEvent.DamageCause.VOID) {
 					event.setCancelled(true);
+				}
+			}
+		}
+	}
+	@EventHandler
+	public void onDamageByEntity(final EntityDamageByEntityEvent event){
+		if(event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			if(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())){
+				if(event.getDamager() instanceof Player){ // PVP
+					Player attacker = (Player) event.getDamager();
+					if(!plugin.serverwide.getArcher(attacker).isAlive()){
+						event.setCancelled(true);
+						attacker.sendMessage(plugin.strings.get("nopvp"));
+					}
 				}
 			}
 		}
