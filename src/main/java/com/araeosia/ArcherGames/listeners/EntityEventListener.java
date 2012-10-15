@@ -61,14 +61,17 @@ public class EntityEventListener implements Listener {
 	}
 
 	@EventHandler
-	public void onMobDamaged(final EntityDamageByEntityEvent event) {
-		if (event.getDamager() instanceof Player) {
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
-				event.setCancelled(true);
-			} else if (!(Archer.getByName(((Player) event.getDamager()).getName()).isAlive)) {
-				event.setCancelled(true);
-			} else if (!(Archer.getByName(((Player) event.getEntity()).getName()).isAlive)) {
-				event.setCancelled(true);
+	public void onMobDamaged(final EntityDamageEvent event) {
+		if (event instanceof EntityDamageByEntityEvent) {
+			EntityDamageByEntityEvent damageevent = (EntityDamageByEntityEvent) event;
+			if (damageevent.getDamager() instanceof Player) {
+				if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
+					event.setCancelled(true);
+				} else if (!(Archer.getByName(((Player) damageevent.getDamager()).getName()).isAlive)) {
+					event.setCancelled(true);
+				} else if (!(Archer.getByName(((Player) damageevent.getEntity()).getName()).isAlive)) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
