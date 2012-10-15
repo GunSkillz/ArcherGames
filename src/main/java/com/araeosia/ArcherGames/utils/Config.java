@@ -47,6 +47,26 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.game.minPlayersToStart", plugin.getConfig().get("ArcherGames.game.minPlayersToStart", 5));
 		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
 		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.arrowExplosionFactor", 2));
+		/*
+		 * Kits to write:
+		 * Donor Infinity: Bow (Infinity Enchantment), Full gold armor (Blast protection I), Explosive Arrows
+		 * Donor Lucky: Bow, 32 Arrows, 5 XP Potions, 1 enchantment table, Leather armor (Black protection I)
+		 * Donor Feeder: Bow, 32 Arrows, 2 Golden Apples, Leather Armor (Projectile protection I)
+		 * Donor Juggernaut: Bow, 32 Arrows, Full iron armor (Blast protection I)
+		 * VIP Healer: Bow, 64 Arrows, 5 potions of regeneration, full leather armor
+		 * VIP Sharpshooter: Bow (Power IV), 64 arrows, full iron armor (projectile protection I)
+		 * VIP punch: Bow (Punch II), Wooden Sword (Knockback II), 64 arrows, full iron armor (Projectile protection I)
+		 * VIP Wizard: Bow, 64 arrows, 32 XP Potions, 48 bookshelves, full iron armor, enchanting table
+		 * VIP Chef: Bow, 64 arrows, 2 pork chops, 2 steak, 2 cooked chicken, 2 cooked fish, full iron armor (projectile protection I)
+		 * VIP Beastmaker: Bow, 64 arrows, 4 wolf eggs, 16 bones, full iron armor (blast protection I)
+		 * Elite Diamond: Bow (Power V), 128 arrows, full diamond armor (blast protection I), explosive ability
+		 * Elite Miner: Bow (Power V), iron pick (Efficiency V), 128 arrows, full iron armor (blast protection II), explosive ability
+		 * Elite baker: Bow (Power V), 128 arrows, 10 cakes, full iron armor (blast protection II), explosive ability
+		 * Elite prophet: Bow, Diamond sword (God sword), 128 arrows, explosive ability
+		 * Overpowered Ridiculous: Bow (Power V), Diamond Sword (Sharpness V), Diamond pick (Efficiency V), Diamond shovel (Efficiency V), diamond axe (efficiency V), 3 enderpearls, 256 arrows, 5 cooked porkchops, 1 golden apple, full diamond armor (maxed out all lvl III), explosive ability
+		 * Overpowered God: Bow (Maxed out everything), Diamond Sword (God sword), Diamond pickaxe (Efficiency V), 1 arrow (Infinity), 3 enderpearls, 2 swiftness II potions, 2 strength II potions, 2 golden apples (enchanted), 10 cooked porkchops, full diamond armor (maxed out lvl VII), explosive ability
+		 * 
+		 */
 //		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl"););
 		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
 		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
