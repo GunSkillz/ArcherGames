@@ -48,27 +48,27 @@ public class EntityEventListener implements Listener {
 	}
 
 	@EventHandler
-	public void onMobTarget(final EntityTargetLivingEntityEvent event) {
-		if (event.getTarget() instanceof Player) {
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
-				// Shouldn't be targetting them!
-				event.setCancelled(true);
+	public void onMobTarget(final EntityTargetEvent event) {
+		if (event instanceof EntityTargetLivingEntityEvent) {
+			EntityTargetLivingEntityEvent targetevent = (EntityTargetLivingEntityEvent) event;
+			if (targetevent.getTarget() instanceof Player) {
+				if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
+					// Shouldn't be targetting them!
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
 
 	@EventHandler
-	public void onMobDamaged(final EntityTargetEvent event) {
-		if (event instanceof EntityTargetLivingEntityEvent) {
-			EntityTargetLivingEntityEvent targetevent = (EntityTargetLivingEntityEvent) event;
-			if (targetevent.getTarget() instanceof Player) {
-				if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
-					event.setCancelled(true);
-				} else if (!(Archer.getByName(((Player) targetevent.getTarget()).getName()).isAlive)) {
-					event.setCancelled(true);
-				} else if (!(Archer.getByName(((Player) targetevent.getEntity()).getName()).isAlive)) {
-					event.setCancelled(true);
-				}
+	public void onMobDamaged(final EntityDamageByEntityEvent event) {
+		if (event.getDamager() instanceof Player) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
+				event.setCancelled(true);
+			} else if (!(Archer.getByName(((Player) event.getDamager()).getName()).isAlive)) {
+				event.setCancelled(true);
+			} else if (!(Archer.getByName(((Player) event.getEntity()).getName()).isAlive)) {
+				event.setCancelled(true);
 			}
 		}
 	}
