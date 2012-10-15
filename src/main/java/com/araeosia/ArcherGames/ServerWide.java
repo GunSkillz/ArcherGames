@@ -80,8 +80,8 @@ public class ServerWide {
 	}
 
 	public void tpToRandomLocation(Player player) {
-		int x = r.nextInt(64 + 1) - 32;
-		int z = r.nextInt(64 + 1) - 32;
+		int x = r.nextInt(32 + 1) - 16;
+		int z = r.nextInt(32 + 1) - 16;
 		
 		x = player.getWorld().getSpawnLocation().getBlockX() + x;
 		z = player.getWorld().getSpawnLocation().getBlockZ() + z;
