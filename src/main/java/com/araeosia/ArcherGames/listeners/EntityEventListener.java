@@ -49,6 +49,7 @@ public class EntityEventListener implements Listener {
 
 	@EventHandler
 	public void onMobTarget(final EntityTargetEvent event) {
+		plugin.log.info("Target event by "+event.getEntity().getType().getName());
 		if (event instanceof EntityTargetLivingEntityEvent) {
 			EntityTargetLivingEntityEvent targetevent = (EntityTargetLivingEntityEvent) event;
 			if (targetevent.getTarget() instanceof Player) {
