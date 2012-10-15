@@ -117,6 +117,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if(cmd.getName().equalsIgnoreCase("time")){
 			sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") +", "+((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
+			return true;
 		} else if(cmd.getName().equalsIgnoreCase("timer")){
 			if(args.length != 0){
 				if(sender.hasPermission("ArcherGames.admin")){
@@ -124,8 +125,10 @@ public class CommandHandler implements CommandExecutor, Listener {
 						plugin.scheduler.preGameCountdown = Integer.parseInt(args[0]);
 						plugin.scheduler.currentLoop = 0;
 						sender.sendMessage(ChatColor.GREEN + "Time left set to " + args[0] + " seconds left.");
+						return true;
 					}catch (Exception e){
 						sender.sendMessage(ChatColor.RED + "Time could not be set.");
+						return true;
 					}
 				}
 			}
