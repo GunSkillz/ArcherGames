@@ -154,7 +154,9 @@ public class ScheduledTasks {
 		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
 
 			public void run() {
-				player.sendMessage(plugin.strings.get("kitnag"));
+				if(ScheduledTasks.gameStatus == 1){
+					player.sendMessage(plugin.strings.get("kitnag"));
+				}
 			}
 		}, new Long(nagTime * 20), new Long(nagTime * 20));
 	}
