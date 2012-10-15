@@ -194,7 +194,7 @@ public class Config {
 				for (String str : s.split(",")) {
 					try {
 						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
-						if (!(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
+						if (str.split(":").length>2 && !(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
 							for(int i = 0; i < str.split(":")[2].split("~").length; i++){
 								itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2].split("~")[i])), Integer.parseInt(str.split(":")[3].split("~")[i]));
 							}
