@@ -64,7 +64,7 @@ public class BlockEventListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	/*@EventHandler
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		if (event.hasBlock()) {
 			if (plugin.debug) {
@@ -139,5 +139,5 @@ public class BlockEventListener implements Listener {
 				}
 			}
 		}
-	}
+	}*/
 }

@@ -37,7 +37,7 @@ public class ArcherGames extends JavaPlugin {
 	public Connection conn;
 	public Database db;
 	public IRCBot IRCBot;
-	public Economy econ;
+	//public Economy econ;
 	public double arrowExplosionFactor;
 	public Random random;
 	public Archer winner;
@@ -47,7 +47,7 @@ public class ArcherGames extends JavaPlugin {
 	 */
 	@Override
 	public void onEnable() {
-		econ = new Economy(this);
+		//econ = new Economy(this);
 		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
