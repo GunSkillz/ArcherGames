@@ -53,10 +53,24 @@ public class CommandHandler implements CommandExecutor, Listener {
 				//plugin.getStats(args[0]);
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("who")){
-			for(Archer a : plugin.serverwide.livingPlayers){
-				a.getName();
+		} else if (cmd.getName().equalsIgnoreCase("who") || cmd.getName().equalsIgnoreCase("online") || cmd.getName().equalsIgnoreCase("players")){
+			String outputAlive = "";
+			int alive=0;
+			String outputSpec = "";
+			int spec=0;
+			for(Player p : plugin.getServer().getOnlinePlayers()){
+				if(Archer.getByName(p.getName()).isAlive()){
+					outputAlive += p.getDisplayName()+", ";
+					alive++;
+				}else{
+					spec++;
+					outputSpec += p.getDisplayName()+", ";
+				}
 			}
+			sender.sendMessage(ChatColor.GRAY + "" + alive + ChatColor.DARK_GRAY + " Archers are currently playing: ");
+			sender.sendMessage(outputAlive);
+			sender.sendMessage(ChatColor.GRAY + "" + spec + ChatColor.DARK_GRAY + " Spectators are currently watching: ");
+			sender.sendMessage(outputSpec);
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			if (args.length != 0) {
