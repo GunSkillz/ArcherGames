@@ -20,7 +20,7 @@ public class Archer {
 	public Archer(String playerName) {
 		this.name = playerName;
 		canTalk = false;
-		isAlive = true;
+		isAlive = false;
 		isReady = false;
 	}
 
@@ -31,6 +31,10 @@ public class Archer {
 	 */
 	public boolean canTalk() {
 		return isReady;
+	}
+	
+	public void setAlive(Boolean alive){
+		this.isAlive = alive;
 	}
 
 	/**
