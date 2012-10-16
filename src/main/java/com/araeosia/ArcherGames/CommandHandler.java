@@ -53,6 +53,11 @@ public class CommandHandler implements CommandExecutor, Listener {
 				//plugin.getStats(args[0]);
 				return true;
 			}
+		} else if (cmd.getName().equalsIgnoreCase("who")){
+			for(Archer a : plugin.serverwide.livingPlayers){
+				a.getName();
+			}
+			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			if (args.length != 0) {
 				Kit selectedKit = new Kit();
