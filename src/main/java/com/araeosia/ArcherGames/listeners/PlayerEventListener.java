@@ -42,7 +42,7 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		if (event.getPlayer().isOp()) {
+		if (event.getPlayer().isOp() || event.getPlayer().hasPermission("ArcherGames.color.admin")) {
 			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
 		} else if (event.getPlayer().hasPermission("ArcherGames.color.mod")) {
 			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
