@@ -110,7 +110,7 @@ public class ScheduledTasks {
 									plugin.log.info("Game has ended.");
 								}
 								// Game is finally over. We have a winner.
-								plugin.serverwide.handleGameEnd();
+								plugin.scheduler.endGame();
 							}
 							currentLoop++;
 							break;

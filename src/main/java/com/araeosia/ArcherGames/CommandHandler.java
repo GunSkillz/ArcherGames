@@ -148,7 +148,15 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return false;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("time")) {
-			sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
+			if(!(ScheduledTasks.gameStatus >= 2)){
+				sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
+			} else if(!(ScheduledTasks.gameStatus >= 3)){
+				sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("invincibilityend"), ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
+			} else if(!(ScheduledTasks.gameStatus >= 4)){
+				sender.sendMessage(ChatColor.GREEN +  ((plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop ) % 60 == 0 ? (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) / 60 + " minutes until overtime starts" : (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) / 60 +" minutes and " + (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) % 60 + " seconds until overtime starts."));
+			} else {
+				sender.sendMessage(ChatColor.RED + "Nothing to time!");
+			}
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("timer")) {
 			if (args.length != 0) {
