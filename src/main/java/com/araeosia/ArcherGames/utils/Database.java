@@ -53,13 +53,14 @@ public class Database {
 			plugin.conn.close();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	public void addPoints(String name, int points) throws SQLException {
 		plugin.dbConnect();
 
-		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES (?,?)");
+		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES ('?','?')");
 		s.setString(1, name);
 		s.setInt(2, points);
 		s.executeUpdate();
@@ -71,13 +72,14 @@ public class Database {
 
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES (?,?)");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES ('?','?')");
 			s.setString(1, name);
 			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -86,26 +88,28 @@ public class Database {
 
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES (?,?)");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES ('?','?')");
 			s.setString(1, name);
 			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
 	public void setMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO money (name,balance) VALUES (?,?)");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO money (name,balance) VALUES ('?','?')");
 			s.setString(1, name);
 			s.setDouble(2, d);
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -114,7 +118,7 @@ public class Database {
 		double money = 0;
 
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM money WHERE name=?");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM money WHERE name='?'");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
@@ -123,6 +127,7 @@ public class Database {
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return money;
@@ -131,12 +136,13 @@ public class Database {
 	public void addWin(String name) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO wins (name) VALUES (?)");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO wins (name) VALUES ('?')");
 			s.setString(1, name);
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -146,6 +152,7 @@ public class Database {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT * FROM money ORDER BY balance DESC LIMIT 10");
 			ResultSet set = s.executeQuery();
 		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return resultant;
 	}
