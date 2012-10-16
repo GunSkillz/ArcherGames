@@ -18,6 +18,7 @@ public class ServerWide {
 	public ArcherGames plugin;
 	public String winner;
 	public Random r = new Random();
+	public HashMap<Integer, String> playerPlaces = new HashMap<Integer, String>();
 
 	public ServerWide(ArcherGames plugin){
 		this.plugin = plugin;
