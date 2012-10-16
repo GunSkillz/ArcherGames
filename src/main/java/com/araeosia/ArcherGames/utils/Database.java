@@ -36,17 +36,17 @@ public class Database {
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS wins(id NOT NULL AUTO_INCREMENT, name varchar(20))");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS wins(id int NOT NULL AUTO_INCREMENT, name varchar(20))");
 			s.executeUpdate();
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS joins(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS joins(id int NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
 			s.executeUpdate();
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS quits(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS quits(id int NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
 			s.executeUpdate();
 			s.close();
 
