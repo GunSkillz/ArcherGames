@@ -117,7 +117,7 @@ public class Database {
 
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
-			s.setString(0, name);
+			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
 			money = set.getInt("balance");
