@@ -19,6 +19,10 @@ commands:
   track:
     description: Track player statistics.
     usage: /track <player>
+  who:
+    description: Track players that are in game.
+    usage: /who
+    aliases: [players, online]
   money:
     description: Checks wallet balance.
     usage: /money
