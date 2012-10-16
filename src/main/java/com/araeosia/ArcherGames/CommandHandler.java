@@ -39,10 +39,10 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("money")) {
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.GREEN + sender.getName() + "'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
+//				sender.sendMessage(ChatColor.GREEN + sender.getName() + "'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
 				return true;
 			} else {
-				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.econ.getBalance(args[0])); //Or something
+//				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.econ.getBalance(args[0])); //Or something
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("stats")) {
@@ -134,8 +134,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 				if (args.length != 1) {
 					try {
 						if (Double.parseDouble(args[1]) > 0) {
-							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
-							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
+//							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
+//							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
 							sender.sendMessage(ChatColor.GREEN + "$" + args[0] + " paid to " + args[0]);
 						}
 					} catch (Exception e) {
