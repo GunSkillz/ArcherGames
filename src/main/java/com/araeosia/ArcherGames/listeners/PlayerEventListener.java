@@ -62,7 +62,7 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
 		event.getPlayer().sendMessage("§gIf you don't want to deal with this, hop on another server and see if it's also a beta version. Sorry about any inconvenience.");
-		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer());
+		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer().getName());
 		naggerTask.put(event.getPlayer().getName(), taskID);
 		event.getPlayer().getInventory().clear();
 		if (!event.getPlayer().getInventory().contains(Material.BOOK)) {

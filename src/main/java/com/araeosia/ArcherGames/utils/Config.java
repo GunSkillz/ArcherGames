@@ -76,6 +76,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.notenoughmoney", plugin.getConfig().get("ArcherGames.strings.notenoughmoney", "§4You do not have enough money to buy/enchant that."));
 		plugin.getConfig().set("ArcherGames.strings.nopvp", plugin.getConfig().get("ArcherGames.strings.nopvp", "§4You cannot attack other players at this time!"));
 		plugin.getConfig().set("ArcherGames.strings.alreadyselected", plugin.getConfig().get("ArcherGames.strings.alreadyselected", "§gYou have already selected the kit %s."));
+		plugin.getConfig().set("ArcherGames.strings.alreadystartedkits", plugin.getConfig().get("ArcherGames.strings.alreadystartedkits", "§4You cannot select a kit after the game has started!"));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
@@ -162,6 +163,7 @@ public class Config {
 		plugin.strings.put("nopvp", plugin.getConfig().getString("ArcherGames.strings.nopvp"));
 		plugin.strings.put("kitnoaccessible", plugin.getConfig().getString("ArcherGames.strings.kitnoaccessible"));
 		plugin.strings.put("alreadyselected", plugin.getConfig().getString("ArcherGames.strings.alreadyselected"));
+		plugin.strings.put("alreadystartedkits", plugin.getConfig().getString("ArcherGames.strings.alreadystartedkits"));
 		loadKits();
 	}
 

@@ -1,12 +1,11 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
-import com.wimbli.WorldBorder.BorderData;
 import com.wimbli.WorldBorder.Config;
 import org.bukkit.ChatColor;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class ScheduledTasks {
 
@@ -153,15 +152,18 @@ public class ScheduledTasks {
 			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 			plugin.serverwide.getPlayer(a).setAllowFlight(false);
 		}
+		for(int task : PlayerEventListener.naggerTask.values()){
+			plugin.getServer().getScheduler().cancelTask(task); // No point in nagging them when they can't do anything about it.
+		}
 	}
 
-	public int nagPlayerKit(final Player player) {
-		player.sendMessage(plugin.strings.get("kitnag"));
+	public int nagPlayerKit(final String playerName) {
+		plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
 		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
 
 			public void run() {
 				if(ScheduledTasks.gameStatus == 1){
-					player.sendMessage(plugin.strings.get("kitnag"));
+					plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
 				}
 			}
 		}, new Long(nagTime * 20), new Long(nagTime * 20));

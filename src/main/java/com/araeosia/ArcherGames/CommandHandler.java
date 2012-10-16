@@ -53,18 +53,18 @@ public class CommandHandler implements CommandExecutor, Listener {
 				//plugin.getStats(args[0]);
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("who") || cmd.getName().equalsIgnoreCase("online") || cmd.getName().equalsIgnoreCase("players")){
+		} else if (cmd.getName().equalsIgnoreCase("who") || cmd.getName().equalsIgnoreCase("online") || cmd.getName().equalsIgnoreCase("players")) {
 			String outputAlive = "";
-			int alive=0;
+			int alive = 0;
 			String outputSpec = "";
-			int spec=0;
-			for(Player p : plugin.getServer().getOnlinePlayers()){
-				if(Archer.getByName(p.getName()).isAlive()){
-					outputAlive += p.getDisplayName()+", ";
+			int spec = 0;
+			for (Player p : plugin.getServer().getOnlinePlayers()) {
+				if (Archer.getByName(p.getName()).isAlive()) {
+					outputAlive += p.getDisplayName() + ", ";
 					alive++;
-				}else{
+				} else {
 					spec++;
-					outputSpec += p.getDisplayName()+", ";
+					outputSpec += p.getDisplayName() + ", ";
 				}
 			}
 			sender.sendMessage(ChatColor.GRAY + "" + alive + ChatColor.DARK_GRAY + " Archers are currently playing: ");
@@ -74,27 +74,31 @@ public class CommandHandler implements CommandExecutor, Listener {
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			if (args.length != 0) {
-				Kit selectedKit = new Kit();
-				Boolean isOkay = false;
-				for (Kit kit : plugin.kits) {
-					if (args[0].equalsIgnoreCase(kit.getName())) {
-						isOkay = true;
-						selectedKit = kit;
-					}
-				}
-				if (isOkay) {
-					if(Archer.getByName(sender.getName()).isReady()){
-						sender.sendMessage(String.format(plugin.strings.get("alreadyselected"), Archer.getByName(sender.getName()).getKit().getName()));
-					}
-					if (sender.hasPermission(selectedKit.getPermission())) {
-						Archer.getByName(sender.getName()).selectKit(selectedKit);
-						plugin.serverwide.joinGame(sender.getName());
-						sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
-					} else {
-						sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
-					}
+				if (ScheduledTasks.gameStatus != 0) {
+					sender.sendMessage(plugin.strings.get("alreadystartedkits"));
 				} else {
-					sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
+					Kit selectedKit = new Kit();
+					Boolean isOkay = false;
+					for (Kit kit : plugin.kits) {
+						if (args[0].equalsIgnoreCase(kit.getName())) {
+							isOkay = true;
+							selectedKit = kit;
+						}
+					}
+					if (isOkay) {
+						if (Archer.getByName(sender.getName()).isReady()) {
+							sender.sendMessage(String.format(plugin.strings.get("alreadyselected"), Archer.getByName(sender.getName()).getKit().getName()));
+						}
+						if (sender.hasPermission(selectedKit.getPermission())) {
+							Archer.getByName(sender.getName()).selectKit(selectedKit);
+							plugin.serverwide.joinGame(sender.getName());
+							sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
+						} else {
+							sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
+						}
+					} else {
+						sender.sendMessage(ChatColor.RED + "That is not a valid kit.");
+					}
 				}
 			} else {
 				sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
@@ -148,12 +152,12 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return false;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("time")) {
-			if(!(ScheduledTasks.gameStatus >= 2)){
+			if (!(ScheduledTasks.gameStatus >= 2)) {
 				sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("starttimeleft"), ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
-			} else if(!(ScheduledTasks.gameStatus >= 3)){
+			} else if (!(ScheduledTasks.gameStatus >= 3)) {
 				sender.sendMessage(ChatColor.GREEN + ((String.format(plugin.strings.get("invincibilityend"), ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) / 60 + " minute" + (((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) / 60) == 1 ? "" : "s") + ", " + ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop) % 60) + " second" + ((plugin.scheduler.gameInvincibleCountdown - plugin.scheduler.currentLoop != 1) ? "s" : ""))))));
-			} else if(!(ScheduledTasks.gameStatus >= 4)){
-				sender.sendMessage(ChatColor.GREEN +  ((plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop ) % 60 == 0 ? (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) / 60 + " minutes until overtime starts" : (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) / 60 +" minutes and " + (plugin.scheduler.gameOvertimeCountdown-plugin.scheduler.currentLoop) % 60 + " seconds until overtime starts."));
+			} else if (!(ScheduledTasks.gameStatus >= 4)) {
+				sender.sendMessage(ChatColor.GREEN + ((plugin.scheduler.gameOvertimeCountdown - plugin.scheduler.currentLoop) % 60 == 0 ? (plugin.scheduler.gameOvertimeCountdown - plugin.scheduler.currentLoop) / 60 + " minutes until overtime starts" : (plugin.scheduler.gameOvertimeCountdown - plugin.scheduler.currentLoop) / 60 + " minutes and " + (plugin.scheduler.gameOvertimeCountdown - plugin.scheduler.currentLoop) % 60 + " seconds until overtime starts."));
 			} else {
 				sender.sendMessage(ChatColor.RED + "Nothing to time!");
 			}
