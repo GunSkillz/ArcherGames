@@ -4,12 +4,13 @@ import com.araeosia.ArcherGames.listeners.*;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.utils.Database;
-import com.araeosia.ArcherGames.utils.Economy;
 import com.araeosia.ArcherGames.utils.IRCBot;
 import com.araeosia.ArcherGames.utils.Kit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -38,18 +39,17 @@ public class ArcherGames extends JavaPlugin {
 	public Connection conn;
 	public Database db;
 	public IRCBot IRCBot;
-	//public Economy econ;
 	public double arrowExplosionFactor;
 	public Random random;
 	public Archer winner;
-	public static Economy econ = null;
+	public static Economy econ;
+	public boolean dbSuccess;
 
 	/**
 	 *
 	 */
 	@Override
 	public void onEnable() {
-		//econ = new Economy(this);
 		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
@@ -60,11 +60,8 @@ public class ArcherGames extends JavaPlugin {
 		db = new Database(this);
 		random = new Random();
 
-		if (!setupEconomy()) {
-			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
+		setupServer();
+
 		// Events
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
@@ -120,7 +117,7 @@ public class ArcherGames extends JavaPlugin {
 
 	public void dbConnect() {
 		try {
-			if (conn == null || conn.isValid(1) || conn.isClosed()) {
+			if (conn == null || !conn.isValid(1) || conn.isClosed()) {
 				java.util.Properties conProperties = new java.util.Properties();
 				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username"));
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));
@@ -135,9 +132,25 @@ public class ArcherGames extends JavaPlugin {
 				}
 				conn = DriverManager.getConnection(uri, conProperties);
 			}
+			dbSuccess = conn != null && conn.isValid(10);
 		} catch (SQLException ex) {
 			log.log(Level.SEVERE, "Unable to connect to database!");
+			dbSuccess =  false;
 		}
+	}
+
+	private boolean setupServer() {
+		if (!setupEconomy()) {
+			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return false;
+		}
+		if(!dbSuccess){
+			log.severe(String.format("[%s] - Disabled due to no valid database connection!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return false;
+		}
+		return true;
 	}
 
 	private boolean setupEconomy() {
