@@ -8,31 +8,37 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 public class ServerEventListener implements Listener {
+
 	public ArcherGames plugin;
-	
-	public ServerEventListener(ArcherGames plugin){
+
+	public ServerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
+
 	@EventHandler
-	public void onPing(final ServerListPingEvent event){
+	public void onPing(final ServerListPingEvent event) {
 		String motdOutput = new String();
-		switch(ScheduledTasks.gameStatus){
-			case 1:
-				String timeLeft = Time.getShortString(plugin.scheduler.preGameCountdown-plugin.scheduler.currentLoop);
-				motdOutput = String.format(plugin.strings.get("pingreply1"), timeLeft);
-				break;
-			case 2:
-				motdOutput = plugin.strings.get("pingreply2");
-				break;
-			case 3:
-				motdOutput = plugin.strings.get("pingreply3");
-				break;
-			case 4:
-				motdOutput = plugin.strings.get("pingreply4");
-				break;
-			case 5:
-				motdOutput = String.format(plugin.strings.get("pingreply5"), plugin.serverwide.winner);
-				break;
+		if (!plugin.configToggles.get("lockdownMode")) {
+			switch (ScheduledTasks.gameStatus) {
+				case 1:
+					String timeLeft = Time.getShortString(plugin.scheduler.preGameCountdown - plugin.scheduler.currentLoop);
+					motdOutput = String.format(plugin.strings.get("pingreply1"), timeLeft);
+					break;
+				case 2:
+					motdOutput = plugin.strings.get("pingreply2");
+					break;
+				case 3:
+					motdOutput = plugin.strings.get("pingreply3");
+					break;
+				case 4:
+					motdOutput = plugin.strings.get("pingreply4");
+					break;
+				case 5:
+					motdOutput = String.format(plugin.strings.get("pingreply5"), plugin.serverwide.winner);
+					break;
+			}
+		}else{
+			motdOutput = "Server is in maintenence mode.";
 		}
 		event.setMotd(motdOutput);
 	}
