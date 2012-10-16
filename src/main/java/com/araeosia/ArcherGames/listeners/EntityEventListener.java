@@ -6,6 +6,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -66,7 +67,7 @@ public class EntityEventListener implements Listener {
 					event.setCancelled(true);
 				} else if (!(Archer.getByName(((Player) damageevent.getDamager()).getName()).isAlive)) {
 					event.setCancelled(true);
-				} else if (!(Archer.getByName(((Player) damageevent.getEntity()).getName()).isAlive)) {
+				} else if (damageevent.getEntity() instanceof Player && !(Archer.getByName(((Player) damageevent.getEntity()).getName()).isAlive)) {
 					event.setCancelled(true);
 				}
 			}
@@ -78,6 +79,15 @@ public class EntityEventListener implements Listener {
 		if (event.getEntity() instanceof Block) {
 			if (((Block) event.getEntity()).getType() == Material.CHEST) {
 				event.setCancelled(true);
+			}
+		}
+	}
+
+	@EventHandler
+	public void onItemDropSpawn(final ItemSpawnEvent event) {
+		if (event.getEntity() instanceof Item) {
+			if(ScheduledTasks.gameStatus==1){
+				event.getEntity().remove();
 			}
 		}
 	}
