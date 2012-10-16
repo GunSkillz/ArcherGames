@@ -42,7 +42,7 @@ public class IRCBot extends ListenerAdapter implements Listener {
 		String[] data = message.split("§");
 		plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("playervoted"), data[0]));
 		if (plugin.getServer().getPlayer(data[0]) != null) {
-			plugin.econ.givePlayer(plugin.getServer().getPlayer(data[0]).getName(), 3000);
+//			plugin.econ.givePlayer(plugin.getServer().getPlayer(data[0]).getName(), 3000);
 		}
 	}
 }

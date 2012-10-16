@@ -10,7 +10,7 @@ public class Economy {
 	public Economy(ArcherGames plugin){
 		this.plugin = plugin;
 	}
-	
+/*	
 	public void givePlayer(String name, double give){
 		plugin.db.setMoney(name, getBalance(name) + give);
 	}
@@ -33,4 +33,5 @@ public class Economy {
 	public HashMap<String, Integer> getTopPlayers(){
 		return plugin.db.getTopPlayers();
 	}
+	*/
 }
