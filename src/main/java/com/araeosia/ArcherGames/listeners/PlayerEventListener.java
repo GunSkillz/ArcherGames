@@ -38,7 +38,7 @@ public class PlayerEventListener implements Listener {
 	 */
 	@EventHandler
 	public void onLoginEvent(final PlayerLoginEvent event) {
-		if (plugin.configToggles.get("lockdownMode") && event.getPlayer().hasPermission("archergames.overrides.lockdown")) {
+		if (plugin.configToggles.get("lockdownMode") && !event.getPlayer().hasPermission("archergames.overrides.lockdown")) {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
