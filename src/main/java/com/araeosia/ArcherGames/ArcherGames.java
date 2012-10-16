@@ -6,6 +6,7 @@ import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.utils.Database;
 import com.araeosia.ArcherGames.utils.Economy;
 import com.araeosia.ArcherGames.utils.IRCBot;
+import com.araeosia.ArcherGames.utils.Kit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,9 +19,7 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.inventory.ItemStack;
 
 public class ArcherGames extends JavaPlugin {
 
@@ -30,7 +29,7 @@ public class ArcherGames extends JavaPlugin {
 	public Logger log;
 	public List<String> voteSites;
 	public Location startPosition;
-	public HashMap<String, ArrayList<ItemStack>> kits = new HashMap<String, ArrayList<ItemStack>>();
+	public ArrayList<Kit> kits = new ArrayList<Kit>();
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
 	public ServerWide serverwide;
@@ -67,7 +66,7 @@ public class ArcherGames extends JavaPlugin {
 		// Commands
 		this.getServer().getPluginManager().registerEvents(new CommandHandler(this), this);
 		this.getCommand("kit").setExecutor(new CommandHandler(this));
-		this.getCommand("listkits").setExecutor(new CommandHandler(this));
+		this.getCommand("kits").setExecutor(new CommandHandler(this));
 		this.getCommand("vote").setExecutor(new CommandHandler(this));
 		this.getCommand("money").setExecutor(new CommandHandler(this));
 		this.getCommand("stats").setExecutor(new CommandHandler(this));
@@ -89,6 +88,11 @@ public class ArcherGames extends JavaPlugin {
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
+		if(debug){
+			for(Kit kit : kits){
+				log.info(kit.toString());
+			}
+		}
 	}
 
 	/**

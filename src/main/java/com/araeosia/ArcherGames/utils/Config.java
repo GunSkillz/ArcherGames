@@ -2,14 +2,13 @@ package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import java.util.ArrayList;
-import java.util.logging.Level;
-
-import org.bukkit.Material;
+import java.util.HashMap;
+import java.util.List;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 public class Config {
-
+	
 	private ArcherGames plugin;
 
 	/**
@@ -48,7 +47,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.game.overtimeWorldRadius", plugin.getConfig().get("ArcherGames.game.overtimeWorldRadius", 50));
 		plugin.getConfig().set("ArcherGames.game.arrowExplosionFactor", plugin.getConfig().get("ArcherGames.game.arrowExplosionFactor", 2));
 		// Kits
-		plugin.getConfig().set("ArcherGames.kits.Donor.Infinity", plugin.getConfig().get("ArcherGames.kits.Donor.Infinity", "261:0:51:1:1,262:0:-1:0:1,314:0:3:1:1,315:0:3:1:1,316:0:3:1:1,317:0:3:1:1"));
+		/*plugin.getConfig().set("ArcherGames.kits.Donor.Infinity", plugin.getConfig().get("ArcherGames.kits.Donor.Infinity", "261:0:51:1:1,262:0:-1:0:1,314:0:3:1:1,315:0:3:1:1,316:0:3:1:1,317:0:3:1:1"));
 		plugin.getConfig().set("ArcherGames.kits.Donor.Lucky", plugin.getConfig().get("ArcherGames.kits.Donor.Lucky", "261:0:-1:0:1,262:0:-1:0:32,384:0:-1:0:5,116:0:-1:0:1,298:0:3:1:1,299:0:3:1:1,300:0:3:1:1,301:0:3:1:1"));
 		plugin.getConfig().set("ArcherGames.kits.Donor.Feeder", plugin.getConfig().get("ArcherGames.kits.Donor.Feeder", "261:0:-1:0:1,262:0:-1:0:32,322:0:-1:0:2,298:0:4:1:1,299:0:4:1:1,300:0:4:1:1,301:0:4:1:1"));
 		plugin.getConfig().set("ArcherGames.kits.Donor.Juggernaut", plugin.getConfig().get("ArcherGames.kits.Donor.Juggernaut", "261:0:-1:0:1,262:0:-1:0:32,306:0:3:1:1,307:0:3:1:1,308:0:3:1:1,309:0:3:1:1"));
@@ -64,7 +63,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.kits.Elite.Prophet", plugin.getConfig().get("ArcherGames.kits.Elite.Prophet", "261:0:48:5:1,262:0:-1:0:128,276:0:16~17~18~19~20~21:5~5~5~5~5~5:1")); // Explosive Ability?
 		plugin.getConfig().set("ArcherGames.kits.Overpowered.God", plugin.getConfig().get("ArcherGames.kits.Overpowered.God", "261:0:48:5:1,262:0:-1:0:128,276:0:16~17~18~19~20~21:5~5~5~5~5~5:1,261:0:48~49~50~51:5~5~5~5:1,262:0:-1:0:1,278:0:32:5:1,368:0:-1:0:3,373:8226:-1:0:2,373:8233:-1:0:2,322:1:-1:0:2,319:0:-1:0:10,310:0:0~1~3~4~5~6:5~5~5~5~5~5:1,311:0:0~1~3~4:5~5~5~5:1,312:0:0~1~3~4:5~5~5~5:1,313:0:0~1~2~3~4~6:5~5~5~5~5~5:1")); // Explosive Ability?
 		plugin.getConfig().set("ArcherGames.kits.OverPowered.Ridiculous", plugin.getConfig().get("ArcherGames.kits.OverPowered.Ridiculous", "261:0:48:5:1,276:0:16:5:1,278:0:32:5:1,277:0:32:5:1,279:0:32:5:1,368:0:-1:0:3,262:0:-1:0:256,322:1:-1:0:1,319:0:-1:0:5,310:0:0~1~3~4~5~6:3~3~3~3~3~3:1,311:0:0~1~3~4:3~3~3~3:1,312:0:0~1~3~4:3~3~3~3:1,313:0:0~1~2~3~4~6:3~3~3~3~3~3:1")); // Explosive Ability?
-		// Kits
+		*/// Kits
 //		plugin.getConfig().set("ArcherGames.kits.ExampleKitName1", plugin.getConfig().get("ArcherGames.kits.ExampleKitName1", "itemid:damage:enchantid:enchantlvl:amt"););
 		plugin.getConfig().set("ArcherGames.strings.startnotenoughplayers", plugin.getConfig().get("ArcherGames.strings.startnotenoughplayers", "[ArcherGames] Attempted to start, but there were not enough players."));
 		plugin.getConfig().set("ArcherGames.strings.starting", plugin.getConfig().get("ArcherGames.strings.starting", "[ArcherGames] The Archer Games have started! You have 1 minute of invincibility to get away from enemies."));
@@ -75,7 +74,8 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.joinedgame", plugin.getConfig().get("ArcherGames.strings.joinedgame", "[ArcherGames] Welcome %s to %s, make sure to read your book for information!"));
 		plugin.getConfig().set("ArcherGames.strings.servername", plugin.getConfig().get("ArcherGames.strings.servername", "ArcherGamesServer"));
 		plugin.getConfig().set("ArcherGames.strings.starttimeleft", plugin.getConfig().get("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!"));
-		plugin.getConfig().set("ArcherGames.strings.kitinfo", plugin.getConfig().get("ArcherGames.strings.kitinfo", "§gHere are the avalible kits: "));
+		plugin.getConfig().set("ArcherGames.strings.kitinfo", plugin.getConfig().get("ArcherGames.strings.kitinfo", "§gHere are the kits you have access to: "));
+		plugin.getConfig().set("ArcherGames.strings.kitnoaccessible", plugin.getConfig().get("ArcherGames.strings.kitnoaccessible", "§cHere are the kits that are available on our website: "));
 		plugin.getConfig().set("ArcherGames.strings.kitgiven", plugin.getConfig().get("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s."));
 		plugin.getConfig().set("ArcherGames.strings.nochat", plugin.getConfig().get("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat."));
 		plugin.getConfig().set("ArcherGames.strings.respawn", plugin.getConfig().get("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing)."));
@@ -94,6 +94,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.enchantmentconflict", plugin.getConfig().get("ArcherGames.strings.enchantmentconflict", "§4This enchantment conflicts with a current enchantment."));
 		plugin.getConfig().set("ArcherGames.strings.notenoughmoney", plugin.getConfig().get("ArcherGames.strings.notenoughmoney", "§4You do not have enough money to buy/enchant that."));
 		plugin.getConfig().set("ArcherGames.strings.nopvp", plugin.getConfig().get("ArcherGames.strings.nopvp", "§4You cannot attack other players at this time!"));
+		plugin.getConfig().set("ArcherGames.strings.alreadyselected", plugin.getConfig().get("ArcherGames.strings.alreadyselected", "§gYou have already selected the kit %s."));
 		plugin.getConfig().set("ArcherGames.irc.botname", plugin.getConfig().get("ArcherGames.irc.botname", "AG-SERVER1"));
 		plugin.getConfig().set("ArcherGames.irc.host", plugin.getConfig().get("ArcherGames.irc.host", "irc.esper.net"));
 		plugin.getConfig().set("ArcherGames.irc.password", plugin.getConfig().get("ArcherGames.irc.password", "asdfasdf"));
@@ -111,7 +112,7 @@ public class Config {
 		strs[6] = "For more info, visit http://www.eyeofender.com/";
 		strs[6] = "§1§nKits: In ArcherGames, you have free kits and premium kits. Premium kits are be bought off: http://www.eyeofender.com/";
 		strs[7] = "The popular premium kits are: God\nRidiculous\nElite-Diamond\nElite-Tank\nDonor-infinity\nVIP-Sharpshooter\nThe popular free kits are:\nFire\nExplode";
-		strs[8]	= "To put these kits on, type /kit <kitname>. If you didn’t purchase the kit then you can’t put it on and play with it!";
+		strs[8] = "To put these kits on, type /kit <kitname>. If you didn’t purchase the kit then you can’t put it on and play with it!";
 		strs[9] = "§1§nVoting: For voting for ArcherGames, you will receive money which then you will be able to spend on armour, food and enchantments!";
 		strs[10] = "Voting links:\n§0\n§4http://ow.ly/cpQI0\n§6http://ow.ly/cmwer\n§9http://ow.ly/cmnPu\n§0http://ow.ly/cmDIF\n§3http://ow.ly/cmP18\n§5http://ow.ly/cmETB\n§8http://ow.ly/dVcsF\n§9http://ow.ly/eggLe";
 		plugin.getConfig().set("ArcherGames.startbook.pages", plugin.getConfig().get("ArcherGames.startbook.pages", strs));
@@ -178,6 +179,8 @@ public class Config {
 		plugin.strings.put("enchantmentconflict", plugin.getConfig().getString("ArcherGames.strings.enchantmentconflict"));
 		plugin.strings.put("notenoughmoney", plugin.getConfig().getString("ArcherGames.strings.notenoughmoney"));
 		plugin.strings.put("nopvp", plugin.getConfig().getString("ArcherGames.strings.nopvp"));
+		plugin.strings.put("kitnoaccessible", plugin.getConfig().getString("ArcherGames.strings.kitnoaccessible"));
+		plugin.strings.put("alreadyselected", plugin.getConfig().getString("ArcherGames.strings.alreadyselected"));
 		loadKits();
 	}
 
@@ -186,26 +189,37 @@ public class Config {
 	 *
 	 */
 	public void loadKits() {
-		ArrayList<ItemStack> temp;
-		for (String key : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
-			temp = new ArrayList<ItemStack>();
-			for(String key2 : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + key).getKeys(false)){
-				String s = plugin.getConfig().getString("ArcherGames.kits."+key+"."+key2);
-				for (String str : s.split(",")) {
-					try {
-						ItemStack itemStack = new ItemStack(Material.getMaterial(Integer.parseInt(str.split(":")[0])), Integer.parseInt(str.split(":")[1]));
-						if (str.split(":").length>2 && !(Integer.parseInt(str.split(":")[2].split("~")[0]) < 0)) {
-							for(int i = 0; i < str.split(":")[2].split("~").length; i++){
-								itemStack.addEnchantment(Enchantment.getById(Integer.parseInt(str.split(":")[2].split("~")[i])), Integer.parseInt(str.split(":")[3].split("~")[i]));
-							}
-						}
-						temp.add(itemStack);
-					} catch (NumberFormatException e) {
-						plugin.log.log(Level.SEVERE, "Warning: ArcherGames Kit " + key+" "+key2 + " is not configured correctly!");
+		ArrayList<Kit> output = new ArrayList<Kit>();
+		for (String kitNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)){
+			Kit addon = new Kit();
+			addon.setName(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Name"));
+			addon.setDescription(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Description"));
+			addon.setPermission(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Permission"));
+			addon.setAbility(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Ability"));
+			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
+			for(String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor").getKeys(true)){
+				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".damage"));
+				if(plugin.getConfig().isConfigurationSection("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
+					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments").getKeys(false)){
+						itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments."+enchantmentNumber+".level"));
 					}
 				}
-				plugin.kits.put("ArcherGames.kits."+key+"."+key2, temp);
+				armorToAdd.put(type, itemStackToAdd);
 			}
+			addon.setArmor(armorToAdd);
+			ArrayList<ItemStack> itemsToAdd = new ArrayList<ItemStack>();
+			for(String itemNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Items").getKeys(false)){
+				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".id"), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".quantity"), (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".damage"));
+				if(plugin.getConfig().isSet("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments")){
+					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments").getKeys(false)){
+						itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".name")), plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Items."+itemNumber+".enchantments."+enchantmentNumber+".level"));
+					}
+				}
+				itemsToAdd.add(itemStackToAdd);
+			}
+			addon.setItems(itemsToAdd);
+			output.add(addon);
 		}
+		plugin.kits = output;
 	}
 }

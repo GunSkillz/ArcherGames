@@ -48,7 +48,7 @@ public class ScheduledTasks {
 									plugin.log.info("Attempting to start...");
 								}
 								// Time to start.
-								if (plugin.serverwide.livingPlayers.size() < minPlayersToStart) { // There aren't enough players.
+								if (plugin.serverwide.livingPlayers.size() <= minPlayersToStart) { // There aren't enough players.
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
@@ -146,9 +146,7 @@ public class ScheduledTasks {
 		gameStatus = 2;
 		for (Archer a : plugin.serverwide.livingPlayers) {
 			plugin.serverwide.getPlayer(a).getInventory().clear();
-			for (ItemStack is : plugin.kits.get("ArcherGames.kits."+a.getKitName())) {
-				plugin.serverwide.getPlayer(a).getInventory().addItem(is);
-			}
+			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName()));
 			plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
 			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 			plugin.serverwide.getPlayer(a).setAllowFlight(false);

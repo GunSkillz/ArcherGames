@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -83,7 +85,7 @@ public class PlayerEventListener implements Listener {
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		// If the player is allowed to talk, pass their message on, Else cancel the event
 		Archer archer = Archer.getByName(event.getPlayer().getName());
-		if (!archer.canTalk && !event.getPlayer().hasPermission("archergames.overrides.chat")) {
+		if (!archer.canTalk() && !event.getPlayer().hasPermission("archergames.overrides.chat")) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("nochat"));
 		}
@@ -115,6 +117,11 @@ public class PlayerEventListener implements Listener {
 						event.setCancelled(true);
 						attacker.sendMessage(plugin.strings.get("nopvp"));
 					}
+				}else{
+					if((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus == 5){
+						event.getDamager().remove();
+					}
+					event.setCancelled(true);
 				}
 			}
 		}
@@ -128,21 +135,21 @@ public class PlayerEventListener implements Listener {
 	public void onDeathEvent(final PlayerDeathEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if (!(ScheduledTasks.gameStatus == 1) || !(ScheduledTasks.gameStatus == 2) || !(ScheduledTasks.gameStatus == 5) || (plugin.serverwide.getArcher(player).isAlive())) {
-				if (plugin.serverwide.livingPlayers.size() == 3) {
+			if (!(ScheduledTasks.gameStatus == 1) && !(ScheduledTasks.gameStatus == 2) && !(ScheduledTasks.gameStatus == 5)) {
+				/*if (plugin.serverwide.livingPlayers.size() == 3) {
 					plugin.econ.givePlayer(event.getEntity().getName(), 5000);
 				} else if (plugin.serverwide.livingPlayers.size() == 2) {
 					plugin.econ.givePlayer(event.getEntity().getName(), 10000);
-				}
+				}*/
 				plugin.serverwide.killPlayer(event.getEntity().getName());
-
+/*
 				if (plugin.serverwide.livingPlayers.size() == 1) {
 					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
 						plugin.econ.givePlayer(a.getName(), 15000);
 						plugin.db.addWin(player.getName());
 						plugin.winner = a;
 					}
-				}
+				}*/
 
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);

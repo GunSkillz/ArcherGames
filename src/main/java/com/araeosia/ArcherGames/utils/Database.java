@@ -1,65 +1,64 @@
 package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
+import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.bukkit.entity.Player;
+import java.util.HashMap;
 
 /**
- * 
+ *
  * @author Bruce, Daniel
  */
 public class Database {
-	
+
 	public ArcherGames plugin;
-	
-	public Database(ArcherGames plugin){
+
+	public Database(ArcherGames plugin) {
 		this.plugin = plugin;
-		
+
 		//Init tables
-		
+
 		plugin.dbConnect();
 		try {
-			
+
 			PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS points(name varchar(20), points integer)");
 			s.executeUpdate();
 			s.close();
-			
-					
+
+
 			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS money(name varchar(20), points integer)");
 			s.executeUpdate();
 			s.close();
-			
-			
+
+
 			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS wins(id NOT NULL AUTO_INCREMENT, name varchar(20))");
 			s.executeUpdate();
 			s.close();
-			
-			
+
+
 			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS joins(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
 			s.executeUpdate();
 			s.close();
-			
-			
+
+
 			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS quits(id NOT NULL AUTO_INCREMENT, name varchar(20), date varchar(20))");
 			s.executeUpdate();
 			s.close();
-			
+
 			plugin.conn.close();
-			
-		} catch(Exception e) {
-			
+
+		} catch (Exception e) {
 		}
 	}
-	
-	public void addPoints(String name, int points) throws SQLException{
+
+	public void addPoints(String name, int points) throws SQLException {
 		plugin.dbConnect();
-		
+
 		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO points (name,points) VALUES (?,?)");
 		s.setString(1, name);
 		s.setInt(2, points);
@@ -69,8 +68,8 @@ public class Database {
 	}
 
 	public void recordJoin(String name) {
-		
-		try{
+
+		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES (?,?)");
 			s.setString(1, name);
@@ -78,15 +77,14 @@ public class Database {
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
-		} catch (SQLException e){
-			
+		} catch (SQLException e) {
 		}
-		
+
 	}
 
 	public void recordQuit(String name) {
-		
-		try{
+
+		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES (?,?)");
 			s.setString(1, name);
@@ -94,8 +92,7 @@ public class Database {
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
-		} catch (SQLException e){
-			
+		} catch (SQLException e) {
 		}
 	}
 
@@ -107,29 +104,27 @@ public class Database {
 			s.setDouble(2, d);
 			s.executeUpdate();
 			s.close();
-		plugin.conn.close();
-		} catch (SQLException e){
-			
+			plugin.conn.close();
+		} catch (SQLException e) {
 		}
 	}
-	
-	public double getMoney(String name){
+
+	public double getMoney(String name) {
 		plugin.dbConnect();
 		double money = 0;
-		
+
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM money WHERE name=?");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
-		
+
 			money = set.getDouble(1);
-		
+
 			s.close();
 			plugin.conn.close();
-			} catch (SQLException e){
-			
-			}
-		
+		} catch (SQLException e) {
+		}
+
 		return money;
 	}
 
@@ -140,9 +135,18 @@ public class Database {
 			s.setString(1, name);
 			s.executeUpdate();
 			s.close();
-		plugin.conn.close();
-		} catch (SQLException e){
-			
+			plugin.conn.close();
+		} catch (SQLException e) {
 		}
+	}
+
+	public HashMap<String, Integer> getTopPlayers() {
+		HashMap<String, Integer> resultant = new HashMap<String, Integer>();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT * FROM money ORDER BY balance DESC LIMIT 10");
+			ResultSet set = s.executeQuery();
+		} catch (SQLException e) {
+		}
+		return resultant;
 	}
 }
