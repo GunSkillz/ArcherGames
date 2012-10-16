@@ -74,6 +74,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 					if (sender.hasPermission(selectedKit.getPermission())) {
 						Archer.getByName(sender.getName()).selectKit(selectedKit);
+						plugin.serverwide.livingPlayers.add(Archer.getByName(sender.getName()));
 						sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
 					} else {
 						sender.sendMessage(ChatColor.RED + "You do not have permission to use this kit.");
