@@ -145,7 +145,6 @@ public class PlayerEventListener implements Listener {
 				}
 				 */
 				plugin.serverwide.killPlayer(event.getEntity().getName());
-<<<<<<< HEAD
 /*
 				if (plugin.serverwide.livingPlayers.size() == 1) {
 					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
@@ -154,7 +153,6 @@ public class PlayerEventListener implements Listener {
 						plugin.winner = a;
 					}
 				}*/
-=======
 				/*
 				 * if (plugin.serverwide.livingPlayers.size() == 1) { for
 				 * (Archer a : plugin.serverwide.livingPlayers) { // should only
@@ -162,7 +160,6 @@ public class PlayerEventListener implements Listener {
 				 * 15000); plugin.db.addWin(player.getName()); }
 				}
 				 */
->>>>>>> 46f0e080ddf449fcfc06195d8cd4c2602aa94402
 
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
