@@ -64,6 +64,9 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 				}
 				if (isOkay) {
+					if(Archer.getByName(sender.getName()).isReady()){
+						sender.sendMessage(String.format(plugin.strings.get("alreadyselected"), Archer.getByName(sender.getName()).getKit().getName()));
+					}
 					if (sender.hasPermission(selectedKit.getPermission())) {
 						Archer.getByName(sender.getName()).selectKit(selectedKit);
 						sender.sendMessage(String.format(plugin.strings.get("kitgiven"), selectedKit.getName()));
