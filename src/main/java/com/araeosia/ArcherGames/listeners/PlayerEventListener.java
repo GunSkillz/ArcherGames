@@ -56,7 +56,7 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onJoinEvent(final PlayerJoinEvent event) {
 		event.getPlayer().setAllowFlight(true);
-		if(ScheduledTasks.gameStatus >= 2){
+		if (ScheduledTasks.gameStatus >= 2) {
 			//Vanish?
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
@@ -139,24 +139,22 @@ public class PlayerEventListener implements Listener {
 				 * if (plugin.serverwide.livingPlayers.size() == 3) {
 				 * plugin.econ.givePlayer(event.getEntity().getName(), 5000); }
 				 * else if (plugin.serverwide.livingPlayers.size() == 2) {
-				 * plugin.econ.givePlayer(event.getEntity().getName(), 10000);
-				}
+				 * plugin.econ.givePlayer(event.getEntity().getName(), 10000); }
 				 */
 				plugin.serverwide.leaveGame(event.getEntity().getName());
-/*
-				if (plugin.serverwide.livingPlayers.size() == 1) {
-					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
-						plugin.econ.givePlayer(a.getName(), 15000);
-						plugin.db.addWin(player.getName());
-						plugin.winner = a;
-					}
-				}*/
 				/*
 				 * if (plugin.serverwide.livingPlayers.size() == 1) { for
 				 * (Archer a : plugin.serverwide.livingPlayers) { // should only
 				 * be one player, the winner plugin.econ.givePlayer(a.getName(),
-				 * 15000); plugin.db.addWin(player.getName()); }
+				 * 15000); plugin.db.addWin(player.getName()); plugin.winner =
+				 * a; }
 				}
+				 */
+				/*
+				 * if (plugin.serverwide.livingPlayers.size() == 1) { for
+				 * (Archer a : plugin.serverwide.livingPlayers) { // should only
+				 * be one player, the winner plugin.econ.givePlayer(a.getName(),
+				 * 15000); plugin.db.addWin(player.getName()); } }
 				 */
 
 				if (event.getEntity().getKiller() instanceof Player) {
@@ -170,15 +168,18 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onQuitEvent(final PlayerQuitEvent event) {
 		if (Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
-			plugin.serverwide.leaveGame(event.getPlayer().getName());
-			for (ItemStack is : event.getPlayer().getInventory().getContents()) {
-				if (is != null) {
-					event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), is);
+			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 2 && ScheduledTasks.gameStatus != 5) {
+				plugin.serverwide.leaveGame(event.getPlayer().getName());
+				for (ItemStack is : event.getPlayer().getInventory().getContents()) {
+					if (is != null) {
+						event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), is);
+					}
 				}
+				event.getPlayer().getInventory().clear();
 			}
-			event.getPlayer().getInventory().clear();
 		}
 		plugin.db.recordQuit(event.getPlayer().getName());
+		event.setQuitMessage("");
 	}
 
 	@EventHandler
