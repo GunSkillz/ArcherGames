@@ -42,12 +42,12 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		if(event.getPlayer().isOp()){
+		if (event.getPlayer().isOp()) {
 			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
-		} else if(event.getPlayer().hasPermission("ArcherGames.color.mod")){
+		} else if (event.getPlayer().hasPermission("ArcherGames.color.mod")) {
 			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
-		} else if(event.getPlayer().hasPermission("ArcherGames.color.god")){
-			event.getPlayer().setDisplayName(ChatColor.GOLD +""+ ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
+		} else if (event.getPlayer().hasPermission("ArcherGames.color.god")) {
+			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
@@ -103,19 +103,20 @@ public class PlayerEventListener implements Listener {
 			}
 		}
 	}
+
 	@EventHandler
-	public void onDamageByEntity(final EntityDamageByEntityEvent event){
-		if(event.getEntity() instanceof Player){
+	public void onDamageByEntity(final EntityDamageByEntityEvent event) {
+		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())){
-				if(event.getDamager() instanceof Player){ // PVP
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
+				if (event.getDamager() instanceof Player) { // PVP
 					Player attacker = (Player) event.getDamager();
-					if(!plugin.serverwide.getArcher(attacker).isAlive()){
+					if (!plugin.serverwide.getArcher(attacker).isAlive()) {
 						event.setCancelled(true);
 						attacker.sendMessage(plugin.strings.get("nopvp"));
 					}
-				}else{
-					if((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus==1 || ScheduledTasks.gameStatus == 5){
+				} else {
+					if ((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 						event.getDamager().remove();
 					}
 					event.setCancelled(true);
@@ -133,19 +134,21 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (!(ScheduledTasks.gameStatus == 1) && !(ScheduledTasks.gameStatus == 2) && !(ScheduledTasks.gameStatus == 5)) {
-				/*if (plugin.serverwide.livingPlayers.size() == 3) {
-					plugin.econ.givePlayer(event.getEntity().getName(), 5000);
-				} else if (plugin.serverwide.livingPlayers.size() == 2) {
-					plugin.econ.givePlayer(event.getEntity().getName(), 10000);
-				}*/
+				/*
+				 * if (plugin.serverwide.livingPlayers.size() == 3) {
+				 * plugin.econ.givePlayer(event.getEntity().getName(), 5000); }
+				 * else if (plugin.serverwide.livingPlayers.size() == 2) {
+				 * plugin.econ.givePlayer(event.getEntity().getName(), 10000);
+				}
+				 */
 				plugin.serverwide.killPlayer(event.getEntity().getName());
-/*
-				if (plugin.serverwide.livingPlayers.size() == 1) {
-					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
-						plugin.econ.givePlayer(a.getName(), 15000);
-						plugin.db.addWin(player.getName());
-					}
-				}*/
+				/*
+				 * if (plugin.serverwide.livingPlayers.size() == 1) { for
+				 * (Archer a : plugin.serverwide.livingPlayers) { // should only
+				 * be one player, the winner plugin.econ.givePlayer(a.getName(),
+				 * 15000); plugin.db.addWin(player.getName()); }
+				}
+				 */
 
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
@@ -157,10 +160,12 @@ public class PlayerEventListener implements Listener {
 
 	@EventHandler
 	public void onQuitEvent(final PlayerQuitEvent event) {
-		if (!Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
+		if (Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
 			plugin.serverwide.killPlayer(event.getPlayer().getName());
 			for (ItemStack is : event.getPlayer().getInventory().getContents()) {
-				event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), is);
+				if (is != null) {
+					event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), is);
+				}
 			}
 			event.getPlayer().getInventory().clear();
 		}
