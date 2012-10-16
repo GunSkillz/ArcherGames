@@ -82,7 +82,7 @@ public class ScheduledTasks {
 							}
 							if((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 && !(((currentLoop - gameOvertimeCountdown) / 60) == 0)))))){
 								if(!((currentLoop - gameOvertimeCountdown) == 0)){
-									plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
+									//plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
 								}
 							}
 							if (currentLoop >= gameOvertimeCountdown) {
