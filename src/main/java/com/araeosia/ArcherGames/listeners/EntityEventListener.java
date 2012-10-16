@@ -67,7 +67,7 @@ public class EntityEventListener implements Listener {
 					event.setCancelled(true);
 				} else if (!(Archer.getByName(((Player) damageevent.getDamager()).getName()).isAlive)) {
 					event.setCancelled(true);
-				} else if (!(Archer.getByName(((Player) damageevent.getEntity()).getName()).isAlive)) {
+				} else if (damageevent.getEntity() instanceof Player && !(Archer.getByName(((Player) damageevent.getEntity()).getName()).isAlive)) {
 					event.setCancelled(true);
 				}
 			}
