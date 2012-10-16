@@ -26,7 +26,7 @@ public class ServerWide {
 	}
 
 	public void leaveGame(String playerName) {
-		playerPlaces.put(livingPlayers.size(), player.getName());
+		playerPlaces.put(livingPlayers.size(), playerName);
 		livingPlayers.remove(Archer.getByName(playerName));
 		Archer.getByName(playerName).kill();
 		sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), livingPlayers.size()));
