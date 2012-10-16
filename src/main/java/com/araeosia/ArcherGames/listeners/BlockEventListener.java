@@ -67,14 +67,14 @@ public class BlockEventListener implements Listener {
 	@EventHandler
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		if (event.hasBlock()) {
-			if(plugin.debug){
-				if(event.getClickedBlock().getState() instanceof Sign){
+			if (plugin.debug) {
+				if (event.getClickedBlock().getState() instanceof Sign) {
 					Sign sign = (Sign) event.getClickedBlock().getState();
 					plugin.log.info(sign.getLine(0));
 				}
 			}
-			if(event.getClickedBlock() instanceof Chest){
-				if(ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")){
+			if (event.getClickedBlock() instanceof Chest) {
+				if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")) {
 					event.setCancelled(true);
 				}
 			}
@@ -109,8 +109,28 @@ public class BlockEventListener implements Listener {
 					// Line 2: Quantity, Line 3: Item name, Line 4: Price
 					double price = new Double(sign.getLine(3).substring(1));
 					if (plugin.econ.hasBalance(event.getPlayer().getName(), price)) {
-						String[] data = sign.getLine(2).split(":");
-						ItemStack itemToGive = new ItemStack(Material.getMaterial(data[0]), Integer.parseInt(data[1]));
+						ItemStack itemToGive;
+						if (sign.getLine(2).contains(":")) {
+							String[] data = sign.getLine(2).split(":");
+							int damage = 0;
+							if (data.length == 1) {
+								damage = 0;
+							} else {
+								damage = Integer.parseInt(data[1]);
+							}
+							plugin.log.info(data[0]);
+							Material mat;
+							mat = Material.getMaterial(data[0].toUpperCase());
+							plugin.log.info(mat.toString());
+							itemToGive = new ItemStack(mat, Integer.parseInt(data[1]));
+						}else{
+							Material mat;
+							plugin.log.info(sign.getLine(2));
+							mat = Material.getMaterial(sign.getLine(2).toUpperCase());
+							plugin.log.info(mat.toString());
+							itemToGive = new ItemStack(mat);
+						}
+
 						event.getPlayer().getInventory().addItem(itemToGive);
 						plugin.econ.takePlayer(event.getPlayer().getName(), price);
 					} else {

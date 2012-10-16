@@ -38,6 +38,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.googlecode.jcsv</groupId>
+      <artifactId>jcsv</artifactId>
+      <version>1.4.0</version>
+    </dependency>
+    <dependency>
       <groupId>org.kitteh</groupId>
       <artifactId>VanishNoPacket</artifactId>
       <version>3.12.1</version>
@@ -93,10 +98,15 @@
                   <pattern>org.pircbotx</pattern>
                   <shadedPattern>com.araeosia.pircbotx</shadedPattern>
                 </relocation>
+                <relocation>
+                  <pattern>com.googlecode.jcsv</pattern>
+                  <shadedPattern>com.araeosia.jcsv</shadedPattern>
+                </relocation>
               </relocations>
               <artifactSet>
                 <includes>
                   <include>org.pircbotx:pircbotx</include>
+                  <include>com.google.jcsv:jcsv</include>
                 </includes>
               </artifactSet>
             </configuration>
