@@ -128,7 +128,7 @@ public class Database {
 			e.printStackTrace();
 		}
 
-		return money;
+		return 100000.0;
 	}
 
 	public void addWin(String name) {
