@@ -110,7 +110,7 @@ public class PlayerEventListener implements Listener {
 	public void onDamageByEntity(final EntityDamageByEntityEvent event){
 		if(event.getEntity() instanceof Player){
 			Player player = (Player) event.getEntity();
-			if(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())){
+			if(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5){
 				if(event.getDamager() instanceof Player){ // PVP
 					Player attacker = (Player) event.getDamager();
 					if(!plugin.serverwide.getArcher(attacker).isAlive()){
