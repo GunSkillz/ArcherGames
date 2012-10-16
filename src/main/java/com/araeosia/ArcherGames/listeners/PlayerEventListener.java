@@ -114,10 +114,8 @@ public class PlayerEventListener implements Listener {
 			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
 				if (event.getDamager() instanceof Player) { // PVP
 					Player attacker = (Player) event.getDamager();
-					if (!plugin.serverwide.getArcher(attacker).isAlive()) {
 						event.setCancelled(true);
 						attacker.sendMessage(plugin.strings.get("nopvp"));
-					}
 				} else {
 					if ((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 						event.getDamager().remove();
