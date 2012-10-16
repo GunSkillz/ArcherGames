@@ -144,7 +144,7 @@ public class PlayerEventListener implements Listener {
 				 * plugin.econ.givePlayer(event.getEntity().getName(), 10000);
 				}
 				 */
-				plugin.serverwide.killPlayer(event.getEntity().getName());
+				plugin.serverwide.leaveGame(event.getEntity().getName());
 /*
 				if (plugin.serverwide.livingPlayers.size() == 1) {
 					for (Archer a : plugin.serverwide.livingPlayers) { // should only be one player, the winner
@@ -172,7 +172,7 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onQuitEvent(final PlayerQuitEvent event) {
 		if (Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
-			plugin.serverwide.killPlayer(event.getPlayer().getName());
+			plugin.serverwide.leaveGame(event.getPlayer().getName());
 			for (ItemStack is : event.getPlayer().getInventory().getContents()) {
 				if (is != null) {
 					event.getPlayer().getWorld().dropItemNaturally(event.getPlayer().getLocation(), is);

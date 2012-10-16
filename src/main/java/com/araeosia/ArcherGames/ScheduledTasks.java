@@ -40,7 +40,7 @@ public class ScheduledTasks {
 								plugin.log.info((preGameCountdown - currentLoop) + " seconds until game starts.");
 							}
 							// Pre-game
-							if (preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) {
+							if (preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30 && preGameCountdown - currentLoop !=0) {
 								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((preGameCountdown - currentLoop) % 3600) == 0) ? ((preGameCountdown - currentLoop) / 60) + "hour" + ((((preGameCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {

@@ -1,5 +1,6 @@
 package com.araeosia.ArcherGames;
 
+import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,10 +23,15 @@ public class ServerWide {
 		this.plugin = plugin;
 	}
 
-	public void killPlayer(String playerName) {
+	public void leaveGame(String playerName) {
 		livingPlayers.remove(Archer.getByName(playerName));
 		Archer.getByName(playerName).kill();
 		sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), livingPlayers.size()));
+	}
+	public void joinGame(String playerName){
+		plugin.serverwide.livingPlayers.add(Archer.getByName(playerName));
+		plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
+		PlayerEventListener.naggerTask.remove(playerName);
 	}
 
 	public ArrayList<Archer> getNotReadyPlayers() {
