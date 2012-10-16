@@ -19,6 +19,7 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ArcherGames extends JavaPlugin {
@@ -41,6 +42,7 @@ public class ArcherGames extends JavaPlugin {
 	public double arrowExplosionFactor;
 	public Random random;
 	public Archer winner;
+	public static Economy econ = null;
 
 	/**
 	 *
@@ -57,6 +59,12 @@ public class ArcherGames extends JavaPlugin {
 		config.loadConfiguration();
 		db = new Database(this);
 		random = new Random();
+
+		if (!setupEconomy()) {
+			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
 		// Events
 		this.getServer().getPluginManager().registerEvents(new EntityEventListener(this), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerEventListener(this), this);
@@ -87,12 +95,14 @@ public class ArcherGames extends JavaPlugin {
 		try {
 			IRCBot.setupBot();
 		} catch (Exception e) {
-			if(debug) e.printStackTrace();
+			if (debug) {
+				e.printStackTrace();
+			}
 		}
 		log.info("Starting automated loop of games...");
 		scheduler.everySecondCheck();
-		if(debug){
-			for(Kit kit : kits){
+		if (debug) {
+			for (Kit kit : kits) {
 				log.info(kit.toString());
 			}
 		}
@@ -116,11 +126,11 @@ public class ArcherGames extends JavaPlugin {
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));
 				conProperties.put("autoReconnect", "true");
 				conProperties.put("maxReconnects", "3");
-				if(debug){
+				if (debug) {
 					log.info(conProperties.toString());
 				}
 				String uri = "jdbc:mysql://" + this.getConfig().getString("ArcherGames.mysql.hostname") + ":" + this.getConfig().getString("ArcherGames.mysql.port") + "/" + this.getConfig().getString("ArcherGames.mysql.database");
-				if(debug){
+				if (debug) {
 					log.info(uri);
 				}
 				conn = DriverManager.getConnection(uri, conProperties);
@@ -128,5 +138,17 @@ public class ArcherGames extends JavaPlugin {
 		} catch (SQLException ex) {
 			log.log(Level.SEVERE, "Unable to connect to database!");
 		}
+	}
+
+	private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		econ = rsp.getProvider();
+		return econ != null;
 	}
 }
