@@ -62,8 +62,8 @@ public class Database {
 		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES ('?','?')");
-			s.setString(1, name);
-			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			s.setString(0, name);
+			s.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
@@ -78,8 +78,8 @@ public class Database {
 		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES ('?','?')");
-			s.setString(1, name);
-			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			s.setString(0, name);
+			s.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
@@ -100,8 +100,8 @@ public class Database {
 			}
 			if(i>0){
 				s = plugin.conn.prepareStatement("UPDATE `AG2-Money` SET balance=`?` WHERE name=`?`");
-				s.setDouble(1, d);
-				s.setString(2, name);
+				s.setDouble(0, d);
+				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
 			}
@@ -117,7 +117,7 @@ public class Database {
 
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
-			s.setString(1, name);
+			s.setString(0, name);
 			ResultSet set = s.executeQuery();
 
 			money = set.getInt("balance");
@@ -135,7 +135,7 @@ public class Database {
 		plugin.dbConnect();/*
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO wins (name) VALUES ('?')");
-			s.setString(1, name);
+			s.setString(0, name);
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
