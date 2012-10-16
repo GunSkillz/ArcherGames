@@ -197,7 +197,7 @@ public class Config {
 			addon.setPermission(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Permission"));
 			addon.setAbility(plugin.getConfig().getString("ArcherGames.kits."+kitNumber+".Ability"));
 			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
-			for(String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor").getKeys(true)){
+			for(String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor").getKeys(false)){
 				ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits."+kitNumber+".Armor."+type+".damage"));
 				if(plugin.getConfig().isConfigurationSection("ArcherGames.kits."+kitNumber+"Armor."+type+".enchantments")){
 					for(String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits."+kitNumber+".Armor."+type+".enchantments").getKeys(false)){
