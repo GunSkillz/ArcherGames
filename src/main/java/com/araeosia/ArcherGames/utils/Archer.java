@@ -30,7 +30,7 @@ public class Archer {
 	 * @return
 	 */
 	public boolean canTalk() {
-		return canTalk;
+		return isReady;
 	}
 
 	/**
@@ -38,9 +38,6 @@ public class Archer {
 	 *
 	 * @param canTalk
 	 */
-	public void setCanTalk(boolean canTalk) {
-		this.canTalk = canTalk;
-	}
 
 	/**
 	 * Get if the player is Alive
@@ -74,6 +71,7 @@ public class Archer {
 	 * @param kit
 	 */
 	public void selectKit(Kit kit) {
+		this.isReady = true;
 		this.kit = kit;
 	}
 
