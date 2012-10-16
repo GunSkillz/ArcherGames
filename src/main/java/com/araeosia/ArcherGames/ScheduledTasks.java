@@ -41,7 +41,7 @@ public class ScheduledTasks {
 							}
 							// Pre-game
 							if (preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30 && preGameCountdown - currentLoop !=0) {
-								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((preGameCountdown - currentLoop) % 3600) == 0) ? ((preGameCountdown - currentLoop) / 60) + "hour" + ((((preGameCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
+								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((preGameCountdown - currentLoop) % 3600) == 0) ? ((preGameCountdown - currentLoop) / 60) + " hour" + ((((preGameCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
 								if (plugin.debug) {
@@ -52,6 +52,7 @@ public class ScheduledTasks {
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
+									ScheduledTasks.gameStatus = 2;
 									plugin.scheduler.startGame();
 								}
 								currentLoop = -1;
@@ -79,8 +80,10 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameOvertimeCountdown - currentLoop) + " seconds until overtime starts.");
 							}
-							if((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 &&((currentLoop - gameOvertimeCountdown) / 60) == 30))))){
-								plugin.serverwide.sendMessageToAllPlayers( (currentLoop - gameOvertimeCountdown) % 60 == 0 ? currentLoop - gameOvertimeCountdown + " minutes until overtime starts" : (currentLoop - gameOvertimeCountdown) / 60 +" minutes and " + (currentLoop - gameOvertimeCountdown) % 60 + " seconds until overtime starts.");
+							if((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 && !(((currentLoop - gameOvertimeCountdown) / 60) == 0)))))){
+								if(!((currentLoop - gameOvertimeCountdown) == 0)){
+									plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
+								}
 							}
 							if (currentLoop >= gameOvertimeCountdown) {
 								if (plugin.debug) {
@@ -143,7 +146,6 @@ public class ScheduledTasks {
 	public void startGame() {
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 		currentLoop = 0;
-		gameStatus = 2;
 		for (Archer a : plugin.serverwide.livingPlayers) {
 			plugin.serverwide.getPlayer(a).getInventory().clear();
 			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName()));
