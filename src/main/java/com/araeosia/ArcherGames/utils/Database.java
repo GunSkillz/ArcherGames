@@ -57,17 +57,6 @@ public class Database {
 		}
 	}
 
-	public void addPoints(String name, int points) throws SQLException {
-		plugin.dbConnect();
-/*
-		PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO AG2-points (name,points) VALUES ('?','?')");
-		s.setString(1, name);
-		s.setInt(2, points);
-		s.executeUpdate();
-		s.close();
-		plugin.conn.close();*/
-	}
-
 	public void recordJoin(String name) {
 /*
 		try {
@@ -102,12 +91,17 @@ public class Database {
 	public void setMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM AG2-Money WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
-			if(result.getInt("balance")!=0){
-				s.setString(1, name);
-				s.setDouble(2, d);
+			int i=0;
+			while(result.next()){
+				i++;
+			}
+			if(i>0){
+				s = plugin.conn.prepareStatement("UPDATE `AG2-Money` SET balance=`?` WHERE name=`?`");
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 			}
@@ -122,7 +116,7 @@ public class Database {
 		double money = 0;
 
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM AG2-Money WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
@@ -159,5 +153,12 @@ public class Database {
 			e.printStackTrace();
 		}
 		return resultant;
+	}
+	private int countResults(ResultSet results) throws SQLException{
+		int i=0;
+		while(results.next()){
+			i++;
+		}
+		return i;
 	}
 }
