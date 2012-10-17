@@ -74,7 +74,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("kit") || cmd.getName().equalsIgnoreCase("kits")) {
 			if (args.length != 0) {
-				if (ScheduledTasks.gameStatus != 0) {
+				if (ScheduledTasks.gameStatus != 1) {
 					sender.sendMessage(plugin.strings.get("alreadystartedkits"));
 				} else {
 					Kit selectedKit = new Kit();
