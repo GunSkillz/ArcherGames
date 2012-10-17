@@ -147,7 +147,7 @@ public class ScheduledTasks {
 		currentLoop = 0;
 		for (Archer a : plugin.serverwide.livingPlayers) {
 			plugin.serverwide.getPlayer(a).getInventory().clear();
-			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName()));
+			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
 			plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
 			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 			plugin.serverwide.getPlayer(a).setAllowFlight(false);
