@@ -26,7 +26,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.technical.debug", plugin.getConfig().get("ArcherGames.technical.debug", false));
 		plugin.getConfig().set("ArcherGames.toggles.arrowDelete", plugin.getConfig().get("ArcherGames.toggles.arrowDelete", true));
 		plugin.getConfig().set("ArcherGames.toggles.lockdownMode", plugin.getConfig().get("ArcherGames.toggles.lockdownMode", false));
-		ArrayList<String> voteSites = new ArrayList<String>();
+		List<String> voteSites = new ArrayList<String>();
 		voteSites.add("http://ow.ly/cpQI0");
 		voteSites.add("http://ow.ly/cmwer");
 		voteSites.add("http://ow.ly/cmnPu");

@@ -51,7 +51,6 @@ public class ScheduledTasks {
 								if (plugin.serverwide.livingPlayers.size() <= minPlayersToStart) { // There aren't enough players.
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
-									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 									ScheduledTasks.gameStatus = 2;
 									plugin.scheduler.startGame();
 								}
@@ -154,6 +153,14 @@ public class ScheduledTasks {
 			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 			plugin.serverwide.getPlayer(a).setAllowFlight(false);
 		}
+		for(Player p : plugin.getServer().getOnlinePlayers()){
+			Archer a = plugin.serverwide.getArcher(p);
+			
+			if(!a.isAlive){
+				plugin.serverwide.leaveGame(a.getName());
+			}
+		}
+		
 		for(int task : PlayerEventListener.naggerTask.values()){
 			plugin.getServer().getScheduler().cancelTask(task); // No point in nagging them when they can't do anything about it.
 		}

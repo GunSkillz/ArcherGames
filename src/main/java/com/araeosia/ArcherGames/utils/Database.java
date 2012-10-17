@@ -26,27 +26,32 @@ public class Database {
 		plugin.dbConnect();
 		try {
 
-			PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS points(name varchar(20), points integer)");
+			PreparedStatement s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `points` (`name` varchar(20), `points` integer)");
 			s.executeUpdate();
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `AG2-Money` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `balance` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `money` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `balance` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
 			s.executeUpdate();
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `AG2-Wins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `wins` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `wins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `wins` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s.executeUpdate();
+			s.close();
+
+			
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `plays`(`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `plays` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s.executeUpdate();
+			s.close();
+			
+
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `joins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `joins` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
 			s.executeUpdate();
 			s.close();
 
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `AG2-Joins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `joins` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
-			s.executeUpdate();
-			s.close();
-
-
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `AG2-Quits` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `quits` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `playtime` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `time` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
 			s.executeUpdate();
 			s.close();
 
@@ -58,10 +63,10 @@ public class Database {
 	}
 
 	public void recordJoin(String name) {
-/*
+		
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO joins (name,time) VALUES ('?','?')");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` (`name`,`time`) VALUES ('?','?')");
 			s.setString(0, name);
 			s.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
@@ -69,29 +74,72 @@ public class Database {
 			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
 
 	}
 
 	public void recordQuit(String name) {
-/*
+
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO quits (name,time) VALUES ('?','?')");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `joins` WHERE `player`='?' ORDER BY `id` DESC");
 			s.setString(0, name);
-			s.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
-			s.executeUpdate();
+			ResultSet rs = s.executeQuery();
 			s.close();
-			plugin.conn.close();
-		} catch (SQLException e) {
+			
+			if(rs.next()){
+				String timeStamp = rs.getString(1);
+				rs.close();
+				
+				Date joinDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS").parse(timeStamp);
+				
+				Date now = new Date();
+				
+				long played = (now.getTime() - joinDate.getTime()) / 1000;
+				
+				s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `playtime` WHERE `player` = ?)");
+				s.setString(0, name);
+				rs = s.executeQuery();
+				s.close();
+				if(rs.first()){
+					s = plugin.conn.prepareStatement("UPDATE `playtime` SET `time` = (`time` + '?') WHERE `name` = ?");
+					s.setLong(0, played);
+					s.setString(1, name);
+					s.executeUpdate();
+					s.close();
+					plugin.conn.close();
+				} else {
+					s = plugin.conn.prepareStatement("INSERT INTO `playtime` VALUES('?','?')");
+					s.setString(0, name);
+					s.setLong(1, played);
+					s.executeUpdate();
+					s.close();
+					plugin.conn.close();
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
+	public int getPlayTime(String pName){
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `playtime` WHERE `name`=?");
+			s.setString(0, pName);
+			ResultSet rs = s.executeQuery();
+			s.close();
+			plugin.conn.close();
+			return rs.getInt(1);
+		} catch(SQLException e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 	public void setMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name='?'");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
 			int i=0;
@@ -99,16 +147,24 @@ public class Database {
 				i++;
 			}
 			if(i>0){
-				s = plugin.conn.prepareStatement("UPDATE `AG2-Money` SET balance=`?` WHERE name=`?`");
+				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=`?` WHERE `name`=`?`");
 				s.setDouble(0, d);
 				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
+				plugin.conn.close();
+			} else {
+				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`='?',`name`='?')");
+				s.setDouble(0, d);
+				s.setString(1, name);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
 			}
-			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	public double getMoney(String name) {
@@ -116,11 +172,11 @@ public class Database {
 		double money = 0;
 
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT balance FROM `AG2-Money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE `name`='?'");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
-			money = set.getInt("balance");
+			money = set.getInt(1);
 
 			s.close();
 			plugin.conn.close();
@@ -132,33 +188,110 @@ public class Database {
 	}
 
 	public void addWin(String name) {
-		plugin.dbConnect();/*
+		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO wins (name) VALUES ('?')");
+			PreparedStatement s = plugin.conn.prepareStatement("UPDATE `wins` SET wins=(`wins` + '1') WHERE name=`?`");
 			s.setString(0, name);
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
+	}
+	
+	public void addPlay(String name){
+		plugin.dbConnect();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("UPDATE `plays` SET `plays`=(`plays` + '1') WHERE name=`?`");
+			s.setString(0, name);
+			s.executeUpdate();
+			s.close();
+			plugin.conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public HashMap<String, Integer> getTopPlayers() {
 		HashMap<String, Integer> resultant = new HashMap<String, Integer>();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT * FROM money ORDER BY balance DESC LIMIT 10");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT TOP 10 FROM money ORDER BY balance DESC");
 			ResultSet set = s.executeQuery();
+			
+			while(set.next()){
+				resultant.put(set.getString(1), set.getInt(2));
+			}
+			set.close();
+			s.close();
+			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return resultant;
 	}
+	
+	
 	private int countResults(ResultSet results) throws SQLException{
 		int i=0;
 		while(results.next()){
 			i++;
 		}
 		return i;
+	}
+	
+	public int getWins(String name){
+		try{
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `wins` FROM `wins` WHERE name='?'");
+			s.setString(1, name);
+			ResultSet set = s.executeQuery();
+
+			int wins = set.getInt(1);
+
+			s.close();
+			plugin.conn.close();
+			
+			return wins;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public int getPlays(String name){
+				try{
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `plays` FROM `plays` WHERE `name`='?'");
+			s.setString(1, name);
+			ResultSet set = s.executeQuery();
+			int plays = set.getInt(1);
+
+			s.close();
+			plugin.conn.close();
+			
+			return plays;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public HashMap<String, Integer> getTopWinners(){
+				HashMap<String, Integer> resultant = new HashMap<String, Integer>();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT TOP 10 FROM `wins` ORDER BY `wins` DESC");
+			ResultSet set = s.executeQuery();
+			
+			while(set.next()){
+				resultant.put(set.getString(1), set.getInt(2));
+			}
+			set.close();
+			s.close();
+			plugin.conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultant;
 	}
 }
