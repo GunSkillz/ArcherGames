@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.utils.Kit;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class ServerWide {
 	public Random r = new Random();
 	public HashMap<Integer, String> playerPlaces = new HashMap<Integer, String>();
 
-	public ServerWide(ArcherGames plugin){
+	public ServerWide(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
 
@@ -31,11 +32,15 @@ public class ServerWide {
 		Archer.getByName(playerName).kill();
 		sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), livingPlayers.size()));
 	}
-	public void joinGame(String playerName){
+
+	public void joinGame(String playerName, Kit selectedKit) {
 		plugin.serverwide.livingPlayers.add(Archer.getByName(playerName));
 		Archer.getByName(playerName).setAlive(true);
-		plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
-		PlayerEventListener.naggerTask.remove(playerName);
+		Archer.getByName(playerName).selectKit(selectedKit);
+		if (PlayerEventListener.naggerTask.containsKey(playerName)) {
+			plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
+			PlayerEventListener.naggerTask.remove(playerName);
+		}
 	}
 
 	public ArrayList<Archer> getNotReadyPlayers() {
@@ -80,10 +85,12 @@ public class ServerWide {
 		}
 		return null;
 	}
-	public void handleGameStart(){
+
+	public void handleGameStart() {
 		// Handle the game start. Populate player inventories, teleport players, etc.
 	}
-	public void handleGameEnd(){
+
+	public void handleGameEnd() {
 		// Announce the winner, announce the runners up, give winners their money.
 		winner = playerPlaces.get(1);
 		sendMessageToAllPlayers(plugin.strings.get("gameended"));
@@ -92,10 +99,10 @@ public class ServerWide {
 	public void tpToRandomLocation(Player player) {
 		int x = r.nextInt(32 + 1) - 16;
 		int z = r.nextInt(32 + 1) - 16;
-		
+
 		x = player.getWorld().getSpawnLocation().getBlockX() + x;
 		z = player.getWorld().getSpawnLocation().getBlockZ() + z;
-		
+
 		player.teleport(new Location(player.getWorld(), x, player.getWorld().getHighestBlockYAt(x, z), z));
 	}
 }

@@ -116,8 +116,8 @@ public class PlayerEventListener implements Listener {
 			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
 				if (event.getDamager() instanceof Player) { // PVP
 					Player attacker = (Player) event.getDamager();
-						event.setCancelled(true);
-						attacker.sendMessage(plugin.strings.get("nopvp"));
+					event.setCancelled(true);
+					attacker.sendMessage(plugin.strings.get("nopvp"));
 				} else {
 					if ((event.getDamager() instanceof Slime || event.getDamager() instanceof Spider) && ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 						event.getDamager().remove();
@@ -136,8 +136,8 @@ public class PlayerEventListener implements Listener {
 	public void onDeathEvent(final PlayerDeathEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if (!(ScheduledTasks.gameStatus == 1) && !(ScheduledTasks.gameStatus == 2) && !(ScheduledTasks.gameStatus == 5)) {
-				if(!Archer.getByName(player.getName()).isAlive()){
+			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
+				if (Archer.getByName(player.getName()).isAlive()) {
 					plugin.serverwide.leaveGame(event.getEntity().getName());
 				}
 
@@ -151,7 +151,7 @@ public class PlayerEventListener implements Listener {
 
 	@EventHandler
 	public void onQuitEvent(final PlayerQuitEvent event) {
-		if(naggerTask.containsKey(event.getPlayer().getName())){
+		if (naggerTask.containsKey(event.getPlayer().getName())) {
 			plugin.getServer().getScheduler().cancelTask(naggerTask.get(event.getPlayer().getName()));
 			naggerTask.remove(event.getPlayer().getName());
 		}
