@@ -30,6 +30,7 @@ public class ScheduledTasks {
 	 */
 	public void everySecondCheck() {
 		if (schedulerTaskID != -1) {
+			Config.removeBorder(plugin.startPosition.getWorld().getName());
 			schedulerTaskID = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
 				public void run() {
