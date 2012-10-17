@@ -166,6 +166,7 @@ public class PlayerEventListener implements Listener {
 				event.getPlayer().getInventory().clear();
 			}
 		}
+		plugin.serverwide.livingPlayers.remove(Archer.getByName(event.getPlayer().getName()));
 		plugin.db.recordQuit(event.getPlayer().getName());
 		event.setQuitMessage("");
 	}
