@@ -1,7 +1,6 @@
 package com.araeosia.ArcherGames.utils;
 
 import com.araeosia.ArcherGames.ArcherGames;
-import java.lang.reflect.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,8 +113,14 @@ public class Database {
 					s.setLong(1, played);
 					s.executeUpdate();
 					s.close();
-					plugin.conn.close();
+					
 				}
+				s = plugin.conn.prepareStatement("DELETE FROM `joins` WHERE `player`='?'");
+				s.setString(0, name);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,6 +185,7 @@ public class Database {
 
 			s.close();
 			plugin.conn.close();
+			return money;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -187,28 +193,56 @@ public class Database {
 		return 100000.0;
 	}
 
-	public void addWin(String name) {
-		plugin.dbConnect();
-		try {
-			PreparedStatement s = plugin.conn.prepareStatement("UPDATE `wins` SET wins=(`wins` + '1') WHERE name=`?`");
-			s.setString(0, name);
-			s.executeUpdate();
+	public void addWin(String player) {
+				try {
+			plugin.dbConnect();
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `wins` WHERE `player` = ?)");
+			s.setString(0, player);
+			ResultSet rs = s.executeQuery();
 			s.close();
-			plugin.conn.close();
-		} catch (SQLException e) {
+			if(rs.first()){
+				s = plugin.conn.prepareStatement("UPDATE `wins` SET `wins` = (`wins` + '?') WHERE `name` = ?");
+				s.setInt(0, 1);
+				s.setString(1, player);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			} else {
+				s = plugin.conn.prepareStatement("INSERT INTO `wins` VALUES('?','?')");
+				s.setString(0, player);
+				s.setInt(1, 1);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void addPlay(String name){
-		plugin.dbConnect();
+	public void addPlay(String player){
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("UPDATE `plays` SET `plays`=(`plays` + '1') WHERE name=`?`");
-			s.setString(0, name);
-			s.executeUpdate();
+			plugin.dbConnect();
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `plays` WHERE `plays` = ?)");
+			s.setString(0, player);
+			ResultSet rs = s.executeQuery();
 			s.close();
-			plugin.conn.close();
-		} catch (SQLException e) {
+			if(rs.first()){
+				s = plugin.conn.prepareStatement("UPDATE `plays` SET `plays` = (`plays` + '?') WHERE `name` = ?");
+				s.setInt(0, 1);
+				s.setString(1, player);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			} else {
+				s = plugin.conn.prepareStatement("INSERT INTO `plays` VALUES('?','?')");
+				s.setString(0, player);
+				s.setInt(1, 1);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -230,15 +264,7 @@ public class Database {
 		}
 		return resultant;
 	}
-	
-	
-	private int countResults(ResultSet results) throws SQLException{
-		int i=0;
-		while(results.next()){
-			i++;
-		}
-		return i;
-	}
+
 	
 	public int getWins(String name){
 		try{
@@ -260,7 +286,7 @@ public class Database {
 	}
 	
 	public int getPlays(String name){
-				try{
+		try{
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT `plays` FROM `plays` WHERE `name`='?'");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
@@ -278,9 +304,72 @@ public class Database {
 	}
 	
 	public HashMap<String, Integer> getTopWinners(){
-				HashMap<String, Integer> resultant = new HashMap<String, Integer>();
+		HashMap<String, Integer> resultant = new HashMap<String, Integer>();
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT TOP 10 FROM `wins` ORDER BY `wins` DESC");
+			ResultSet set = s.executeQuery();
+			
+			while(set.next()){
+				resultant.put(set.getString(1), set.getInt(2));
+			}
+			set.close();
+			s.close();
+			plugin.conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultant;
+	}
+	
+	public int getPoints(String player){
+		try{
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `points` FROM `points` WHERE `name`='?'");
+			s.setString(1, player);
+			ResultSet set = s.executeQuery();
+			int points = set.getInt(1);
+
+			s.close();
+			plugin.conn.close();
+			
+			return points;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public void addPoints(String player, int points){
+		try {
+			plugin.dbConnect();
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `points` WHERE `player` = ?)");
+			s.setString(0, player);
+			ResultSet rs = s.executeQuery();
+			s.close();
+			if(rs.first()){
+				s = plugin.conn.prepareStatement("UPDATE `points` SET `points` = (`points` + '?') WHERE `name` = ?");
+				s.setInt(0, points);
+				s.setString(1, player);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			} else {
+				s = plugin.conn.prepareStatement("INSERT INTO `points` VALUES('?','?')");
+				s.setString(0, player);
+				s.setInt(1, points);
+				s.executeUpdate();
+				s.close();
+				plugin.conn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public HashMap<String, Integer> getTopPoints(){
+		HashMap<String, Integer> resultant = new HashMap<String, Integer>();
+		try {
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT TOP 10 FROM `points` ORDER BY `points` DESC");
 			ResultSet set = s.executeQuery();
 			
 			while(set.next()){
