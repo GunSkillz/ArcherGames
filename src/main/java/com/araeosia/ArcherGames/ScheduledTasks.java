@@ -4,8 +4,10 @@ import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.wimbli.WorldBorder.Config;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class ScheduledTasks {
 
@@ -146,7 +148,9 @@ public class ScheduledTasks {
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 		currentLoop = 0;
 		for (Archer a : plugin.serverwide.livingPlayers) {
-			plugin.serverwide.getPlayer(a).getInventory().clear();
+			if(plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)){
+				plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
+			}
 			a.ready();
 			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
 			plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
