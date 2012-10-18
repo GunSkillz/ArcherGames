@@ -65,3 +65,4 @@ commands:
   help:
     description: Get help.
     usage: /help
+    aliases: [commands]
