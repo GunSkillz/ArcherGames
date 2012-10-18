@@ -68,9 +68,9 @@ public class Database {
 
 	public void recordJoin(String name) {
 		
-		/*try {
+		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` (`name`,`time`) VALUES (?,?)");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` VALUES ('?','?')");
 			s.setString(1, name);
 			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
@@ -78,7 +78,7 @@ public class Database {
 			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		}
 
 	}
 
