@@ -68,17 +68,17 @@ public class Database {
 
 	public void recordJoin(String name) {
 		
-		try {
+		/*try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` (`name`,`time`) VALUES ('?','?')");
-			s.setString(0, name);
-			s.setString(1, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` (`name`,`time`) VALUES (?,?)");
+			s.setString(1, name);
+			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
 			s.close();
 			plugin.conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
 
@@ -86,8 +86,8 @@ public class Database {
 
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `joins` WHERE `player`='?' ORDER BY `id` DESC");
-			s.setString(0, name);
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `joins` WHERE `player`=? ORDER BY `id` DESC");
+			s.setString(1, name);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			
@@ -102,26 +102,26 @@ public class Database {
 				long played = (now.getTime() - joinDate.getTime()) / 1000;
 				
 				s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `playtime` WHERE `player` = ?)");
-				s.setString(0, name);
+				s.setString(1, name);
 				rs = s.executeQuery();
 				s.close();
 				if(rs.first()){
-					s = plugin.conn.prepareStatement("UPDATE `playtime` SET `time` = (`time` + '?') WHERE `name` = ?");
-					s.setLong(0, played);
-					s.setString(1, name);
+					s = plugin.conn.prepareStatement("UPDATE `playtime` SET `time` = (`time` + ?) WHERE `name` = ?");
+					s.setLong(1, played);
+					s.setString(2, name);
 					s.executeUpdate();
 					s.close();
 					plugin.conn.close();
 				} else {
-					s = plugin.conn.prepareStatement("INSERT INTO `playtime` VALUES('?','?')");
-					s.setString(0, name);
-					s.setLong(1, played);
+					s = plugin.conn.prepareStatement("INSERT INTO `playtime` VALUES(?,?)");
+					s.setString(1, name);
+					s.setLong(2, played);
 					s.executeUpdate();
 					s.close();
 					
 				}
-				s = plugin.conn.prepareStatement("DELETE FROM `joins` WHERE `player`='?'");
-				s.setString(0, name);
+				s = plugin.conn.prepareStatement("DELETE FROM `joins` WHERE `player`=?");
+				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -135,7 +135,7 @@ public class Database {
 	public String getPlayTime(String pName){
 		try {
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `playtime` WHERE `name`=?");
-			s.setString(0, pName);
+			s.setString(1, pName);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			plugin.conn.close();
@@ -153,7 +153,7 @@ public class Database {
 	public void setMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name=?");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
 			int i=0;
@@ -162,15 +162,15 @@ public class Database {
 			}
 			if(i>0){
 				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=`?` WHERE `name`=`?`");
-				s.setDouble(0, d);
-				s.setString(1, name);
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`='?',`name`='?')");
-				s.setDouble(0, d);
-				s.setString(1, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -185,7 +185,7 @@ public class Database {
 	public void takeMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name=?");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
 			int i=0;
@@ -193,16 +193,16 @@ public class Database {
 				i++;
 			}
 			if(i>0){
-				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=(`balance` - '?') WHERE `name`=`?`");
-				s.setDouble(0, d);
-				s.setString(1, name);
+				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=(`balance` - ?) WHERE `name`=`?`");
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`='?',`name`='?')");
-				s.setDouble(0, -d);
-				s.setString(1, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
+				s.setDouble(1, -d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -217,7 +217,7 @@ public class Database {
 	public void addMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name=?");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
 			int i=0;
@@ -225,16 +225,16 @@ public class Database {
 				i++;
 			}
 			if(i>0){
-				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=(`balance` + '?') WHERE `name`=`?`");
-				s.setDouble(0, d);
-				s.setString(1, name);
+				s = plugin.conn.prepareStatement("UPDATE `money` SET `balance`=(`balance` + ?) WHERE `name`=`?`");
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`='?',`name`='?')");
-				s.setDouble(0, d);
-				s.setString(1, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
+				s.setDouble(1, d);
+				s.setString(2, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -248,7 +248,7 @@ public class Database {
 	public boolean hasMoney(String name, double d) {
 		plugin.dbConnect();
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE name=?");
 			s.setString(1, name);
 			ResultSet result = s.executeQuery();
 			if(result.getInt("balance") >= d){
@@ -266,7 +266,7 @@ public class Database {
 		double money = 0;
 
 		try {
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE `name`='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `balance` FROM `money` WHERE `name`=?");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
@@ -286,20 +286,20 @@ public class Database {
 				try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `wins` WHERE `player` = ?)");
-			s.setString(0, player);
+			s.setString(1, player);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			if(rs.first()){
-				s = plugin.conn.prepareStatement("UPDATE `wins` SET `wins` = (`wins` + '?') WHERE `name` = ?");
-				s.setInt(0, 1);
-				s.setString(1, player);
+				s = plugin.conn.prepareStatement("UPDATE `wins` SET `wins` = (`wins` + ?) WHERE `name` = ?");
+				s.setInt(1, 1);
+				s.setString(2, player);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `wins` VALUES('?','?')");
-				s.setString(0, player);
-				s.setInt(1, 1);
+				s = plugin.conn.prepareStatement("INSERT INTO `wins` VALUES(?,?)");
+				s.setString(1, player);
+				s.setInt(2, 1);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -313,20 +313,20 @@ public class Database {
 		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `plays` WHERE `plays` = ?)");
-			s.setString(0, player);
+			s.setString(1, player);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			if(rs.first()){
-				s = plugin.conn.prepareStatement("UPDATE `plays` SET `plays` = (`plays` + '?') WHERE `name` = ?");
-				s.setInt(0, 1);
-				s.setString(1, player);
+				s = plugin.conn.prepareStatement("UPDATE `plays` SET `plays` = (`plays` + ?) WHERE `name` = ?");
+				s.setInt(1, 1);
+				s.setString(2, player);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `plays` VALUES('?','?')");
-				s.setString(0, player);
-				s.setInt(1, 1);
+				s = plugin.conn.prepareStatement("INSERT INTO `plays` VALUES(?,?)");
+				s.setString(1, player);
+				s.setInt(2, 1);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -357,7 +357,7 @@ public class Database {
 	
 	public int getWins(String name){
 		try{
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `wins` FROM `wins` WHERE name='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `wins` FROM `wins` WHERE name=?");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 
@@ -376,7 +376,7 @@ public class Database {
 	
 	public int getPlays(String name){
 		try{
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `plays` FROM `plays` WHERE `name`='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `plays` FROM `plays` WHERE `name`=?");
 			s.setString(1, name);
 			ResultSet set = s.executeQuery();
 			int plays = set.getInt(1);
@@ -412,7 +412,7 @@ public class Database {
 	
 	public int getPoints(String player){
 		try{
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `points` FROM `points` WHERE `name`='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `points` FROM `points` WHERE `name`=?");
 			s.setString(1, player);
 			ResultSet set = s.executeQuery();
 			int points = set.getInt(1);
@@ -432,20 +432,20 @@ public class Database {
 		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `points` WHERE `player` = ?)");
-			s.setString(0, player);
+			s.setString(1, player);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			if(rs.first()){
-				s = plugin.conn.prepareStatement("UPDATE `points` SET `points` = (`points` + '?') WHERE `name` = ?");
-				s.setInt(0, points);
-				s.setString(1, player);
+				s = plugin.conn.prepareStatement("UPDATE `points` SET `points` = (`points` + ?) WHERE `name` = ?");
+				s.setInt(1, points);
+				s.setString(2, player);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `points` VALUES('?','?')");
-				s.setString(0, player);
-				s.setInt(1, points);
+				s = plugin.conn.prepareStatement("INSERT INTO `points` VALUES(?,?)");
+				s.setString(1, player);
+				s.setInt(2, points);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -475,7 +475,7 @@ public class Database {
 	
 		public int getDeaths(String player){
 		try{
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `deaths` FROM `deaths` WHERE `name`='?'");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `deaths` FROM `deaths` WHERE `name`=?");
 			s.setString(1, player);
 			ResultSet set = s.executeQuery();
 			int points = set.getInt(1);
@@ -495,20 +495,20 @@ public class Database {
 		try {
 			plugin.dbConnect();
 			PreparedStatement s = plugin.conn.prepareStatement("SELECT EXISTS(SELECT 1 FROM `deaths` WHERE `player` = ?)");
-			s.setString(0, player);
+			s.setString(1, player);
 			ResultSet rs = s.executeQuery();
 			s.close();
 			if(rs.first()){
-				s = plugin.conn.prepareStatement("UPDATE `deaths` SET `deaths` = (`deaths` + '?') WHERE `name` = ?");
-				s.setInt(0, 1);
-				s.setString(1, player);
+				s = plugin.conn.prepareStatement("UPDATE `deaths` SET `deaths` = (`deaths` + ?) WHERE `name` = ?");
+				s.setInt(1, 1);
+				s.setString(2, player);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `deaths` VALUES('?','?')");
-				s.setString(0, player);
-				s.setInt(1, 1);
+				s = plugin.conn.prepareStatement("INSERT INTO `deaths` VALUES(?,?)");
+				s.setString(1, player);
+				s.setInt(2, 1);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
