@@ -48,14 +48,6 @@ public class CommandHandler implements CommandExecutor, Listener {
 				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.db.getMoney(args[0]));
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("stats")) {
-			if (args.length == 0) {
-				//plugin.getStats(sender.getName());
-				return true;
-			} else {
-				//plugin.getStats(args[0]);
-				return true;
-			}
 		} else if (cmd.getName().equalsIgnoreCase("who") || cmd.getName().equalsIgnoreCase("online") || cmd.getName().equalsIgnoreCase("players")) {
 			String outputAlive = "";
 			int alive = 0;
