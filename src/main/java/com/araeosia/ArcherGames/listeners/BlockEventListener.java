@@ -2,10 +2,9 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
-import org.bukkit.Material;
 import org.bukkit.block.Chest;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.block.Sign;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -14,7 +13,6 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 public class BlockEventListener implements Listener {
 
@@ -66,6 +64,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockInteract(final PlayerInteractEvent event) {
+		// TODO: Add some checking to see if 
 		if (event.hasBlock()) {
 			if (plugin.debug) {
 				if (event.getClickedBlock().getState() instanceof Sign) {
@@ -73,7 +72,7 @@ public class BlockEventListener implements Listener {
 					plugin.log.info(sign.getLine(0));
 				}
 			}
-			if (event.getClickedBlock() instanceof Chest) {
+			if (event.getClickedBlock() instanceof Chest || event.getClickedBlock() instanceof DoubleChest) {
 				if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")) {
 					event.setCancelled(true);
 				}
