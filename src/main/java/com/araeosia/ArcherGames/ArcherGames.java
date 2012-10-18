@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -88,9 +87,6 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("track").setExecutor(new CommandHandler(this));
 		this.getCommand("ride").setExecutor(new CommandHandler(this));
 		this.getCommand("help").setExecutor(new CommandHandler(this));
-		this.getCommand("commands").setExecutor(new CommandHandler(this));
-		//this.getCommand("online").setExecutor(new CommandHandler(this));
-		//this.getCommand("players").setExecutor(new CommandHandler(this));
 
 		log.info("ArcherGames is enabled!");
 		if (debug) {
