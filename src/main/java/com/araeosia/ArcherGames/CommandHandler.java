@@ -39,10 +39,10 @@ public class CommandHandler implements CommandExecutor, Listener {
 			}
 		} else if (cmd.getName().equalsIgnoreCase("money")) {
 			if (args.length == 0) {
-//				sender.sendMessage(ChatColor.GREEN + sender.getName() + "'s balance is " + plugin.econ.getBalance(sender.getName()) + ""); //Or something
+				sender.sendMessage(ChatColor.GREEN + sender.getName() + "'s balance is " + plugin.db.getMoney(sender.getName()) + "");
 				return true;
 			} else {
-//				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.econ.getBalance(args[0])); //Or something
+				sender.sendMessage(ChatColor.GREEN + args[0] + "'s balance is " + plugin.db.getMoney(args[0]));
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("stats")) {
@@ -137,8 +137,13 @@ public class CommandHandler implements CommandExecutor, Listener {
 				if (args.length != 1) {
 					try {
 						if (Double.parseDouble(args[1]) > 0) {
-//							plugin.econ.takePlayer(sender.getName(), Double.parseDouble(args[1]));
-//							plugin.econ.givePlayer(args[0], Double.parseDouble(args[1]));
+							if(plugin.db.hasMoney(sender.getName(), Double.parseDouble(args[1]))){
+								plugin.db.takeMoney(sender.getName(), Double.parseDouble(args[1]));
+								plugin.db.addMoney(args[0], Double.parseDouble(args[1]));
+							} else {
+								sender.sendMessage("You cannot afford to send this amount of money!");
+							}
+							
 							sender.sendMessage(ChatColor.GREEN + "$" + args[0] + " paid to " + args[0]);
 						}
 					} catch (Exception e) {
@@ -193,6 +198,43 @@ public class CommandHandler implements CommandExecutor, Listener {
 			} else {
 				return false;
 			}
+		} else if (cmd.getName().equalsIgnoreCase("credtop")){
+			sender.sendMessage(ChatColor.GREEN + "Here are the top credit amounts on ArcherGames currently:");
+			HashMap<String, Integer> credits = plugin.db.getTopPoints();
+			int i = 1;
+			for(String playerName : credits.keySet()){
+				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + credits.get(playerName));
+				i++;
+			}
+			return true;
+		} else if (cmd.getName().equalsIgnoreCase("baltop")){
+			sender.sendMessage(ChatColor.GREEN + "Here are the top balance amounts on ArcherGames currently:");
+			HashMap<String, Integer> balances = plugin.db.getTopPoints();
+			int i = 1;
+			for(String playerName : balances.keySet()){
+				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + balances.get(playerName));
+				i++;
+			}
+			return true;
+		} else if (cmd.getName().equalsIgnoreCase("wintop")){
+			sender.sendMessage(ChatColor.GREEN + "Here are the top amounts of won games on ArcherGames currently:");
+			HashMap<String, Integer> wins = plugin.db.getTopWinners();
+			int i = 1;
+			for(String playerName : wins.keySet()){
+				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + wins.get(playerName));
+				i++;
+			}
+			return true;
+		} else if (cmd.getName().equalsIgnoreCase("stats")){
+			String lookup = args.length == 0 ? sender.getName() : args[0];
+			
+			sender.sendMessage(ChatColor.GREEN + lookup + "'s Statistics:");
+			sender.sendMessage( ChatColor.GREEN + "Wins: " + plugin.db.getWins(lookup));
+			sender.sendMessage( ChatColor.GREEN + "Games played: " + plugin.db.getPlays(lookup));
+			sender.sendMessage( ChatColor.GREEN + "Credits: " + plugin.db.getPoints(lookup));
+			sender.sendMessage( ChatColor.GREEN + "Deaths: " + plugin.db.getDeaths(lookup));
+			sender.sendMessage(ChatColor.GREEN + "Time Played: " + plugin.db.getPlayTime(lookup));
+			return true;
 		}
 		return false;
 	}
