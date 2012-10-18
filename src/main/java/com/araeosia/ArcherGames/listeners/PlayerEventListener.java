@@ -203,9 +203,10 @@ public class PlayerEventListener implements Listener {
 	public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
 		if (ScheduledTasks.gameStatus == 1) {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
+			event.getItem().remove();
 			event.setCancelled(true);
 		}
-		if (plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
 			event.setCancelled(true);
 		}
 	}
