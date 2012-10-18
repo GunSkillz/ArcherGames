@@ -27,11 +27,14 @@ commands:
     description: Checks wallet balance.
     usage: /money
   baltop:
-    description: Shows the player with the most money.
+    description: Shows the players with the most money.
     usage: /baltop
   credtop:
-    description: Shows the player with the most credits.
+    description: Shows the players with the most credits.
     usage: /credtop
+  wintop:
+    decription: Shows the players with the most wins.
+    usage: /wintop
   stats:
     description: Shows a specified player's statistics.
     usage: /stats [player]
@@ -39,8 +42,8 @@ commands:
     description: Shows how many credits you have.
     usage: /credit
   ArcherGames:
-    description: Command for help, listing commands, and debugging.
-    usage: /ArcherGames (help|commands)
+    description: Command for debugging.
+    usage: /ArcherGames (subcmd)
   kit:
     description: Select a kit for the game
     usage: /kit (kitname)

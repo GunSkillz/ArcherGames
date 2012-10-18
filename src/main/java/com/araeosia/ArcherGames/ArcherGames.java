@@ -87,6 +87,8 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("stats").setExecutor(new CommandHandler(this));
 		this.getCommand("track").setExecutor(new CommandHandler(this));
 		this.getCommand("ride").setExecutor(new CommandHandler(this));
+		this.getCommand("help").setExecutor(new CommandHandler(this));
+		this.getCommand("commands").setExecutor(new CommandHandler(this));
 		//this.getCommand("online").setExecutor(new CommandHandler(this));
 		//this.getCommand("players").setExecutor(new CommandHandler(this));
 

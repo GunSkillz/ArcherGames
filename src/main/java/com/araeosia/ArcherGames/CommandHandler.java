@@ -1,6 +1,7 @@
 package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.utils.BookItem;
 import com.araeosia.ArcherGames.utils.Kit;
 import java.util.HashMap;
 import org.bukkit.ChatColor;
@@ -277,6 +278,29 @@ public class CommandHandler implements CommandExecutor, Listener {
 				sender.sendMessage(ChatColor.RED + "You must be a player to execute that command.");
 				return true;
 			}
+		} else if (cmd.getName().equalsIgnoreCase("help")){
+			if(sender instanceof Player){
+				Player player = (Player) sender;
+				if (!player.getInventory().contains(Material.BOOK)) {
+					BookItem bi = new BookItem(new ItemStack(387, 1));
+					bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
+					bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
+					String[] pages = plugin.getConfig().getStringList("ArcherGames.startbook.pages").toArray(new String[11]);
+					bi.setPages(pages);
+					player.getInventory().addItem(bi.getItemStack());
+					return true;
+				} else {
+					sender.sendMessage(ChatColor.RED + "You already have a help book! Check your inventory!");
+					return true;
+				}
+			} else {
+				sender.sendMessage(ChatColor.RED + "You must be a player to execute that command!");
+				return true;
+			}
+		} else if (cmd.getName().equalsIgnoreCase("commands")) {
+			
+			//Todo
+			return true;
 		}
 		return false;
 	}
