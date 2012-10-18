@@ -267,7 +267,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 		} else if (cmd.getName().equalsIgnoreCase("ride")){
 			if(sender instanceof Player){
 				if(!plugin.serverwide.ridingPlayers.contains(sender.getName())){
-					plugin.serverwide.ridingPlayers.add((Player) sender);
+					plugin.serverwide.ridingPlayers.add(sender.getName());
 					sender.sendMessage(ChatColor.GREEN + "You are now able to right click and ride players.");
 				} else {
 					plugin.serverwide.ridingPlayers.remove(sender.getName());
