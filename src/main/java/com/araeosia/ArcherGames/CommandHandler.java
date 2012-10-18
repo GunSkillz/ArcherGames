@@ -175,7 +175,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					try {
 						plugin.scheduler.preGameCountdown = Integer.parseInt(args[0]);
 						plugin.scheduler.currentLoop = 0;
-						sender.sendMessage(ChatColor.GREEN + "Time left set to " + args[0] + " seconds left.");
+						sender.sendMessage(ChatColor.GREEN + "Time left to start set to " + args[0] + " seconds left.");
 						return true;
 					} catch (Exception e) {
 						sender.sendMessage(ChatColor.RED + "Time could not be set.");
@@ -298,8 +298,23 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("commands")) {
-			
-			//Todo
+		sendHelp(sender, "kit [kitname]", "Pick or list the kits, depending on arguements.");
+		sendHelp(sender, "vote", "List the sites you can vote for the server on.");
+		sendHelp(sender, "money [player]", "Show either your or another player's money balance.");
+		sendHelp(sender, "stats [player]", "Show either your or another player's stats.");
+		sendHelp(sender, "chunk", "Reload your current chunk to fix a loading issue");
+		sendHelp(sender, "pay (player) (amt)", "Send the specified player the specified amount of money");
+		sendHelp(sender, "time", "Show the amount of time before the next event happens (Game start, Overtime, etc.)");
+		sendHelp(sender, "timer (time)", "Set the amount of time left to the start of the game.");
+		sendHelp(sender, "who/online/players", "See the players online and who is alive.");
+		sendHelp(sender, "credtop", "Show the top players for credits earned.");
+		sendHelp(sender, "baltop", "Show the top players for money earned.");
+		sendHelp(sender, "wintop", "Show the top players for games won.");
+		sendHelp(sender, "stats [player]", "Show the specified player, or your, stats.");
+		sendHelp(sender, "track (player)", "Use a compass to point at onother player. (Donor only)");
+		sendHelp(sender, "ride", "Toggle the ability to right click players and 'ride' them");
+		sendHelp(sender, "help", "Give yourself a help book.");
+		sendHelp(sender, "commands", "Show this help page.");
 			return true;
 		}
 		return false;
@@ -317,5 +332,9 @@ public class CommandHandler implements CommandExecutor, Listener {
 				event.getPlayer().sendMessage(plugin.strings.get("nocommand"));
 			}
 		}
+	}
+
+	private void sendHelp(CommandSender sender, String command, String description) {
+		sender.sendMessage(ChatColor.GOLD + "/" + command + ": " + ChatColor.YELLOW + description);
 	}
 }
