@@ -235,6 +235,11 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sender.sendMessage( ChatColor.GREEN + "Deaths: " + plugin.db.getDeaths(lookup));
 			sender.sendMessage(ChatColor.GREEN + "Time Played: " + plugin.db.getPlayTime(lookup));
 			return true;
+		} else if (cmd.getName().equalsIgnoreCase("credits")){
+			String lookup = args.length == 0 ? sender.getName() : args[0];
+			sender.sendMessage(ChatColor.GREEN + "" + lookup + " has " + plugin.db.getPoints(lookup) + " credits.");
+			
+			return true;
 		}
 		return false;
 	}
