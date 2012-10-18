@@ -86,7 +86,7 @@ public class Database {
 
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `time` FROM `joins` WHERE `player`=? ORDER BY `id` DESC");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `joins` FROM `joins` WHERE `player`=? ORDER BY `id` DESC");
 			s.setString(1, name);
 			ResultSet rs = s.executeQuery();
 			s.close();
