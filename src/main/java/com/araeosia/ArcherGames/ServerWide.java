@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
  */
 public class ServerWide {
 
+	public ArrayList<String> ridingPlayers = new ArrayList<String>();
 	public ArrayList<Archer> livingPlayers = new ArrayList<Archer>();
 	public ArcherGames plugin;
 	public String winner;

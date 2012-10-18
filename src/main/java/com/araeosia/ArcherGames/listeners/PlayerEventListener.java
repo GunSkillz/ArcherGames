@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -210,6 +211,23 @@ public class PlayerEventListener implements Listener {
 		}
 		if(plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
 			event.setCancelled(true);
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerInteractEntity(final PlayerInteractEntityEvent event){
+		if(plugin.serverwide.ridingPlayers.contains(event.getPlayer().getName())){
+			if(event.getRightClicked() instanceof Player){
+				Player ridden = (Player) event.getRightClicked();
+				Player player = event.getPlayer();
+				if(player.getPassenger() == null){
+					if(player.getVehicle() == null){
+						ridden.setPassenger(player);
+					} else {
+						player.getVehicle().eject();
+					}
+				}
+			}
 		}
 	}
 }

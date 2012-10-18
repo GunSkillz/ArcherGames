@@ -4,6 +4,7 @@ import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.Kit;
 import java.util.HashMap;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class CommandHandler implements CommandExecutor, Listener {
 
@@ -240,6 +242,41 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sender.sendMessage(ChatColor.GREEN + "" + lookup + " has " + plugin.db.getPoints(lookup) + " credits.");
 			
 			return true;
+		} else if (cmd.getName().equalsIgnoreCase("track")){
+			if(sender.hasPermission("ArcherGames.donor.track")){
+				if(sender instanceof Player){
+					if(args.length != 0){
+						Player player = (Player) sender;
+						if(!player.getInventory().contains(Material.COMPASS)){
+							player.getInventory().addItem(new ItemStack(Material.COMPASS));
+						}
+						player.setCompassTarget(plugin.getServer().getPlayer(args[0]).getLocation());
+						player.sendMessage(ChatColor.GREEN + "Compass set to point to " + args[0]);
+					} else {
+						sender.sendMessage(ChatColor.RED + "You need to sepcify a player to point your compass at!");
+						return true;
+					}
+				} else {
+					sender.sendMessage(ChatColor.RED + "You must be a player to execute that command!");
+					return true;
+				}				
+			} else {
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+				return true;
+			}
+		} else if (cmd.getName().equalsIgnoreCase("ride")){
+			if(sender instanceof Player){
+				if(!plugin.serverwide.ridingPlayers.contains(sender.getName())){
+					plugin.serverwide.ridingPlayers.add((Player) sender);
+					sender.sendMessage(ChatColor.GREEN + "You are now able to right click and ride players.");
+				} else {
+					plugin.serverwide.ridingPlayers.remove(sender.getName());
+					sender.sendMessage(ChatColor.GREEN + "You are no longer able to right click and ride players.");
+				}
+			} else {
+				sender.sendMessage(ChatColor.RED + "You must be a player to execute that command.");
+				return true;
+			}
 		}
 		return false;
 	}
