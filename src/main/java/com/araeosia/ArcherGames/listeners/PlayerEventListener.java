@@ -172,22 +172,20 @@ public class PlayerEventListener implements Listener {
 
 	@EventHandler
 	public void onRespawnEvent(final PlayerRespawnEvent event) {
-		if (!Archer.getByName(event.getPlayer().getName()).isAlive()) {
-			try {
-				if (!VanishNoPacket.isVanished(event.getPlayer().getName())) {
-					if (plugin.debug) {
-						plugin.log.info(event.getPlayer().getName() + " respawned and was made invisible.");
-					}
-					VanishNoPacket.toggleVanishSilent(event.getPlayer());
+		try {
+			if (!VanishNoPacket.isVanished(event.getPlayer().getName())) {
+				if (plugin.debug) {
+					plugin.log.info(event.getPlayer().getName() + " respawned and was made invisible.");
 				}
-			} catch (VanishNotLoadedException ex) {
-				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
+				VanishNoPacket.toggleVanishSilent(event.getPlayer());
 			}
-			if (!event.getPlayer().getAllowFlight()) {
-				event.getPlayer().setAllowFlight(true);
-			}
-			event.getPlayer().sendMessage(plugin.strings.get("respawn"));
+		} catch (VanishNotLoadedException ex) {
+			Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		if (!event.getPlayer().getAllowFlight()) {
+			event.getPlayer().setAllowFlight(true);
+		}
+		event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 	}
 
 	@EventHandler
@@ -195,8 +193,8 @@ public class PlayerEventListener implements Listener {
 		if (ScheduledTasks.gameStatus == 1) {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
-		}		
-		if(plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+		}
+		if (plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
 			event.setCancelled(true);
 		}
 	}
@@ -207,19 +205,19 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
-		if(plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+		if (plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
 			event.setCancelled(true);
 		}
 	}
-	
+
 	@EventHandler
-	public void onPlayerInteractEntity(final PlayerInteractEntityEvent event){
-		if(plugin.serverwide.ridingPlayers.contains(event.getPlayer().getName())){
-			if(event.getRightClicked() instanceof Player){
+	public void onPlayerInteractEntity(final PlayerInteractEntityEvent event) {
+		if (plugin.serverwide.ridingPlayers.contains(event.getPlayer().getName())) {
+			if (event.getRightClicked() instanceof Player) {
 				Player ridden = (Player) event.getRightClicked();
 				Player player = event.getPlayer();
-				if(player.getPassenger() == null){
-					if(player.getVehicle() == null){
+				if (player.getPassenger() == null) {
+					if (player.getVehicle() == null) {
 						ridden.setPassenger(player);
 					} else {
 						player.getVehicle().eject();
