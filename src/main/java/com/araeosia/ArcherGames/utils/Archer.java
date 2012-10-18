@@ -4,7 +4,6 @@ import com.araeosia.ArcherGames.ArcherGames;
 
 public class Archer {
 
-	public boolean canTalk;
 	public String name;
 	public boolean isAlive;
 	public Kit kit;
@@ -19,7 +18,6 @@ public class Archer {
 	 */
 	public Archer(String playerName) {
 		this.name = playerName;
-		canTalk = false;
 		isAlive = false;
 		isReady = false;
 	}
@@ -36,12 +34,6 @@ public class Archer {
 	public void setAlive(Boolean alive){
 		this.isAlive = alive;
 	}
-
-	/**
-	 * Set if this player can talk
-	 *
-	 * @param canTalk
-	 */
 
 	/**
 	 * Get if the player is Alive
@@ -102,7 +94,7 @@ public class Archer {
 		return name;
 	}
 	public void setAbility(String abilities){
-		this.ability = ability;
+		this.ability = abilities;
 	}
 	public String getAbility(){
 		return ability;
