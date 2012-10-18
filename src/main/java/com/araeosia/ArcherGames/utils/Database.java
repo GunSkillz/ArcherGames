@@ -45,7 +45,7 @@ public class Database {
 			s.close();
 			
 
-			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `joins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `joins` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
+			s = plugin.conn.prepareStatement("CREATE TABLE IF NOT EXISTS `joins` (`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `join` int(11) NOT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1");
 			s.executeUpdate();
 			s.close();
 
@@ -86,7 +86,7 @@ public class Database {
 
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("SELECT `joins` FROM `joins` WHERE `player`=? ORDER BY `id` DESC");
+			PreparedStatement s = plugin.conn.prepareStatement("SELECT `join` FROM `joins` WHERE `player`=? ORDER BY `id` DESC");
 			s.setString(1, name);
 			ResultSet rs = s.executeQuery();
 			s.close();
