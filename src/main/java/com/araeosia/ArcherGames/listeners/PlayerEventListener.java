@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -182,9 +181,7 @@ public class PlayerEventListener implements Listener {
 		} catch (VanishNotLoadedException ex) {
 			Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		if (!event.getPlayer().getAllowFlight()) {
-			event.getPlayer().setAllowFlight(true);
-		}
+		event.getPlayer().setAllowFlight(true);
 		event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 	}
 
