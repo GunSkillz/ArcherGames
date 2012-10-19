@@ -80,7 +80,7 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage("§gIf you don't want to deal with this, hop on another server and see if it's also a beta version. Sorry about any inconvenience.");
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer().getName());
 		naggerTask.put(event.getPlayer().getName(), taskID);
-		if (!event.getPlayer().getInventory().contains(Material.BOOK)) {
+		if (!event.getPlayer().getInventory().contains(Material.WRITTEN_BOOK)) {
 			BookItem bi = new BookItem(new ItemStack(387, 1));
 			bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
 			bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
