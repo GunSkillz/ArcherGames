@@ -36,7 +36,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("vote")) {
 			sender.sendMessage(plugin.strings.get("voteinfo"));
-			for (String s : plugin.voteSites) {
+			for (String s : plugin.voteSites.split("~")) {
 				sender.sendMessage(ChatColor.GREEN + s);
 				return true;
 			}

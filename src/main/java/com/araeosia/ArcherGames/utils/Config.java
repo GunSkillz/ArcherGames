@@ -26,17 +26,17 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.technical.debug", plugin.getConfig().get("ArcherGames.technical.debug", false));
 		plugin.getConfig().set("ArcherGames.toggles.arrowDelete", plugin.getConfig().get("ArcherGames.toggles.arrowDelete", true));
 		plugin.getConfig().set("ArcherGames.toggles.lockdownMode", plugin.getConfig().get("ArcherGames.toggles.lockdownMode", false));
-		List<String> voteSites = new ArrayList<String>();
-		voteSites.add("http://ow.ly/cpQI0");
-		voteSites.add("http://ow.ly/cmwer");
-		voteSites.add("http://ow.ly/cmnPu");
-		voteSites.add("http://ow.ly/cmDIF");
-		voteSites.add("http://ow.ly/cmP18");
-		voteSites.add("http://ow.ly/cmETB");
-		voteSites.add("http://ow.ly/dVcsF");
-		voteSites.add("http://ow.ly/eggLe");
+		StringBuilder voteSites = new StringBuilder();
+		voteSites.append("http://ow.ly/cpQI0~");
+		voteSites.append("http://ow.ly/cmwer~");
+		voteSites.append("http://ow.ly/cmnPu~");
+		voteSites.append("http://ow.ly/cmDIF~");
+		voteSites.append("http://ow.ly/cmP18~");
+		voteSites.append("http://ow.ly/cmETB~");
+		voteSites.append("http://ow.ly/dVcsF~");
+		voteSites.append("http://ow.ly/eggLe");
 		plugin.getConfig().set("ArcherGames.vote.info", plugin.getConfig().get("ArcherGames.vote.info", "§gVote on these sites for $3000 each!"));
-		plugin.getConfig().set("ArcherGames.vote.sites", plugin.getConfig().get("ArcherGames.vote.sites", voteSites));
+		plugin.getConfig().set("ArcherGames.vote.sites", plugin.getConfig().get("ArcherGames.vote.sites", voteSites.toString()));
 		plugin.getConfig().set("ArcherGames.vote.howMuchToGive", plugin.getConfig().get("ArcherGames.vote.howMuchToGive", 3000));
 		plugin.getConfig().set("ArcherGames.timers.preGameCountdown", plugin.getConfig().get("ArcherGames.timers.preGameCountdown", 120)); // 2 minutes for everyone to get in game
 		plugin.getConfig().set("ArcherGames.timers.gameInvincibleCountdown", plugin.getConfig().get("ArcherGames.timers.gameInvincibleCountdown", 60)); // 1 minute for everyone to get far enough away from each other
@@ -107,7 +107,7 @@ public class Config {
 		plugin.saveConfig();
 
 		plugin.arrowExplosionFactor = plugin.getConfig().getDouble("ArcherGames.game.arrowExplosionFactor");
-		plugin.voteSites = (java.util.List<String>) plugin.getConfig().getList("ArcherGames.vote.sites");
+		plugin.voteSites = plugin.getConfig().getString("ArcherGames.vote.sites");
 		plugin.voteReward = plugin.getConfig().getInt("ArcherGames.vote.howMuchToGive");
 		plugin.scheduler.preGameCountdown = plugin.getConfig().getInt("ArcherGames.timers.preGameCountdown");
 		plugin.scheduler.gameInvincibleCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameInvincibleCountdown");

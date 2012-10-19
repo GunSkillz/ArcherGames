@@ -28,7 +28,7 @@ public class ArcherGames extends JavaPlugin {
 	public Config config;
 	public ScheduledTasks scheduler;
 	public Logger log;
-	public List<String> voteSites;
+	public String voteSites;
 	public Location startPosition;
 	public ArrayList<Kit> kits = new ArrayList<Kit>();
 	public static ArrayList<Archer> players = new ArrayList<Archer>();
