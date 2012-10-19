@@ -32,7 +32,13 @@ public class ServerWide {
 		if(livingPlayers.contains(Archer.getByName(playerName))){
 			playerPlaces.put(livingPlayers.size(), playerName);
 			livingPlayers.remove(Archer.getByName(playerName));
-			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), livingPlayers.size()));
+			int alivePlayers = 0;
+			for (Player p : plugin.getServer().getOnlinePlayers()) {
+				if (Archer.getByName(p.getName()).isAlive()) {
+					alivePlayers++;
+				}
+			}
+			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers));
 		}
 		Archer.getByName(playerName).kill();
 	}

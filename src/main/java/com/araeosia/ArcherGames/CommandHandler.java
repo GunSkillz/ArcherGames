@@ -307,8 +307,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 		sendHelp(sender, "ride", "Toggle the ability to right click players and 'ride' them");
 		sendHelp(sender, "help", "Give yourself a help book.");
 		sendHelp(sender, "commands", "Show this help page.");
-		sendHelp(sender, "goto (player)", "Teleport to anothe rplayer while spectating.");
-			return true;
+		sendHelp(sender, "goto (player)", "Teleport to another player while spectating.");
+		return true;
 		} else if(cmd.getName().equalsIgnoreCase("goto")){
 			if(sender.hasPermission("ArcherGames.commands.goto")){
 				if(args.length != 0){

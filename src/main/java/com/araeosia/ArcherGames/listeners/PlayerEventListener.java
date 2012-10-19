@@ -150,7 +150,7 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
-				if (Archer.getByName(player.getName()).isAlive() || plugin.serverwide.livingPlayers.contains(Archer.getByName(player.getName()))) {
+				if (Archer.getByName(player.getName()).isAlive() && plugin.serverwide.livingPlayers.contains(Archer.getByName(player.getName()))) {
 					plugin.serverwide.leaveGame(event.getEntity().getName());
 				}
 

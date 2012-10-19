@@ -107,7 +107,13 @@ public class ScheduledTasks {
 							break;
 						case 4:
 							// Overtime
-							if (plugin.serverwide.livingPlayers.size() <= 1) {
+							int alivePlayers = 0;
+							for (Player p : plugin.getServer().getOnlinePlayers()) {
+								if (Archer.getByName(p.getName()).isAlive()) {
+									alivePlayers++;
+								}
+							}
+							if (alivePlayers <= 1) {
 								if (plugin.debug) {
 									plugin.log.info("Game has ended.");
 								}
