@@ -183,7 +183,7 @@ public class Config {
 			addon.setName(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Name"));
 			addon.setDescription(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Description"));
 			addon.setPermission(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Permission"));
-			try{
+			try {
 			addon.setAbility(Ability.valueOf((plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Ability")).toUpperCase()));
 			} catch (Exception e){
 				addon.setAbility(Ability._);
