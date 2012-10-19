@@ -193,7 +193,7 @@ public class Config {
 			}
 			addon.setArmor(armorToAdd);
 			ArrayList<ItemStack> itemsToAdd = new ArrayList<ItemStack>();
-			if (plugin.getConfig().isSet("ArcherGames.kits" + kitNumber + ".Items")) {
+			if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Items")) {
 				for (String itemNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Items").getKeys(false)) {
 					ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".id"), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".quantity"), (short) plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".damage"));
 					if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments")) {
