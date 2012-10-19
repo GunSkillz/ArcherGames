@@ -56,7 +56,7 @@ public class Config {
 		plugin.getConfig().set("ArcherGames.strings.servername", plugin.getConfig().get("ArcherGames.strings.servername", "ArcherGamesServer"));
 		plugin.getConfig().set("ArcherGames.strings.starttimeleft", plugin.getConfig().get("ArcherGames.strings.starttimeleft", "[ArcherGames] The game will start in %s!"));
 		plugin.getConfig().set("ArcherGames.strings.kitinfo", plugin.getConfig().get("ArcherGames.strings.kitinfo", "§gHere are the kits you have access to: "));
-		plugin.getConfig().set("ArcherGames.strings.kitnoaccessible", plugin.getConfig().get("ArcherGames.strings.kitnoaccessible", "§cHere are the kits that are available on our website: "));
+		plugin.getConfig().set("ArcherGames.strings.kitnoaccessible", plugin.getConfig().get("ArcherGames.strings.kitnoaccessible", "Here are the kits that are available on our website: "));
 		plugin.getConfig().set("ArcherGames.strings.kitgiven", plugin.getConfig().get("ArcherGames.strings.kitgiven", "§gYour kit has been set to %s."));
 		plugin.getConfig().set("ArcherGames.strings.nochat", plugin.getConfig().get("ArcherGames.strings.nochat", "§4You must choose a kit before you can chat."));
 		plugin.getConfig().set("ArcherGames.strings.respawn", plugin.getConfig().get("ArcherGames.strings.respawn", "§4You died and have been spawned in spectator mode (flying, invisible, no editing)."));

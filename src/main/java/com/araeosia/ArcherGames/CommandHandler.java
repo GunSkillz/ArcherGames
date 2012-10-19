@@ -95,8 +95,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 				}
 			} else {
-				sender.sendMessage(ChatColor.GREEN + "Use /kit (kitname) to select a kit.");
-				sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
+				sender.sendMessage(ChatColor.AQUA + "Use /kit (kitname) to select a kit.");
+				sender.sendMessage(ChatColor.DARK_GREEN + plugin.strings.get("kitinfo"));
 				String kits = "";
 				String kitsNo = "";
 				for (Kit kit : plugin.kits) {
@@ -107,39 +107,33 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 				}
 				sender.sendMessage(ChatColor.GREEN + kits);
-				sender.sendMessage(plugin.strings.get("kitnoaccessible"));
-				sender.sendMessage("§c" + kitsNo);
+				sender.sendMessage(ChatColor.DARK_RED + plugin.strings.get("kitnoaccessible"));
+				sender.sendMessage(ChatColor.RED + kitsNo);
 			}
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("chunk")) {
-			if (!(ScheduledTasks.gameStatus == 1)) {
-				if (sender instanceof Player) {
-					Player player = (Player) sender;
-					player.getWorld().unloadChunk(player.getLocation().getChunk());
-					player.getWorld().loadChunk(player.getLocation().getChunk());
-					player.sendMessage(ChatColor.GREEN + "Chunk Reloaded.");
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				sender.sendMessage(ChatColor.RED + "You may not use this command yet.");
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				player.getWorld().unloadChunk(player.getLocation().getChunk());
+				player.getWorld().loadChunk(player.getLocation().getChunk());
+				player.teleport(player.getLocation());
+				player.sendMessage(ChatColor.GREEN + "Chunk Reloaded.");
 				return true;
+			} else {
+				return false;
 			}
-
-
 		} else if (cmd.getName().equalsIgnoreCase("pay")) {
 			if (args.length != 0) {
 				if (args.length != 1) {
 					try {
 						if (Double.parseDouble(args[1]) > 0) {
-							if(plugin.db.hasMoney(sender.getName(), Double.parseDouble(args[1]))){
+							if (plugin.db.hasMoney(sender.getName(), Double.parseDouble(args[1]))) {
 								plugin.db.takeMoney(sender.getName(), Double.parseDouble(args[1]));
 								plugin.db.addMoney(args[0], Double.parseDouble(args[1]));
 							} else {
 								sender.sendMessage("You cannot afford to send this amount of money!");
 							}
-							
+
 							sender.sendMessage(ChatColor.GREEN + "$" + args[0] + " paid to " + args[0]);
 						}
 					} catch (Exception e) {
@@ -176,7 +170,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 				}
 			}
-		} else if (plugin.debug && cmd.getName().equalsIgnoreCase("ArcherGames")) {
+		} else if (plugin.debug
+				&& cmd.getName().equalsIgnoreCase("ArcherGames")) {
 
 			if (args[0].equalsIgnoreCase("startGame")) {
 				ScheduledTasks.gameStatus = 2;
@@ -194,54 +189,54 @@ public class CommandHandler implements CommandExecutor, Listener {
 			} else {
 				return false;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("credtop")){
+		} else if (cmd.getName().equalsIgnoreCase("credtop")) {
 			sender.sendMessage(ChatColor.GREEN + "Here are the top credit amounts on ArcherGames currently:");
 			HashMap<String, Integer> credits = plugin.db.getTopPoints();
 			int i = 1;
-			for(String playerName : credits.keySet()){
+			for (String playerName : credits.keySet()) {
 				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + credits.get(playerName));
 				i++;
 			}
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("baltop")){
+		} else if (cmd.getName().equalsIgnoreCase("baltop")) {
 			sender.sendMessage(ChatColor.GREEN + "Here are the top balance amounts on ArcherGames currently:");
 			HashMap<String, Integer> balances = plugin.db.getTopPoints();
 			int i = 1;
-			for(String playerName : balances.keySet()){
+			for (String playerName : balances.keySet()) {
 				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + balances.get(playerName));
 				i++;
 			}
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("wintop")){
+		} else if (cmd.getName().equalsIgnoreCase("wintop")) {
 			sender.sendMessage(ChatColor.GREEN + "Here are the top amounts of won games on ArcherGames currently:");
 			HashMap<String, Integer> wins = plugin.db.getTopWinners();
 			int i = 1;
-			for(String playerName : wins.keySet()){
+			for (String playerName : wins.keySet()) {
 				sender.sendMessage(ChatColor.GREEN + "" + i + ": " + playerName + " | " + wins.get(playerName));
 				i++;
 			}
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("stats")){
+		} else if (cmd.getName().equalsIgnoreCase("stats")) {
 			String lookup = args.length == 0 ? sender.getName() : args[0];
-			
+
 			sender.sendMessage(ChatColor.GREEN + lookup + "'s Statistics:");
-			sender.sendMessage( ChatColor.GREEN + "Wins: " + plugin.db.getWins(lookup));
-			sender.sendMessage( ChatColor.GREEN + "Games played: " + plugin.db.getPlays(lookup));
-			sender.sendMessage( ChatColor.GREEN + "Credits: " + plugin.db.getPoints(lookup));
-			sender.sendMessage( ChatColor.GREEN + "Deaths: " + plugin.db.getDeaths(lookup));
+			sender.sendMessage(ChatColor.GREEN + "Wins: " + plugin.db.getWins(lookup));
+			sender.sendMessage(ChatColor.GREEN + "Games played: " + plugin.db.getPlays(lookup));
+			sender.sendMessage(ChatColor.GREEN + "Credits: " + plugin.db.getPoints(lookup));
+			sender.sendMessage(ChatColor.GREEN + "Deaths: " + plugin.db.getDeaths(lookup));
 			sender.sendMessage(ChatColor.GREEN + "Time Played: " + plugin.db.getPlayTime(lookup));
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("credits")){
+		} else if (cmd.getName().equalsIgnoreCase("credits")) {
 			String lookup = args.length == 0 ? sender.getName() : args[0];
 			sender.sendMessage(ChatColor.GREEN + "" + lookup + " has " + plugin.db.getPoints(lookup) + " credits.");
-			
+
 			return true;
-		} else if (cmd.getName().equalsIgnoreCase("track")){
-			if(sender.hasPermission("ArcherGames.donor.track")){
-				if(sender instanceof Player){
-					if(args.length != 0){
+		} else if (cmd.getName().equalsIgnoreCase("track")) {
+			if (sender.hasPermission("ArcherGames.donor.track")) {
+				if (sender instanceof Player) {
+					if (args.length != 0) {
 						Player player = (Player) sender;
-						if(!player.getInventory().contains(Material.COMPASS)){
+						if (!player.getInventory().contains(Material.COMPASS)) {
 							player.getInventory().addItem(new ItemStack(Material.COMPASS));
 						}
 						player.setCompassTarget(plugin.getServer().getPlayer(args[0]).getLocation());
@@ -253,14 +248,14 @@ public class CommandHandler implements CommandExecutor, Listener {
 				} else {
 					sender.sendMessage(ChatColor.RED + "You must be a player to execute that command!");
 					return true;
-				}				
+				}
 			} else {
 				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("ride")){
-			if(sender instanceof Player){
-				if(!plugin.serverwide.ridingPlayers.contains(sender.getName())){
+		} else if (cmd.getName().equalsIgnoreCase("ride")) {
+			if (sender instanceof Player) {
+				if (!plugin.serverwide.ridingPlayers.contains(sender.getName())) {
 					plugin.serverwide.ridingPlayers.add(sender.getName());
 					sender.sendMessage(ChatColor.GREEN + "You are now able to right click and ride players.");
 				} else {
@@ -271,8 +266,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 				sender.sendMessage(ChatColor.RED + "You must be a player to execute that command.");
 				return true;
 			}
-		} else if (cmd.getName().equalsIgnoreCase("help")){
-			if(sender instanceof Player){
+		} else if (cmd.getName().equalsIgnoreCase("help")) {
+			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				if (!player.getInventory().contains(Material.BOOK)) {
 					BookItem bi = new BookItem(new ItemStack(387, 1));
@@ -291,37 +286,37 @@ public class CommandHandler implements CommandExecutor, Listener {
 				return true;
 			}
 		} else if (cmd.getName().equalsIgnoreCase("commands")) {
-		sendHelp(sender, "kit [kitname]", "Pick or list the kits, depending on arguements.");
-		sendHelp(sender, "vote", "List the sites you can vote for the server on.");
-		sendHelp(sender, "money [player]", "Show either your or another player's money balance.");
-		sendHelp(sender, "stats [player]", "Show either your or another player's stats.");
-		sendHelp(sender, "chunk", "Reload your current chunk to fix a loading issue");
-		sendHelp(sender, "pay (player) (amt)", "Send the specified player the specified amount of money");
-		sendHelp(sender, "time", "Show the amount of time before the next event happens (Game start, Overtime, etc.)");
-		sendHelp(sender, "timer (time)", "Set the amount of time left to the start of the game.");
-		sendHelp(sender, "who/online/players", "See the players online and who is alive.");
-		sendHelp(sender, "credtop", "Show the top players for credits earned.");
-		sendHelp(sender, "baltop", "Show the top players for money earned.");
-		sendHelp(sender, "wintop", "Show the top players for games won.");
-		sendHelp(sender, "stats [player]", "Show the specified player, or your, stats.");
-		sendHelp(sender, "track (player)", "Use a compass to point at onother player. (Donor only)");
-		sendHelp(sender, "ride", "Toggle the ability to right click players and 'ride' them");
-		sendHelp(sender, "help", "Give yourself a help book.");
-		sendHelp(sender, "commands", "Show this help page.");
-		sendHelp(sender, "goto (player)", "Teleport to another player while spectating.");
-		return true;
-		} else if(cmd.getName().equalsIgnoreCase("goto")){
-			if(sender.hasPermission("ArcherGames.commands.goto")){
-				if(args.length != 0){
+			sendHelp(sender, "kit [kitname]", "Pick or list the kits, depending on arguements.");
+			sendHelp(sender, "vote", "List the sites you can vote for the server on.");
+			sendHelp(sender, "money [player]", "Show either your or another player's money balance.");
+			sendHelp(sender, "stats [player]", "Show either your or another player's stats.");
+			sendHelp(sender, "chunk", "Reload your current chunk to fix a loading issue");
+			sendHelp(sender, "pay (player) (amt)", "Send the specified player the specified amount of money");
+			sendHelp(sender, "time", "Show the amount of time before the next event happens (Game start, Overtime, etc.)");
+			sendHelp(sender, "timer (time)", "Set the amount of time left to the start of the game.");
+			sendHelp(sender, "who/online/players", "See the players online and who is alive.");
+			sendHelp(sender, "credtop", "Show the top players for credits earned.");
+			sendHelp(sender, "baltop", "Show the top players for money earned.");
+			sendHelp(sender, "wintop", "Show the top players for games won.");
+			sendHelp(sender, "stats [player]", "Show the specified player, or your, stats.");
+			sendHelp(sender, "track (player)", "Use a compass to point at onother player. (Donor only)");
+			sendHelp(sender, "ride", "Toggle the ability to right click players and 'ride' them");
+			sendHelp(sender, "help", "Give yourself a help book.");
+			sendHelp(sender, "commands", "Show this help page.");
+			sendHelp(sender, "goto (player)", "Teleport to another player while spectating.");
+			return true;
+		} else if (cmd.getName().equalsIgnoreCase("goto")) {
+			if (sender.hasPermission("ArcherGames.commands.goto")) {
+				if (args.length != 0) {
 					Player p = null;
-					for(Player player : plugin.getServer().getOnlinePlayers()){
-						if(player.getName().contains(args[0])){
+					for (Player player : plugin.getServer().getOnlinePlayers()) {
+						if (player.getName().contains(args[0])) {
 							p = player;
 						}
 					}
-					if(p != null){
-						if(sender instanceof Player){
-							if(!Archer.getByName(sender.getName()).isAlive){
+					if (p != null) {
+						if (sender instanceof Player) {
+							if (!Archer.getByName(sender.getName()).isAlive) {
 								((Player) sender).teleport(p);
 								sender.sendMessage(ChatColor.GREEN + "You have been teleported to " + p.getName());
 								return true;
@@ -340,6 +335,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 				}
 			}
 		}
+
 		return false;
 	}
 
