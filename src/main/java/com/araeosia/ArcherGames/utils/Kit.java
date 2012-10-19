@@ -86,7 +86,7 @@ public class Kit {
 
 	@Override
 	public String toString() {
-		String output = new String();
+		String output = "";
 		output = "Name: " + name + ", Ability: " + ability + ", Description: " + description + ", Permission: " + permission + ", itemsToGive: " + itemsToGive.toString() + ", armor: " + armor.toString();
 		return output;
 	}
