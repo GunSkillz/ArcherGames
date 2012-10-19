@@ -32,9 +32,6 @@ public class PlayerEventListener implements Listener {
 		this.plugin = plugin;
 	}
 	
-	@EventHandler
-	public void onBlockPlace
-	
 	/**
 	 *
 	 * @param event
