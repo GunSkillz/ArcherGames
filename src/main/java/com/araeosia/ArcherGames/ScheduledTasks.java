@@ -112,6 +112,7 @@ public class ScheduledTasks {
 								}
 								// Game is finally over. We have a winner.
 								plugin.scheduler.endGame();
+								currentLoop=-1;
 							}
 							currentLoop++;
 							break;
@@ -120,7 +121,7 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((shutdownTimer - currentLoop) + " seconds until server reboots.");
 							}
-							if(plugin.random.nextInt(20) == 10){
+							if(currentLoop%5==0){
 								plugin.serverwide.sendMessageToAllPlayers(ChatColor.GREEN + "" + plugin.winner + " is the winner!");
 							}
 							if (currentLoop >= shutdownTimer) {
@@ -132,6 +133,7 @@ public class ScheduledTasks {
 								}
 								plugin.getServer().shutdown();
 							}
+							currentLoop++;
 							break;
 					}
 				}
