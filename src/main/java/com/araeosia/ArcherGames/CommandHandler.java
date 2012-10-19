@@ -140,7 +140,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 								sender.sendMessage("You cannot afford to send this amount of money!");
 							}
 							
-							sender.sendMessage(ChatColor.GREEN + "$" + args[0] + " paid to " + args[0]);
+							sender.sendMessage(ChatColor.GREEN + "$" + args[1] + " paid to " + args[0]);
 						}
 					} catch (Exception e) {
 						return false;
