@@ -71,6 +71,8 @@ public class BlockEventListener implements Listener {
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		// TODO: Add some checking to see if 
 		if (event.hasBlock()) {
+			if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive){
+				event.setCancelled(true);
 			if (plugin.debug) {
 				if (event.getClickedBlock().getState() instanceof Sign) {
 					Sign sign = (Sign) event.getClickedBlock().getState();
@@ -81,8 +83,6 @@ public class BlockEventListener implements Listener {
 				if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")) {
 					event.setCancelled(true);
 				}
-			} else if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive){
-				event.setCancelled(true);
 			} else if (event.getClickedBlock().getState() instanceof Sign && false) {
 				/*
 				 * Sign sign = (Sign) event.getClickedBlock().getState(); if
@@ -134,6 +134,7 @@ public class BlockEventListener implements Listener {
 				 * } }
 			}
 				 */
+			}
 			}
 		}
 	}
