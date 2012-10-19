@@ -28,6 +28,8 @@ public class BlockEventListener implements Listener {
 		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
+		} else if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+			event.setCancelled(true);
 		}
 	}
 
@@ -43,6 +45,8 @@ public class BlockEventListener implements Listener {
 		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
+		} else if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+			event.setCancelled(true);
 		}
 	}
 

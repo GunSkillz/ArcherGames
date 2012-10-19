@@ -31,7 +31,10 @@ public class PlayerEventListener implements Listener {
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
-
+	
+	@EventHandler
+	public void onBlockPlace
+	
 	/**
 	 *
 	 * @param event
