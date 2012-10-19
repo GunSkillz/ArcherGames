@@ -44,6 +44,7 @@ public class ArcherGames extends JavaPlugin {
 	public static Economy econ;
 	public boolean dbSuccess;
 	public int voteReward;
+	public GameHandler GameHandler;
 
 	/**
 	 *
@@ -58,6 +59,7 @@ public class ArcherGames extends JavaPlugin {
 		config = new Config(this);
 		config.loadConfiguration();
 		db = new Database(this);
+		GameHandler = new GameHandler(this);
 		random = new Random();
 
 		setupServer();

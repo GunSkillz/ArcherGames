@@ -56,7 +56,7 @@ public class ScheduledTasks {
 									plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("startnotenoughplayers"));
 								} else { // There's enough players, let's start!
 									ScheduledTasks.gameStatus = 2;
-									plugin.scheduler.startGame();
+									plugin.GameHandler.startGame();
 								}
 								currentLoop = -1;
 							}
@@ -67,7 +67,7 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameInvincibleCountdown - currentLoop) + " seconds until invincibility ends.");
 							}
-							checkGameEnd();
+							plugin.GameHandler.checkGameEnd();
 							if (currentLoop >= gameInvincibleCountdown) {
 								if (plugin.debug) {
 									plugin.log.info("Invincibility has ended.");
@@ -89,7 +89,7 @@ public class ScheduledTasks {
 									plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
 								}
 							}
-							checkGameEnd();
+							plugin.GameHandler.checkGameEnd();
 							if (currentLoop >= gameOvertimeCountdown) {
 								if (plugin.debug) {
 									plugin.log.info("Overtime has started.");
@@ -110,7 +110,7 @@ public class ScheduledTasks {
 							break;
 						case 4:
 							// Overtime
-							checkGameEnd();
+							plugin.GameHandler.checkGameEnd();
 							currentLoop++;
 							break;
 						case 5:
@@ -143,44 +143,6 @@ public class ScheduledTasks {
 		}
 	}
 
-	public void startGame() {
-		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
-		currentLoop = 0;
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			Archer a = Archer.getByName(p.getName());
-			if (!plugin.serverwide.livingPlayers.contains(a)) {
-				Kit selectedKit = new Kit();
-				for (Kit kit : plugin.kits) {
-					if (kit.getName() == "Explode") {
-						selectedKit = kit;
-					}
-				}
-				plugin.serverwide.joinGame(p.getName(), selectedKit);
-			}
-			if (plugin.serverwide.livingPlayers.contains(a)) {
-				if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
-					plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
-				}
-				a.ready();
-				a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
-				plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
-				//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
-				plugin.serverwide.getPlayer(a).setAllowFlight(false);
-			} else {
-				try {
-					if (!VanishNoPacket.isVanished(a.getName())) {
-						VanishNoPacket.toggleVanishSilent(p);
-					}
-				} catch (VanishNotLoadedException ex) {
-				}
-			}
-		}
-
-		for (int task : PlayerEventListener.naggerTask.values()) {
-			plugin.getServer().getScheduler().cancelTask(task); // No point in nagging them when they can't do anything about it.
-		}
-	}
-
 	public int nagPlayerKit(final String playerName) {
 		plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
 		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
@@ -191,23 +153,5 @@ public class ScheduledTasks {
 				}
 			}
 		}, new Long(nagTime * 20), new Long(nagTime * 20));
-	}
-	public void checkGameEnd(){
-		int alivePlayers = 0;
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			if (Archer.getByName(p.getName()).isAlive()) {
-				alivePlayers++;
-			}
-		}
-		if (alivePlayers <= 1) {
-			if (plugin.debug) {
-				plugin.log.info("Game has ended.");
-			}
-			// Game is finally over. We have a winner.
-			currentLoop = 0;
-			gameStatus = 5;
-			plugin.winner = Archer.getByName(plugin.serverwide.playerPlaces.get(0));
-			plugin.serverwide.handleGameEnd();
-		}
 	}
 }

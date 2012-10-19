@@ -97,19 +97,6 @@ public class ServerWide {
 		return null;
 	}
 
-	public void handleGameStart() {
-		// Handle the game start. Populate player inventories, teleport players, etc.
-	}
-
-	public void handleGameEnd() {
-		// Announce the winner, announce the runners up, give winners their money.
-		winner = playerPlaces.get(0);
-		plugin.econ.depositPlayer(playerPlaces.get(0), 15000);
-		plugin.econ.depositPlayer(playerPlaces.get(1), 10000);
-		plugin.econ.depositPlayer(playerPlaces.get(2), 500);
-		sendMessageToAllPlayers(plugin.strings.get("gameended"));
-	}
-
 	public void tpToRandomLocation(Player player) {
 		int x = r.nextInt(32 + 1) - 16;
 		int z = r.nextInt(32 + 1) - 16;
