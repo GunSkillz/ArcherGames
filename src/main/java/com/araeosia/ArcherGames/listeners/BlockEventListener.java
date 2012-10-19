@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
+import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.block.Chest;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.block.Sign;
@@ -24,7 +25,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(final BlockBreakEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
@@ -39,7 +40,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(final BlockPlaceEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 		}
@@ -48,7 +49,7 @@ public class BlockEventListener implements Listener {
 	@EventHandler
 	public void onBlockIgnite(final BlockIgniteEvent event) {
 		if (event.getCause().equals(BlockIgniteEvent.IgniteCause.FLINT_AND_STEEL)) {
-			if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit")) { // ERROR!
+			if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) { // ERROR!
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 			}
@@ -57,7 +58,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onInventoryOpen(final InventoryOpenEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit")) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			event.setCancelled(true);
 		}
 	}
