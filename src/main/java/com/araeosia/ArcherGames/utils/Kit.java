@@ -8,12 +8,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class Kit {
 
-	private HashMap<String, ItemStack> armor;
-	private ArrayList<ItemStack> itemsToGive;
+	private HashMap<String, ItemStack> armor = new HashMap<String, ItemStack>();
+	private ArrayList<ItemStack> itemsToGive = new ArrayList<ItemStack>();
 	private Ability ability;
-	private String description;
-	private String permission;
-	private String name;
+	private String description = new String();
+	private String permission = new String();
+	private String name = new String();
 
 	public void giveToPlayer(Player player) {
 		if (!armor.isEmpty()) {
