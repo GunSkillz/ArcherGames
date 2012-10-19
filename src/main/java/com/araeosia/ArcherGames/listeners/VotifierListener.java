@@ -29,7 +29,8 @@ public class VotifierListener implements Listener {
 		String message = vote.getUsername()+"§"+vote.getServiceName()+"§"+vote.getAddress()+"§"+vote.getTimeStamp();
 		plugin.IRCBot.bot.sendMessage(plugin.IRCBot.channel, message);
 		if(plugin.getServer().getPlayer(vote.getUsername())!=null){
-//			plugin.econ.givePlayer(plugin.getServer().getPlayer(vote.getUsername()).getName(), 3000);
+			plugin.econ.depositPlayer(vote.getUsername(), plugin.voteReward);
+			plugin.serverwide.sendMessageToAllPlayers("--- "+vote.getUsername()+" voted for $"+plugin.voteReward+"! /vote for info ---");
 		}
 	}
 }

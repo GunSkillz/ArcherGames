@@ -43,6 +43,7 @@ public class ArcherGames extends JavaPlugin {
 	public Archer winner;
 	public static Economy econ;
 	public boolean dbSuccess;
+	public int voteReward;
 
 	/**
 	 *
