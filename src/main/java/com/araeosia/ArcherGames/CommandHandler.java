@@ -318,7 +318,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 	 */
 	@EventHandler
 	public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event) {
-		if (!plugin.serverwide.getArcher(event.getPlayer()).canTalk && !event.getPlayer().hasPermission("archergames.overrides.command")) {
+		if (!(plugin.serverwide.getArcher(event.getPlayer()).kit == null) || !event.getPlayer().hasPermission("archergames.overrides.command")) {
 			if (!event.getMessage().contains("kit") && false) { // Needs fixing.
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(plugin.strings.get("nocommand"));

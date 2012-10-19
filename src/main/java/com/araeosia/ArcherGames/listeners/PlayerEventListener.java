@@ -57,7 +57,18 @@ public class PlayerEventListener implements Listener {
 	public void onJoinEvent(final PlayerJoinEvent event) {
 		event.getPlayer().setAllowFlight(true);
 		if (ScheduledTasks.gameStatus >= 2) {
-			//Vanish?
+			plugin.serverwide.leaveGame(event.getPlayer().getName());
+			try {
+				if (!VanishNoPacket.isVanished(event.getPlayer().getName())) {
+					if (plugin.debug) {
+						plugin.log.info(event.getPlayer().getName() + " respawned and was made invisible.");
+					}
+					VanishNoPacket.toggleVanishSilent(event.getPlayer());
+				}
+			} catch (VanishNotLoadedException ex) {
+				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		event.getPlayer().setAllowFlight(true);
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
@@ -141,7 +152,7 @@ public class PlayerEventListener implements Listener {
 				if (event.getEntity().getKiller() instanceof Player) {
 //					plugin.serverwide.getArcher(event.getEntity().getKiller()).setPoints(plugin.serverwide.getArcher(event.getEntity().getKiller()).getPoints() + 1);
 				}
-				event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation()); // Theatric effect.
+//				event.getEntity().getWorld().strikeLightningEffect(event.getEntity().getLocation()); // Theatric effect.
 			}
 		}
 	}
