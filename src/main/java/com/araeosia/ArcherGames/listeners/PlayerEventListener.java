@@ -68,8 +68,12 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
 		} else if (event.getPlayer().hasPermission("ArcherGames.color.mod")) {
 			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
-		} else if (event.getPlayer().hasPermission("ArcherGames.color.god")) {
+		} else if (event.getPlayer().hasPermission("ArcherGames.kit.God")) {
 			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
+		} else if (event.getPlayer().hasPermission("ArcherGames.kit.Ridiculous")) {
+			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + event.getPlayer().getName() + ChatColor.WHITE);
+		} else if (event.getPlayer().hasPermission("archergames.kit.Donor.Infinity") || event.getPlayer().hasPermission("archergames.kit.Donor.Lucky") || event.getPlayer().hasPermission("archergames.kit.Donor.Feeder") || event.getPlayer().hasPermission("archergames.kit.Donor.Juggernaut") || event.getPlayer().hasPermission("archergames.kit.VIP.Healer") || event.getPlayer().hasPermission("archergames.kit.VIP.Sharpshooter") || event.getPlayer().hasPermission("archergames.kit.VIP.Punch") || event.getPlayer().hasPermission("archergames.kit.VIP.Wizard") || event.getPlayer().hasPermission("archergames.kit.VIP.Chef") || event.getPlayer().hasPermission("archergames.kit.VIP.Beastmaker") || event.getPlayer().hasPermission("archergames.kit.Elite.Diamond") || event.getPlayer().hasPermission("archergames.kit.Elite.Miner") || event.getPlayer().hasPermission("archergames.kit.Elite.Baker") || event.getPlayer().hasPermission("archergames.kit.Elite.Tank") || event.getPlayer().hasPermission("archergames.kit.Elite.Prophet")) {
+			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
