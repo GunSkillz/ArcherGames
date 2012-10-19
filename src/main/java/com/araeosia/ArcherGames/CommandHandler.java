@@ -95,6 +95,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 					}
 				}
 			} else {
+				sender.sendMessage(ChatColor.GREEN + "Use /kit (kitname) to select a kit.");
 				sender.sendMessage(ChatColor.GREEN + plugin.strings.get("kitinfo"));
 				String kits = "";
 				String kitsNo = "";
