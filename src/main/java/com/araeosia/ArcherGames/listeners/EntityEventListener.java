@@ -51,7 +51,8 @@ public class EntityEventListener implements Listener {
 	@EventHandler
 	public void onMobTarget(final EntityTargetEvent event) {
 		if (event.getTarget() instanceof Player) {
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5) {
+			Player player = (Player) event.getTarget();
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !Archer.getByName(player.getName()).isAlive()) {
 				// Shouldn't be targetting them!
 				event.setCancelled(true);
 			}

@@ -174,6 +174,9 @@ public class Config {
 	public void loadKits() {
 		ArrayList<Kit> output = new ArrayList<Kit>();
 		for (String kitNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits").getKeys(false)) {
+			if(plugin.debug){
+				plugin.log.info("Attempting to load kit '"+plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Name")+"' ("+kitNumber+")...");
+			}
 			Kit addon = new Kit();
 			addon.setName(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Name"));
 			addon.setDescription(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Description"));
@@ -182,9 +185,15 @@ public class Config {
 			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
 			if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Armor")) {
 				for (String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Armor").getKeys(false)) {
+					if(plugin.debug){
+						plugin.log.info("Attempting to load armor slot #"+type);
+					}
 					ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".damage"));
 					if (plugin.getConfig().isConfigurationSection("ArcherGames.kits." + kitNumber + "Armor." + type + ".enchantments")) {
 						for (String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments").getKeys(false)) {
+							if(plugin.debug){
+								plugin.log.info("Attempting to load enchantment #"+type);
+							}
 							itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".level"));
 						}
 					}
@@ -195,9 +204,15 @@ public class Config {
 			ArrayList<ItemStack> itemsToAdd = new ArrayList<ItemStack>();
 			if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Items")) {
 				for (String itemNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Items").getKeys(false)) {
+					if(plugin.debug){
+						plugin.log.info("Attempting to load item #"+itemNumber);
+					}
 					ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".id"), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".quantity"), (short) plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".damage"));
 					if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments")) {
 						for (String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments").getKeys(false)) {
+							if(plugin.debug){
+								plugin.log.info("Attempting to load enchantment #"+enchantmentNumber);
+							}
 							itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".level"));
 						}
 					}
