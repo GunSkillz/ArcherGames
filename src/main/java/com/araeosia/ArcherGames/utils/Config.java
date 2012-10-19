@@ -112,7 +112,7 @@ public class Config {
 		plugin.scheduler.gameInvincibleCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameInvincibleCountdown");
 		plugin.scheduler.gameOvertimeCountdown = plugin.getConfig().getInt("ArcherGames.timers.gameOvertimeCountdown");
 		plugin.scheduler.minPlayersToStart = plugin.getConfig().getInt("ArcherGames.game.minPlayersToStart");
-		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.game.shutdownTimer");
+		plugin.scheduler.shutdownTimer = plugin.getConfig().getInt("ArcherGames.timers.shutdownTimer");
 		plugin.scheduler.nagTime = plugin.getConfig().getInt("ArcherGames.timers.nagTime");
 		plugin.scheduler.overtimeWorldRadius = plugin.getConfig().getInt("ArcherGames.game.overtimeWorldRadius");
 		plugin.debug = plugin.getConfig().getBoolean("ArcherGames.technical.debug");
