@@ -183,7 +183,11 @@ public class Config {
 			addon.setName(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Name"));
 			addon.setDescription(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Description"));
 			addon.setPermission(plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Permission"));
+			try{
 			addon.setAbility(Ability.valueOf((plugin.getConfig().getString("ArcherGames.kits." + kitNumber + ".Ability")).toUpperCase()));
+			} catch (Exception e){
+				addon.setAbility(Ability._);
+			}
 			HashMap<String, ItemStack> armorToAdd = new HashMap<String, ItemStack>();
 			if (plugin.getConfig().isSet("ArcherGames.kits." + kitNumber + ".Armor")) {
 				for (String type : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Armor").getKeys(false)) {
