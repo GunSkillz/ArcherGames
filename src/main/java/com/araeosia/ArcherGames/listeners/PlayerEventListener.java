@@ -42,13 +42,6 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		if (event.getPlayer().isOp() || event.getPlayer().hasPermission("ArcherGames.color.admin")) {
-			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
-		} else if (event.getPlayer().hasPermission("ArcherGames.color.mod")) {
-			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
-		} else if (event.getPlayer().hasPermission("ArcherGames.color.god")) {
-			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
-		}
 		Archer a = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(a);
 	}
@@ -68,7 +61,15 @@ public class PlayerEventListener implements Listener {
 			} catch (VanishNotLoadedException ex) {
 				Logger.getLogger(PlayerEventListener.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		event.getPlayer().setAllowFlight(true);
+
+			event.getPlayer().setAllowFlight(true);
+		}
+		if (event.getPlayer().isOp() || event.getPlayer().hasPermission("ArcherGames.color.admin")) {
+			event.getPlayer().setDisplayName(ChatColor.RED + event.getPlayer().getName() + ChatColor.WHITE);
+		} else if (event.getPlayer().hasPermission("ArcherGames.color.mod")) {
+			event.getPlayer().setDisplayName(ChatColor.DARK_RED + event.getPlayer().getName() + ChatColor.WHITE);
+		} else if (event.getPlayer().hasPermission("ArcherGames.color.god")) {
+			event.getPlayer().setDisplayName(ChatColor.GOLD + "" + ChatColor.ITALIC + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
 		event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");

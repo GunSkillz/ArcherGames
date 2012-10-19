@@ -7,7 +7,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
+import org.kitteh.vanish.staticaccess.VanishNoPacket;
+import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
 public class ScheduledTasks {
 
@@ -42,7 +43,7 @@ public class ScheduledTasks {
 								plugin.log.info((preGameCountdown - currentLoop) + " seconds until game starts.");
 							}
 							// Pre-game
-							if ((preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) && preGameCountdown - currentLoop !=0) {
+							if ((preGameCountdown - currentLoop % 3600 == 0 || preGameCountdown - currentLoop == 60 || preGameCountdown - currentLoop % 60 == 0 || (preGameCountdown - currentLoop <= 10 && preGameCountdown - currentLoop > 0) || preGameCountdown - currentLoop == 15 || preGameCountdown - currentLoop == 30) && preGameCountdown - currentLoop != 0) {
 								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((preGameCountdown - currentLoop) % 3600) == 0) ? ((preGameCountdown - currentLoop) / 60) + " hour" + ((((preGameCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((preGameCountdown - currentLoop) % 60 == 0 ? (preGameCountdown - currentLoop) / 60 + " minute" + (((preGameCountdown - currentLoop) / 60) == 1 ? "" : "s") : (preGameCountdown - currentLoop) + " second" + ((preGameCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							if (currentLoop >= preGameCountdown) {
@@ -81,8 +82,8 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameOvertimeCountdown - currentLoop) + " seconds until overtime starts.");
 							}
-							if((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 && !(((currentLoop - gameOvertimeCountdown) / 60) == 0)))))){
-								if(!((currentLoop - gameOvertimeCountdown) == 0)){
+							if ((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 && !(((currentLoop - gameOvertimeCountdown) / 60) == 0)))))) {
+								if (!((currentLoop - gameOvertimeCountdown) == 0)) {
 									//plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
 								}
 							}
@@ -112,7 +113,7 @@ public class ScheduledTasks {
 								}
 								// Game is finally over. We have a winner.
 								plugin.scheduler.endGame();
-								currentLoop=-1;
+								currentLoop = -1;
 							}
 							currentLoop++;
 							break;
@@ -121,7 +122,7 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((shutdownTimer - currentLoop) + " seconds until server reboots.");
 							}
-							if(currentLoop%5==0){
+							if (currentLoop % 5 == 0) {
 								plugin.serverwide.sendMessageToAllPlayers(ChatColor.GREEN + "" + plugin.winner + " is the winner!");
 							}
 							if (currentLoop >= shutdownTimer) {
@@ -149,8 +150,28 @@ public class ScheduledTasks {
 	public void startGame() {
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 		currentLoop = 0;
+		for (Player p : plugin.getServer().getOnlinePlayers()) {
+			Archer a = Archer.getByName(p.getName());
+			if (plugin.serverwide.livingPlayers.contains(a)) {
+				if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
+					plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
+				}
+				a.ready();
+				a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
+				plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
+				//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
+				plugin.serverwide.getPlayer(a).setAllowFlight(false);
+			} else {
+				try {
+					if (!VanishNoPacket.isVanished(a.getName())) {
+						VanishNoPacket.toggleVanishSilent(p);
+					}
+				} catch (VanishNotLoadedException ex) {
+				}
+			}
+		}
 		for (Archer a : plugin.serverwide.livingPlayers) {
-			if(plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)){
+			if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
 				plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
 			}
 			a.ready();
@@ -159,15 +180,15 @@ public class ScheduledTasks {
 			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
 			plugin.serverwide.getPlayer(a).setAllowFlight(false);
 		}
-		for(Player p : plugin.getServer().getOnlinePlayers()){
+		for (Player p : plugin.getServer().getOnlinePlayers()) {
 			Archer a = plugin.serverwide.getArcher(p);
-			
-			if(!a.isAlive){
+
+			if (!a.isAlive) {
 				plugin.serverwide.leaveGame(a.getName());
 			}
 		}
-		
-		for(int task : PlayerEventListener.naggerTask.values()){
+
+		for (int task : PlayerEventListener.naggerTask.values()) {
 			plugin.getServer().getScheduler().cancelTask(task); // No point in nagging them when they can't do anything about it.
 		}
 	}
@@ -177,7 +198,7 @@ public class ScheduledTasks {
 		return plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
 
 			public void run() {
-				if(ScheduledTasks.gameStatus == 1){
+				if (ScheduledTasks.gameStatus == 1) {
 					plugin.getServer().getPlayer(playerName).sendMessage(plugin.strings.get("kitnag"));
 				}
 			}
