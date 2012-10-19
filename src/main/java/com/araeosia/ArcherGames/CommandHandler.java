@@ -269,7 +269,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 		} else if (cmd.getName().equalsIgnoreCase("help")) {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				if (!player.getInventory().contains(Material.BOOK)) {
+				if (!player.getInventory().contains(Material.WRITTEN_BOOK)) {
 					BookItem bi = new BookItem(new ItemStack(387, 1));
 					bi.setAuthor(plugin.getConfig().getString("ArcherGames.startbook.author"));
 					bi.setTitle(plugin.getConfig().getString("ArcherGames.startbook.Title"));
@@ -306,32 +306,30 @@ public class CommandHandler implements CommandExecutor, Listener {
 			sendHelp(sender, "goto (player)", "Teleport to another player while spectating.");
 			return true;
 		} else if (cmd.getName().equalsIgnoreCase("goto")) {
-			if (sender.hasPermission("ArcherGames.commands.goto")) {
-				if (args.length != 0) {
-					Player p = null;
-					for (Player player : plugin.getServer().getOnlinePlayers()) {
-						if (player.getName().contains(args[0])) {
-							p = player;
-						}
+			if (args.length != 0) {
+				Player p = null;
+				for (Player player : plugin.getServer().getOnlinePlayers()) {
+					if (player.getName().contains(args[0])) {
+						p = player;
 					}
-					if (p != null) {
-						if (sender instanceof Player) {
-							if (!Archer.getByName(sender.getName()).isAlive) {
-								((Player) sender).teleport(p);
-								sender.sendMessage(ChatColor.GREEN + "You have been teleported to " + p.getName());
-								return true;
-							} else {
-								sender.sendMessage("You must be dead to use that command!");
-								return true;
-							}
+				}
+				if (p != null) {
+					if (sender instanceof Player) {
+						if (!Archer.getByName(sender.getName()).isAlive) {
+							((Player) sender).teleport(p);
+							sender.sendMessage(ChatColor.GREEN + "You have been teleported to " + p.getName());
+							return true;
 						} else {
-							sender.sendMessage(ChatColor.RED + "You must be a player to execute that command!");
+							sender.sendMessage("You must be dead to use that command!");
 							return true;
 						}
 					} else {
-						sender.sendMessage(ChatColor.RED + "That is not a valid player!");
+						sender.sendMessage(ChatColor.RED + "You must be a player to execute that command!");
 						return true;
 					}
+				} else {
+					sender.sendMessage(ChatColor.RED + "That is not a valid player!");
+					return true;
 				}
 			}
 		}
