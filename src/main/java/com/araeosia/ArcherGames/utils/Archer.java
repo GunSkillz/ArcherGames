@@ -9,7 +9,6 @@ public class Archer {
 	public Kit kit;
 	public boolean isReady;
 	public int Score;
-	private String ability;
 
 	/**
 	 * Make a new player when they login
@@ -93,12 +92,7 @@ public class Archer {
 	public String getName() {
 		return name;
 	}
-	public void setAbility(String abilities){
-		this.ability = abilities;
-	}
-	public String getAbility(){
-		return ability;
-	}
+	
 	// Static methods for use for monitoring and handling
 
 	/**

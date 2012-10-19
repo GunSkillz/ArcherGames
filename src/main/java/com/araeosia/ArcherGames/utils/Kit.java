@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 public class Kit {
 	private HashMap<String, ItemStack> armor;
 	private ArrayList<ItemStack> itemsToGive;
-	private String ability;
+	private Ability ability;
 	private String description;
 	private String permission;
 	private String name;
@@ -29,7 +29,6 @@ public class Kit {
 		for(ItemStack key : itemsToGive){
 			player.getInventory().addItem(key);
 		}
-		Archer.getByName(player.getName()).setAbility(ability);
 	}
 	public HashMap<String, ItemStack> getArmor(){
 		return armor;
@@ -43,10 +42,10 @@ public class Kit {
 	public void setItems(ArrayList<ItemStack> itemsToGive){
 		this.itemsToGive = itemsToGive;
 	}
-	public String getAbility(){
+	public Ability getAbility(){
 		return ability;
 	}
-	public void setAbility(String ability){
+	public void setAbility(Ability ability){
 		this.ability = ability;
 	}
 	public String getDescription(){
