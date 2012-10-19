@@ -100,7 +100,7 @@ public class PlayerEventListener implements Listener {
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		// If the player is allowed to talk, pass their message on, Else cancel the event
 		Archer archer = Archer.getByName(event.getPlayer().getName());
-		if ((!archer.isReady() && !event.getPlayer().hasPermission("archergames.overrides.chat")) || !(ScheduledTasks.gameStatus >= 2)) {
+		if ((!archer.isReady() && !event.getPlayer().hasPermission("archergames.overrides.chat")) && ScheduledTasks.gameStatus == 1) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("nochat"));
 		}
