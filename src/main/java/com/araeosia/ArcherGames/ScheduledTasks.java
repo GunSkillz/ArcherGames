@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames;
 
 import com.araeosia.ArcherGames.listeners.PlayerEventListener;
 import com.araeosia.ArcherGames.utils.Archer;
+import com.araeosia.ArcherGames.utils.Kit;
 import com.wimbli.WorldBorder.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -152,6 +153,15 @@ public class ScheduledTasks {
 		currentLoop = 0;
 		for (Player p : plugin.getServer().getOnlinePlayers()) {
 			Archer a = Archer.getByName(p.getName());
+			if (!plugin.serverwide.livingPlayers.contains(a)) {
+				Kit selectedKit = new Kit();
+				for (Kit kit : plugin.kits) {
+					if (kit.getName() == "Explode") {
+						selectedKit = kit;
+					}
+				}
+				plugin.serverwide.joinGame(p.getName(), selectedKit);
+			}
 			if (plugin.serverwide.livingPlayers.contains(a)) {
 				if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
 					plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
