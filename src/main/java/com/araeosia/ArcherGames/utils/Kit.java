@@ -29,7 +29,7 @@ public class Kit {
 				}
 			}
 		}
-		if (itemsToGive.isEmpty()) {
+		if (!itemsToGive.isEmpty()) {
 			for (ItemStack key : itemsToGive) {
 				player.getInventory().addItem(key);
 			}
