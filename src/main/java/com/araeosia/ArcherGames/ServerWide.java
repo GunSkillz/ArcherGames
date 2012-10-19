@@ -46,6 +46,7 @@ public class ServerWide {
 	public void joinGame(String playerName, Kit selectedKit) {
 		plugin.serverwide.livingPlayers.add(Archer.getByName(playerName));
 		Archer.getByName(playerName).setAlive(true);
+		Archer.getByName(playerName).ready();
 		Archer.getByName(playerName).selectKit(selectedKit);
 		if (PlayerEventListener.naggerTask.containsKey(playerName)) {
 			plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
