@@ -163,7 +163,7 @@ public class PlayerEventListener implements Listener {
 			plugin.getServer().getScheduler().cancelTask(naggerTask.get(event.getPlayer().getName()));
 			naggerTask.remove(event.getPlayer().getName());
 		}
-		if (Archer.getByName(event.getPlayer().getName()).isAlive() && !event.getPlayer().hasPermission("archergames.quitkill.override")) {
+		if (Archer.getByName(event.getPlayer().getName()).isAlive()) {
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 2 && ScheduledTasks.gameStatus != 5) {
 				plugin.serverwide.leaveGame(event.getPlayer().getName());
 				for (ItemStack is : event.getPlayer().getInventory().getContents()) {
