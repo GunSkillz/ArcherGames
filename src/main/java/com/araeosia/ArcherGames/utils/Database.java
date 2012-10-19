@@ -70,7 +70,7 @@ public class Database {
 		
 		try {
 			plugin.dbConnect();
-			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` VALUES ('?','?')");
+			PreparedStatement s = plugin.conn.prepareStatement("INSERT INTO `joins` (id, name, join) VALUES ('NULL',?,?)");
 			s.setString(1, name);
 			s.setString(2, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()));
 			s.executeUpdate();
@@ -113,7 +113,7 @@ public class Database {
 					s.close();
 					plugin.conn.close();
 				} else {
-					s = plugin.conn.prepareStatement("INSERT INTO `playtime` VALUES(?,?)");
+					s = plugin.conn.prepareStatement("INSERT INTO `playtime` (id, name, time) VALUES('NULL',?,?)");
 					s.setString(1, name);
 					s.setLong(2, played);
 					s.executeUpdate();
@@ -168,9 +168,9 @@ public class Database {
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
-				s.setDouble(1, d);
-				s.setString(2, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` (id, name, balance) VALUES ('NULL',?,?)");
+				s.setDouble(2, d);
+				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -200,9 +200,9 @@ public class Database {
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
-				s.setDouble(1, -d);
-				s.setString(2, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` (id, name, balance) VALUES ('NULL',?,?)");
+				s.setDouble(2, -d);
+				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -232,9 +232,9 @@ public class Database {
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `money` VALUES(`balance`=?,`name`=?)");
-				s.setDouble(1, d);
-				s.setString(2, name);
+				s = plugin.conn.prepareStatement("INSERT INTO `money` (id, name, balance) VALUES ('NULL',?,?)");
+				s.setDouble(2, d);
+				s.setString(1, name);
 				s.executeUpdate();
 				s.close();
 				plugin.conn.close();
@@ -297,7 +297,7 @@ public class Database {
 				s.close();
 				plugin.conn.close();
 			} else {
-				s = plugin.conn.prepareStatement("INSERT INTO `wins` VALUES(?,?)");
+				s = plugin.conn.prepareStatement("INSERT INTO `wins` (id, name, wins) VALUES('NULL', ?,?)");
 				s.setString(1, player);
 				s.setInt(2, 1);
 				s.executeUpdate();
