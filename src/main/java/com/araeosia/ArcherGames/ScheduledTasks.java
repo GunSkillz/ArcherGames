@@ -186,23 +186,6 @@ public class ScheduledTasks {
 				}
 			}
 		}
-		for (Archer a : plugin.serverwide.livingPlayers) {
-			if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
-				plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
-			}
-			a.ready();
-			a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
-			plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
-			//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);
-			plugin.serverwide.getPlayer(a).setAllowFlight(false);
-		}
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			Archer a = plugin.serverwide.getArcher(p);
-
-			if (!a.isAlive) {
-				plugin.serverwide.leaveGame(a.getName());
-			}
-		}
 
 		for (int task : PlayerEventListener.naggerTask.values()) {
 			plugin.getServer().getScheduler().cancelTask(task); // No point in nagging them when they can't do anything about it.
