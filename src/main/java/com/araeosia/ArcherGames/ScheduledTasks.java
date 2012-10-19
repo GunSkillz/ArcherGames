@@ -112,6 +112,7 @@ public class ScheduledTasks {
 								}
 								// Game is finally over. We have a winner.
 								plugin.scheduler.endGame();
+								currentLoop=-1;
 							}
 							currentLoop++;
 							break;

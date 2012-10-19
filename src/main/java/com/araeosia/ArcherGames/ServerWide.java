@@ -96,7 +96,7 @@ public class ServerWide {
 
 	public void handleGameEnd() {
 		// Announce the winner, announce the runners up, give winners their money.
-		winner = playerPlaces.get(1);
+		winner = playerPlaces.get(0);
 		sendMessageToAllPlayers(plugin.strings.get("gameended"));
 	}
 
