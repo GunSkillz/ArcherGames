@@ -206,7 +206,7 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
-		if (plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
 			event.setCancelled(true);
 		}
 	}

@@ -87,7 +87,8 @@ public class ArcherGames extends JavaPlugin {
 		this.getCommand("track").setExecutor(new CommandHandler(this));
 		this.getCommand("ride").setExecutor(new CommandHandler(this));
 		this.getCommand("help").setExecutor(new CommandHandler(this));
-
+		this.getCommand("goto").setExecutor(new CommandHandler(this));
+		
 		log.info("ArcherGames is enabled!");
 		if (debug) {
 			log.info("Debug mode is enabled!");
