@@ -38,7 +38,7 @@ public class ServerWide {
 					alivePlayers++;
 				}
 			}
-			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers));
+			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers-1));
 		}
 		Archer.getByName(playerName).kill();
 	}
