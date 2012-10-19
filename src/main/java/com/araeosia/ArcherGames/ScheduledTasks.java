@@ -67,6 +67,7 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameInvincibleCountdown - currentLoop) + " seconds until invincibility ends.");
 							}
+							checkGameEnd();
 							if (currentLoop >= gameInvincibleCountdown) {
 								if (plugin.debug) {
 									plugin.log.info("Invincibility has ended.");
@@ -88,6 +89,7 @@ public class ScheduledTasks {
 									//plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
 								}
 							}
+							checkGameEnd();
 							if (currentLoop >= gameOvertimeCountdown) {
 								if (plugin.debug) {
 									plugin.log.info("Overtime has started.");
@@ -108,20 +110,7 @@ public class ScheduledTasks {
 							break;
 						case 4:
 							// Overtime
-							int alivePlayers = 0;
-							for (Player p : plugin.getServer().getOnlinePlayers()) {
-								if (Archer.getByName(p.getName()).isAlive()) {
-									alivePlayers++;
-								}
-							}
-							if (alivePlayers <= 1) {
-								if (plugin.debug) {
-									plugin.log.info("Game has ended.");
-								}
-								// Game is finally over. We have a winner.
-								plugin.scheduler.endGame();
-								currentLoop = -1;
-							}
+							checkGameEnd();
 							currentLoop++;
 							break;
 						case 5:
@@ -203,10 +192,22 @@ public class ScheduledTasks {
 			}
 		}, new Long(nagTime * 20), new Long(nagTime * 20));
 	}
-
-	public void endGame() {
-		plugin.serverwide.handleGameEnd();
-		gameStatus = 5;
-		currentLoop = 0;
+	public void checkGameEnd(){
+		int alivePlayers = 0;
+		for (Player p : plugin.getServer().getOnlinePlayers()) {
+			if (Archer.getByName(p.getName()).isAlive()) {
+				alivePlayers++;
+			}
+		}
+		if (alivePlayers <= 1) {
+			if (plugin.debug) {
+				plugin.log.info("Game has ended.");
+			}
+			// Game is finally over. We have a winner.
+			plugin.scheduler.endGame();
+			currentLoop = 0;
+			gameStatus = 5;
+			plugin.serverwide.handleGameEnd();
+		}
 	}
 }
