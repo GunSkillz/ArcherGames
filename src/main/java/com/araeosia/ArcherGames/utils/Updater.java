@@ -41,17 +41,16 @@ public class Updater {
 		String JSONString = "";
 		try {
 			JSONString = fetchDataFromURL(address);
+			Gson gson = new Gson();
+			HashMap<String, HashMap<String, HashMap<String, String>>> data = gson.fromJson(JSONString, HashMap.class);
+			int version = Integer.parseInt(data.get("plugins").get("ArcherGames").get("version"));
+			if (version != plugin.getConfig().getInt("ArcherGames.technical.version")) {
+				download(data.get("plugins").get("ArcherGames").get("download"));
+				return true;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Gson gson = new Gson();
-		HashMap<String, HashMap<String, HashMap<String, String>>> data = gson.fromJson(JSONString, HashMap.class);
-		int version = Integer.parseInt(data.get("plugins").get("ArcherGames").get("version"));
-		if (version != plugin.getConfig().getInt("ArcherGames.technical.version")) {
-			download(data.get("plugins").get("ArcherGames").get("download"));
-			return true;
-		}
-
 		return false;
 	}
 
