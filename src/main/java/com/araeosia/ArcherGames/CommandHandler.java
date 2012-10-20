@@ -240,7 +240,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 							player.getInventory().addItem(new ItemStack(Material.COMPASS));
 						}
 						for(Player p : plugin.getServer().getOnlinePlayers()){
-							if(p.getName().contains("(?i)" + args[0])){
+							if(p.getName().contains(args[0])){
 								player.setCompassTarget(plugin.getServer().getPlayer(args[0]).getLocation());
 								player.sendMessage(ChatColor.GREEN + "Compass set to point to " + args[0]);
 								break;
@@ -314,7 +314,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			if (args.length != 0) {
 				Player p = null;
 				for (Player player : plugin.getServer().getOnlinePlayers()) {
-					if (player.getName().contains("(?i)" + args[0])) {
+					if (player.getName().contains(args[0])) {
 						p = player;
 					}
 				}
