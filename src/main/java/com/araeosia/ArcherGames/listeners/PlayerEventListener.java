@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
+import com.araeosia.ArcherGames.ServerWide;
 import com.araeosia.ArcherGames.utils.Archer;
 import com.araeosia.ArcherGames.utils.BookItem;
 import java.util.HashMap;
@@ -178,8 +179,12 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
-				if (plugin.serverwide.getArcher(player.getName()).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcher(player.getName()))) {
+				if (ServerWide.getArcher(player.getName()).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcher(player.getName()))) {
 					plugin.serverwide.leaveGame(player.getName());
+				}
+				
+				if(plugin.serverwide.livingPlayers.size() == 1){
+					plugin.winner = plugin.serverwide.livingPlayers.get(0);
 				}
 
 				if (event.getEntity().getKiller() instanceof Player) {
