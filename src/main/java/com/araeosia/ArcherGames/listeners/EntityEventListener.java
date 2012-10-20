@@ -2,6 +2,7 @@ package com.araeosia.ArcherGames.listeners;
 
 import com.araeosia.ArcherGames.ArcherGames;
 import com.araeosia.ArcherGames.ScheduledTasks;
+import com.araeosia.ArcherGames.ServerWide;
 import com.araeosia.ArcherGames.utils.Ability;
 import com.araeosia.ArcherGames.utils.Archer;
 import org.bukkit.Material;
@@ -31,7 +32,7 @@ public class EntityEventListener implements Listener {
 		if (!(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5)) {
 			if (event.getEntity() instanceof Arrow) {
 				if (event.getEntity().getShooter() instanceof Player) {
-					if(plugin.serverwide.getArcher(((Player) event.getEntity().getShooter()).getName()).getKit().getAbility() == Ability.EXPLOSIVE){
+					if(ServerWide.getArcher(((Player) event.getEntity().getShooter()).getName()).getKit().getAbility() == Ability.EXPLOSIVE){
 						event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), new Float(plugin.arrowExplosionFactor));
 						if (plugin.configToggles.get("arrowDelete")) {
 							event.getEntity().remove();
