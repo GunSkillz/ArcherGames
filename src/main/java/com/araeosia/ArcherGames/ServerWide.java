@@ -29,24 +29,24 @@ public class ServerWide {
 
 	public void leaveGame(String playerName) {
 		
-		if(livingPlayers.contains(plugin.serverwide.getArcher(playerName))){
+		if(livingPlayers.contains(ServerWide.getArcher(playerName))){
 			playerPlaces.put(livingPlayers.size(), playerName);
-			livingPlayers.remove(plugin.serverwide.getArcher(playerName));
+			livingPlayers.remove(ServerWide.getArcher(playerName));
 			int alivePlayers = 0;
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
+				if (ServerWide.getArcher(p.getName()).getPlaying()) {
 					alivePlayers++;
 				}
 			}
 			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers-1));
 		}
-		plugin.serverwide.getArcher(playerName).setPlaying(false);
+		ServerWide.getArcher(playerName).setPlaying(false);
 	}
 
 	public void joinGame(String playerName, Kit selectedKit) {
 		plugin.serverwide.livingPlayers.add(plugin.serverwide.getArcher(playerName));
-		plugin.serverwide.getArcher(playerName).setPlaying(true);
-		plugin.serverwide.getArcher(playerName).selectKit(selectedKit);
+		ServerWide.getArcher(playerName).setPlaying(true);
+		ServerWide.getArcher(playerName).selectKit(selectedKit);
 		if (PlayerEventListener.naggerTask.containsKey(playerName)) {
 			plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
 			PlayerEventListener.naggerTask.remove(playerName);
