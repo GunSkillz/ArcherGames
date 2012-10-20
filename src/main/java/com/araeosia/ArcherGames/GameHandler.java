@@ -30,7 +30,8 @@ public class GameHandler {
 			}
 			// Game is finally over. We have a winner.
 			plugin.scheduler.currentLoop = 0;
-			plugin.scheduler.gameStatus = 5;
+			ScheduledTasks.gameStatus = 5;
+			plugin.winner = plugin.serverwide.livingPlayers.get(0);
 			endGame();
 		}
 	}
