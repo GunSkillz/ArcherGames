@@ -84,10 +84,8 @@ public class ScheduledTasks {
 							if (plugin.debug) {
 								plugin.log.info((gameOvertimeCountdown - currentLoop) + " seconds until overtime starts.");
 							}
-							if ((currentLoop - gameOvertimeCountdown) % 60 == 0 || (((currentLoop - gameOvertimeCountdown) / 60) <= 60 && ((((currentLoop - gameOvertimeCountdown) / 60) == 30 || ((currentLoop - gameOvertimeCountdown) / 60) == 15 || (((currentLoop - gameOvertimeCountdown) / 60) <= 10 && !(((currentLoop - gameOvertimeCountdown) / 60) == 0)))))) {
-								if (!((currentLoop - gameOvertimeCountdown) == 0)) {
-									plugin.serverwide.sendMessageToAllPlayers( (gameOvertimeCountdown-currentLoop ) % 60 == 0 ? (gameOvertimeCountdown-currentLoop) / 60 + " minutes until overtime starts" : (gameOvertimeCountdown-currentLoop) / 60 +" minutes and " + (gameOvertimeCountdown-currentLoop) % 60 + " seconds until overtime starts.");
-								}
+							if ((gameOvertimeCountdown - currentLoop % 3600 == 0 || gameOvertimeCountdown - currentLoop == 60 || gameOvertimeCountdown - currentLoop % 60 == 0 || (gameOvertimeCountdown - currentLoop <= 10 && gameOvertimeCountdown - currentLoop > 0) || gameOvertimeCountdown - currentLoop == 15 || gameOvertimeCountdown - currentLoop == 30) && gameOvertimeCountdown - currentLoop != 0) {
+								plugin.serverwide.sendMessageToAllPlayers(String.format(plugin.strings.get("starttimeleft"), (((gameOvertimeCountdown - currentLoop) % 3600) == 0) ? ((gameOvertimeCountdown - currentLoop) / 60) + " hour" + ((((gameOvertimeCountdown - currentLoop) / 60) == 1) ? "s" : "") : ((gameOvertimeCountdown - currentLoop) % 60 == 0 ? (gameOvertimeCountdown - currentLoop) / 60 + " minute" + (((gameOvertimeCountdown - currentLoop) / 60) == 1 ? "" : "s") : (gameOvertimeCountdown - currentLoop) + " second" + ((gameOvertimeCountdown - currentLoop != 1) ? "s" : ""))));
 							}
 							plugin.GameHandler.checkGameEnd();
 							if (currentLoop >= gameOvertimeCountdown) {

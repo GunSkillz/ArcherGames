@@ -42,8 +42,13 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		Archer a = new Archer(event.getPlayer().getName());
-		ArcherGames.players.add(a);
+		for(Archer a : ArcherGames.players){
+			if(a.getName().equalsIgnoreCase(event.getPlayer().getName())){
+				return;
+			}
+		}
+		Archer archer = new Archer(event.getPlayer().getName());
+		ArcherGames.players.add(archer);
 	}
 
 	@EventHandler
@@ -80,8 +85,10 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().setDisplayName(ChatColor.DARK_PURPLE + "" + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
-		event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
-		event.getPlayer().sendMessage("§gIf you don't want to deal with this, hop on another server and see if it's also a beta version. Sorry about any inconvenience.");
+		if(plugin.debug){
+			event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
+			event.getPlayer().sendMessage("§gIf you don't want to deal with this, hop on another server and see if it's also a beta version. Sorry about any inconvenience.");
+		}
 		int taskID = plugin.scheduler.nagPlayerKit(event.getPlayer().getName());
 		naggerTask.put(event.getPlayer().getName(), taskID);
 		if (!event.getPlayer().getInventory().contains(Material.WRITTEN_BOOK)) {
