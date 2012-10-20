@@ -43,7 +43,7 @@ public class GameHandler {
 			if (!plugin.serverwide.livingPlayers.contains(a)) {
 				Kit selectedKit = new Kit();
 				for (Kit kit : plugin.kits) {
-					if (kit.getName() == "Explode") {
+					if (kit.getName().equalsIgnoreCase("explode")) {
 						selectedKit = kit;
 					}
 				}

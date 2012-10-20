@@ -55,6 +55,10 @@ public class PlayerEventListener implements Listener {
 		}
 		Archer archer = new Archer(event.getPlayer().getName());
 		ArcherGames.players.add(archer);
+		
+		if(ScheduledTasks.gameStatus >= 2){
+			event.getPlayer().sendMessage(ChatColor.GOLD + "Just so you know, you've joined a server where the game is already in progress. You may hang out here, but if you want to play you may go to a different ArcherGames sever.");
+		}
 	}
 
 	@EventHandler
