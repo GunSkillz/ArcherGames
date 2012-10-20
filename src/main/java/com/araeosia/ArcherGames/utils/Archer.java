@@ -9,10 +9,12 @@ public class Archer {
 	private boolean playing;
 	private int place;
 	private Kit kit = null;
+	private boolean chatting;
 
 	public Archer(String playerName) {
 		this.name = playerName;
 		playing = false;
+		chatting = true;
 	}
 	
 	public void setPlaying(Boolean playing){
@@ -40,5 +42,11 @@ public class Archer {
 	}
 	public String getName(){
 		return name;
+	}
+	public void setChatting(boolean chatting){
+		this.chatting = chatting;
+	}
+	public boolean getChatting(){
+		return chatting;
 	}
 }

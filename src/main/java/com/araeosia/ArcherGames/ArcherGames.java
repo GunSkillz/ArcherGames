@@ -31,7 +31,7 @@ public class ArcherGames extends JavaPlugin {
 	public String voteSites;
 	public Location startPosition;
 	public ArrayList<Kit> kits = new ArrayList<Kit>();
-	public static ArrayList<Archer> players = new ArrayList<Archer>();
+	public HashMap<String, Archer> players = new HashMap<String, Archer>();
 	public HashMap<String, String> strings = new HashMap<String, String>();
 	public ServerWide serverwide;
 	public HashMap<String, Boolean> configToggles = new HashMap<String, Boolean>();
@@ -45,17 +45,17 @@ public class ArcherGames extends JavaPlugin {
 	public boolean dbSuccess;
 	public int voteReward;
 	public GameHandler GameHandler;
-	public Updater Updater;
+	//public Updater Updater;
 
 	/**
 	 *
 	 */
 	@Override
 	public void onEnable() {
-		Updater = new Updater(this);
+		/*Updater = new Updater(this);
 		if(Updater.updateCheck()){
 			getServer().shutdown();
-		}
+		}*/
 		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);
@@ -131,6 +131,7 @@ public class ArcherGames extends JavaPlugin {
 	public void dbConnect() {
 		try {
 			if (conn == null || !conn.isValid(1) || conn.isClosed()) {
+				conn = null;
 				java.util.Properties conProperties = new java.util.Properties();
 				conProperties.put("user", this.getConfig().getString("ArcherGames.mysql.username"));
 				conProperties.put("password", this.getConfig().getString("ArcherGames.mysql.password"));

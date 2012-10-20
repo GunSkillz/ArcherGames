@@ -36,7 +36,7 @@ public class GameHandler {
 			p.eject();
 		}
 		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			Archer a = plugin.serverwide.getArcher(p.getName());
+			Archer a = plugin.serverwide.getArcherByPlayer(p);
 			if (!plugin.serverwide.livingPlayers.contains(a)) {
 				Kit selectedKit = new Kit();
 				for (Kit kit : plugin.kits) {

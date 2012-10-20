@@ -34,6 +34,7 @@ public class Kit {
 				player.getInventory().addItem(key);
 			}
 		}
+		player.updateInventory(); // Temporary fix.
 	}
 
 	public HashMap<String, ItemStack> getArmor() {

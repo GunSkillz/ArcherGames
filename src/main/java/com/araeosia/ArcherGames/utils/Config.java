@@ -88,7 +88,7 @@ public class Config {
 		String[] strs = new String[11];
 		strs[0] = "Welcome to §4§nArcherGames!\n§0This book will tell you all about:\n§0How to play\n§0Commands\n§0General Info\n§0Kits\n§0Voting";
 		strs[1] = "§1§nHow to play:\n§0You will first need to pick a kit. To do this type /kit to display all avalible kits. From there type /kit [kitname]. All kits come with a bow. Premium kits can be bought from: http://eyeofender.com/archergames.html";
-		strs[2] = "Your aim is to survive with your trusty bow and plant a arrow through your enemies skull and kill them! Be the last man standing and win §4$50,000!";
+		strs[2] = "Your aim is to survive with your trusty bow and plant a arrow through your enemies skull and kill them! Be the last man standing and win §4$15,000!";
 		strs[3] = "§1§nCommands:\n§0\n/chunk\n/ride\n/track <player> (§4Donors Only§0)\n/money\n/baltop\n/credtop\n/stats [players]\n/credits\n/commands\n/help\n/time";
 		strs[4] = "§1§nGeneral Info:\n§0\nArcherGames is based around bows. All kits come with a bow and arrows. This gametype will help you master archery.";
 		strs[5] = "Owners name-tags are: §4RED\n§0Moderator name tags are: §eYELLOW\n§0God and Ridiculous name-tags are: §5GOLD\n§0Elite name-tags are §5PURPLE\n§0VIP name-tags are: §aGREEN\n§0Donor name-tags are: §9LIGHT BLUE";

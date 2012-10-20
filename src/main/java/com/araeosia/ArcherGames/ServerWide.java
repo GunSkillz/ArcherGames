@@ -29,24 +29,24 @@ public class ServerWide {
 
 	public void leaveGame(String playerName) {
 		
-		if(livingPlayers.contains(ServerWide.getArcher(playerName))){
+		if(livingPlayers.contains(getArcherByName(playerName))){
 			playerPlaces.put(livingPlayers.size(), playerName);
-			livingPlayers.remove(ServerWide.getArcher(playerName));
+			livingPlayers.remove(getArcherByName(playerName));
 			int alivePlayers = 0;
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (ServerWide.getArcher(p.getName()).getPlaying()) {
+				if (getArcherByName(p.getName()).getPlaying()) {
 					alivePlayers++;
 				}
 			}
 			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers-1));
 		}
-		ServerWide.getArcher(playerName).setPlaying(false);
+		getArcherByName(playerName).setPlaying(false);
 	}
 
 	public void joinGame(String playerName, Kit selectedKit) {
-		plugin.serverwide.livingPlayers.add(plugin.serverwide.getArcher(playerName));
-		ServerWide.getArcher(playerName).setPlaying(true);
-		ServerWide.getArcher(playerName).selectKit(selectedKit);
+		plugin.serverwide.livingPlayers.add(plugin.serverwide.getArcherByName(playerName));
+		getArcherByName(playerName).setPlaying(true);
+		getArcherByName(playerName).selectKit(selectedKit);
 		if (PlayerEventListener.naggerTask.containsKey(playerName)) {
 			plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
 			PlayerEventListener.naggerTask.remove(playerName);
@@ -55,7 +55,7 @@ public class ServerWide {
 
 	public ArrayList<Archer> getNotReadyPlayers() {
 		ArrayList<Archer> archers = new ArrayList<Archer>();
-		for (Archer a : ArcherGames.players) {
+		for (Archer a : plugin.players.values()) {
 			if (!a.getPlaying()) {
 				archers.add(a);
 			}
@@ -87,13 +87,19 @@ public class ServerWide {
 		return null;
 	}
 
-	public Archer getArcher(Player p) {
-		for (Archer a : ArcherGames.players) {
-			if (a.getName().equalsIgnoreCase(p.getName())) {
-				return a;
-			}
+	public Archer getArcherByPlayer(Player p) {
+		if(plugin.players.containsKey(p.getName())){
+			return plugin.players.get(p.getName());
+		}else{
+			return null;
 		}
-		return null;
+	}
+	public Archer getArcherByName(String s){
+		if(plugin.players.containsKey(s)){
+			return plugin.players.get(s);
+		}else{
+			return null;
+		}
 	}
 
 	public void tpToRandomLocation(Player player) {
@@ -104,13 +110,5 @@ public class ServerWide {
 		z = player.getWorld().getSpawnLocation().getBlockZ() + z;
 
 		player.teleport(new Location(player.getWorld(), x, player.getWorld().getHighestBlockYAt(x, z), z));
-	}
-	public static Archer getArcher(String name) {
-		for (Archer a : ArcherGames.players) {
-			if (name.equals(a.getName())) {
-				return a;
-			}
-		}
-		return null;
 	}
 }

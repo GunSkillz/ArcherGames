@@ -48,13 +48,8 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		for (Archer a : ArcherGames.players) {
-			if (a.getName().equalsIgnoreCase(event.getPlayer().getName())) {
-				return;
-			}
-		}
 		Archer archer = new Archer(event.getPlayer().getName());
-		ArcherGames.players.add(archer);
+		plugin.players.put(event.getPlayer().getName(), archer);
 		
 		if(ScheduledTasks.gameStatus >= 2){
 			event.getPlayer().sendMessage(ChatColor.GOLD + "Just so you know, you've joined a server where the game is already in progress. You may hang out here, but if you want to play you may go to a different ArcherGames sever.");
@@ -120,10 +115,18 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		// If the player is allowed to talk, pass their message on, Else cancel the event
-		Archer archer = plugin.serverwide.getArcher(event.getPlayer().getName());
-		if ((!archer.getPlaying() && !event.getPlayer().hasPermission("archergames.overrides.chat")) && ScheduledTasks.gameStatus == 1) {
-			event.setCancelled(true);
+		event.setCancelled(true);
+		Archer archer = plugin.serverwide.getArcherByPlayer(event.getPlayer());
+		if ((!archer.getPlaying() && !event.getPlayer().hasPermission("archergames.overrides.chat")) && ScheduledTasks.gameStatus == 1){
 			event.getPlayer().sendMessage(plugin.strings.get("nochat"));
+		}else{
+			String s = "<§f"+event.getPlayer().getDisplayName()+">§f: "+event.getMessage();
+			for(Player p : plugin.getServer().getOnlinePlayers()){
+				Archer a = plugin.serverwide.getArcherByPlayer(p);
+				if(a.getChatting()){
+					p.sendMessage(s);
+				}
+			}
 		}
 	}
 
@@ -135,9 +138,11 @@ public class PlayerEventListener implements Listener {
 	public void onDamageEvent(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player && !event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 			Player player = (Player) event.getEntity();
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcher(player).getPlaying()) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcherByPlayer(player).getPlaying()) {
 				if (event.getCause() != EntityDamageEvent.DamageCause.VOID) {
 					event.setCancelled(true);
+				}else{
+					player.teleport(new Location(player.getWorld(), player.getLocation().getX(), player.getWorld().getHighestBlockYAt(player.getLocation()), player.getLocation().getZ()));
 				}
 			}
 		}
@@ -147,9 +152,9 @@ public class PlayerEventListener implements Listener {
 	public void onDamageByEntity(final EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcher(player).getPlaying()) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcherByPlayer(player).getPlaying()) {
 				if(event.getCause().equals(DamageCause.PROJECTILE)){
-					if(!plugin.serverwide.getArcher(player).getPlaying()){
+					if(!plugin.serverwide.getArcherByPlayer(player).getPlaying() && event.getDamager() instanceof Arrow){
 						Arrow arrow = (Arrow) event.getDamager();
 						Vector velocity = arrow.getVelocity();
 						Location position = arrow.getLocation();
@@ -183,7 +188,7 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
-				if (ServerWide.getArcher(player.getName()).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcher(player.getName()))) {
+				if (plugin.serverwide.getArcherByPlayer(player).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcherByPlayer(player))) {
 					plugin.serverwide.leaveGame(player.getName());
 				}
 				
@@ -205,7 +210,7 @@ public class PlayerEventListener implements Listener {
 			plugin.getServer().getScheduler().cancelTask(naggerTask.get(event.getPlayer().getName()));
 			naggerTask.remove(event.getPlayer().getName());
 		}
-		if (plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) {
+		if (plugin.serverwide.getArcherByPlayer(event.getPlayer()).getPlaying()) {
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 2 && ScheduledTasks.gameStatus != 5) {
 				plugin.serverwide.leaveGame(event.getPlayer().getName());
 				for (ItemStack is : event.getPlayer().getInventory().getContents()) {
@@ -216,7 +221,8 @@ public class PlayerEventListener implements Listener {
 				event.getPlayer().getInventory().clear();
 			}
 		}
-		plugin.serverwide.livingPlayers.remove(plugin.serverwide.getArcher(event.getPlayer().getName()));
+		plugin.serverwide.livingPlayers.remove(plugin.serverwide.getArcherByPlayer(event.getPlayer()));
+		plugin.players.remove(event.getPlayer().getName());
 		plugin.db.recordQuit(event.getPlayer().getName());
 		event.setQuitMessage("");
 	}
@@ -250,7 +256,7 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
-		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
+		if (!plugin.serverwide.getArcherByPlayer(event.getPlayer()).getPlaying()) {
 			event.setCancelled(true);
 		}
 	}
@@ -262,7 +268,7 @@ public class PlayerEventListener implements Listener {
 			event.getItem().remove();
 			event.setCancelled(true);
 		}
-		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
+		if (!plugin.serverwide.getArcherByPlayer(event.getPlayer()).getPlaying()) {
 			event.setCancelled(true);
 		}
 	}

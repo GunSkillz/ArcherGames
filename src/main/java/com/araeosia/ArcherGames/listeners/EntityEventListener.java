@@ -32,7 +32,7 @@ public class EntityEventListener implements Listener {
 		if (!(ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5)) {
 			if (event.getEntity() instanceof Arrow) {
 				if (event.getEntity().getShooter() instanceof Player) {
-					if(ServerWide.getArcher(((Player) event.getEntity().getShooter()).getName()).getKit().getAbility() == Ability.EXPLOSIVE){
+					if(plugin.serverwide.getArcherByPlayer(((Player) event.getEntity().getShooter())).getKit().getAbility() == Ability.EXPLOSIVE){
 						event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), new Float(plugin.arrowExplosionFactor));
 						if (plugin.configToggles.get("arrowDelete")) {
 							event.getEntity().remove();
@@ -56,9 +56,11 @@ public class EntityEventListener implements Listener {
 	public void onMobTarget(final EntityTargetEvent event) {
 		if (event.getTarget() instanceof Player) {
 			Player player = (Player) event.getTarget();
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcher(player.getName()).getPlaying()) {
+			if (ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcherByPlayer(player).getPlaying()) {
 				// Shouldn't be targetting them!
 				event.setCancelled(true);
+			}else if(ScheduledTasks.gameStatus == 1){
+				event.getEntity().remove();
 			}
 		}
 	}
@@ -70,9 +72,9 @@ public class EntityEventListener implements Listener {
 			if (damageevent.getDamager() instanceof Player) {
 				if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 5) {
 					event.setCancelled(true);
-				} else if (!plugin.serverwide.getArcher(((Player) damageevent.getDamager()).getName()).getPlaying()) {
+				} else if (!plugin.serverwide.getArcherByPlayer(((Player) damageevent.getDamager())).getPlaying()) {
 					event.setCancelled(true);
-				} else if (damageevent.getEntity() instanceof Player && !plugin.serverwide.getArcher(((Player) damageevent.getEntity()).getName()).getPlaying()) {
+				} else if (damageevent.getEntity() instanceof Player && !plugin.serverwide.getArcherByPlayer(((Player) damageevent.getEntity())).getPlaying()) {
 					event.setCancelled(true);
 				}
 			}
