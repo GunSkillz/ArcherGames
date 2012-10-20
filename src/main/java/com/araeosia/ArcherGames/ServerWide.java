@@ -29,25 +29,24 @@ public class ServerWide {
 
 	public void leaveGame(String playerName) {
 		
-		if(livingPlayers.contains(Archer.getByName(playerName))){
+		if(livingPlayers.contains(plugin.serverwide.getArcher(playerName))){
 			playerPlaces.put(livingPlayers.size(), playerName);
-			livingPlayers.remove(Archer.getByName(playerName));
+			livingPlayers.remove(plugin.serverwide.getArcher(playerName));
 			int alivePlayers = 0;
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (Archer.getByName(p.getName()).isAlive()) {
+				if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
 					alivePlayers++;
 				}
 			}
 			sendMessageToAllPlayers(String.format(plugin.strings.get("playersleft"), alivePlayers-1));
 		}
-		Archer.getByName(playerName).kill();
+		plugin.serverwide.getArcher(playerName).setPlaying(false);
 	}
 
 	public void joinGame(String playerName, Kit selectedKit) {
-		plugin.serverwide.livingPlayers.add(Archer.getByName(playerName));
-		Archer.getByName(playerName).setAlive(true);
-		Archer.getByName(playerName).ready();
-		Archer.getByName(playerName).selectKit(selectedKit);
+		plugin.serverwide.livingPlayers.add(plugin.serverwide.getArcher(playerName));
+		plugin.serverwide.getArcher(playerName).setPlaying(true);
+		plugin.serverwide.getArcher(playerName).selectKit(selectedKit);
 		if (PlayerEventListener.naggerTask.containsKey(playerName)) {
 			plugin.getServer().getScheduler().cancelTask(PlayerEventListener.naggerTask.get(playerName));
 			PlayerEventListener.naggerTask.remove(playerName);
@@ -57,7 +56,7 @@ public class ServerWide {
 	public ArrayList<Archer> getNotReadyPlayers() {
 		ArrayList<Archer> archers = new ArrayList<Archer>();
 		for (Archer a : ArcherGames.players) {
-			if (!a.isReady()) {
+			if (!a.getPlaying()) {
 				archers.add(a);
 			}
 		}
@@ -105,5 +104,13 @@ public class ServerWide {
 		z = player.getWorld().getSpawnLocation().getBlockZ() + z;
 
 		player.teleport(new Location(player.getWorld(), x, player.getWorld().getHighestBlockYAt(x, z), z));
+	}
+	public static Archer getArcher(String name) {
+		for (Archer a : ArcherGames.players) {
+			if (name.equals(a.getName())) {
+				return a;
+			}
+		}
+		return null;
 	}
 }

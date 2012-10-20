@@ -95,9 +95,7 @@ public class ScheduledTasks {
 								// Game time is up.
 								plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("overtimestart"));
 								for (Player p : plugin.getServer().getOnlinePlayers()) {
-									if (plugin.serverwide.getArcher(p).isReady) {
-										p.teleport(plugin.startPosition);
-									}
+									plugin.serverwide.tpToRandomLocation(p);
 								}
 								Config.setBorder(plugin.startPosition.getWorld().getName(), overtimeWorldRadius, plugin.startPosition.getBlockX(), plugin.startPosition.getBlockZ(), true); // World border
 								gameStatus = 4;

@@ -25,10 +25,10 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockBreak(final BlockBreakEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
-		} else if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+		} else if(!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()){
 			event.setCancelled(true);
 		}
 	}
@@ -42,10 +42,10 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(final BlockPlaceEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
-		} else if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive()){
+		} else if(!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()){
 			event.setCancelled(true);
 		}
 	}
@@ -53,7 +53,7 @@ public class BlockEventListener implements Listener {
 	@EventHandler
 	public void onBlockIgnite(final BlockIgniteEvent event) {
 		if (event.getCause().equals(BlockIgniteEvent.IgniteCause.FLINT_AND_STEEL)) {
-			if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) { // ERROR!
+			if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.blockedit") || !plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) { // ERROR!
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(plugin.strings.get("noblockediting"));
 			}
@@ -62,7 +62,7 @@ public class BlockEventListener implements Listener {
 
 	@EventHandler
 	public void onInventoryOpen(final InventoryOpenEvent event) {
-		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit") || !Archer.getByName(event.getPlayer().getName()).isAlive()) {
+		if (ScheduledTasks.gameStatus == 1 && !event.getPlayer().hasPermission("archergames.overrides.invedit") || !plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) {
 			event.setCancelled(true);
 		}
 	}
@@ -71,7 +71,7 @@ public class BlockEventListener implements Listener {
 	public void onBlockInteract(final PlayerInteractEvent event) {
 		// TODO: Add some checking to see if 
 		if (event.hasBlock()) {
-			if(!plugin.serverwide.getArcher(event.getPlayer()).isAlive){
+			if(!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()){
 				event.setCancelled(true);
 			if (plugin.debug) {
 				if (event.getClickedBlock().getState() instanceof Sign) {

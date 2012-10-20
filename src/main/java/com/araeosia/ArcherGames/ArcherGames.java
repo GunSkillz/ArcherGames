@@ -6,12 +6,12 @@ import com.araeosia.ArcherGames.utils.Config;
 import com.araeosia.ArcherGames.utils.Database;
 import com.araeosia.ArcherGames.utils.IRCBot;
 import com.araeosia.ArcherGames.utils.Kit;
+import com.araeosia.ArcherGames.utils.Updater;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import net.milkbowl.vault.economy.Economy;
 
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,12 +45,17 @@ public class ArcherGames extends JavaPlugin {
 	public boolean dbSuccess;
 	public int voteReward;
 	public GameHandler GameHandler;
+	public Updater Updater;
 
 	/**
 	 *
 	 */
 	@Override
 	public void onEnable() {
+		Updater = new Updater(this);
+		if(Updater.updateCheck()){
+			getServer().shutdown();
+		}
 		startPosition = getServer().getWorlds().get(0).getSpawnLocation();
 		log = this.getLogger();
 		scheduler = new ScheduledTasks(this);

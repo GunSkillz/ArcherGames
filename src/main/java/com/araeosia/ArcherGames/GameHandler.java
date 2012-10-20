@@ -20,7 +20,7 @@ public class GameHandler {
 	public void checkGameEnd(){
 		int alivePlayers = 0;
 		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			if (Archer.getByName(p.getName()).isAlive()) {
+			if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
 				alivePlayers++;
 			}
 		}
@@ -31,7 +31,7 @@ public class GameHandler {
 			// Game is finally over. We have a winner.
 			plugin.scheduler.currentLoop = 0;
 			plugin.scheduler.gameStatus = 5;
-			plugin.winner = Archer.getByName(plugin.serverwide.playerPlaces.get(0));
+			plugin.winner = plugin.serverwide.getArcher(plugin.serverwide.playerPlaces.get(0));
 			endGame();
 		}
 	}
@@ -39,7 +39,7 @@ public class GameHandler {
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 		plugin.scheduler.currentLoop = 0;
 		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			Archer a = Archer.getByName(p.getName());
+			Archer a = plugin.serverwide.getArcher(p.getName());
 			if (!plugin.serverwide.livingPlayers.contains(a)) {
 				Kit selectedKit = new Kit();
 				for (Kit kit : plugin.kits) {
@@ -53,7 +53,6 @@ public class GameHandler {
 				if (plugin.getServer().getPlayer(a.getName()).getInventory().contains(Material.BOOK)) {
 					plugin.getServer().getPlayer(a.getName()).getInventory().remove(Material.BOOK);
 				}
-				a.ready();
 				a.getKit().giveToPlayer(plugin.getServer().getPlayer(a.getName())); // There's an error here somewhere.
 				plugin.serverwide.tpToRandomLocation(plugin.serverwide.getPlayer(a));
 				//plugin.serverwide.getPlayer(a).teleport(plugin.startPosition);

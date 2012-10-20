@@ -54,7 +54,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			String outputSpec = "";
 			int spec = 0;
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (Archer.getByName(p.getName()).isAlive()) {
+				if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
 					outputAlive += p.getDisplayName() + ", ";
 					alive++;
 				} else {
@@ -81,8 +81,8 @@ public class CommandHandler implements CommandExecutor, Listener {
 						}
 					}
 					if (isOkay) {
-						if (Archer.getByName(sender.getName()).isReady()) {
-							sender.sendMessage(String.format(plugin.strings.get("alreadyselected"), Archer.getByName(sender.getName()).getKit().getName()));
+						if (plugin.serverwide.getArcher(sender.getName()).getPlaying()) {
+							sender.sendMessage(String.format(plugin.strings.get("alreadyselected"), plugin.serverwide.getArcher(sender.getName()).getKit().getName()));
 						}
 						if (sender.hasPermission(selectedKit.getPermission())) {
 							plugin.serverwide.joinGame(sender.getName(), selectedKit);
@@ -315,7 +315,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 				}
 				if (p != null) {
 					if (sender instanceof Player) {
-						if (!Archer.getByName(sender.getName()).isAlive) {
+						if (!plugin.serverwide.getArcher(sender.getName()).getPlaying()) {
 							((Player) sender).teleport(p);
 							sender.sendMessage(ChatColor.GREEN + "You have been teleported to " + p.getName());
 							return true;
@@ -343,7 +343,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 	 */
 	@EventHandler
 	public void onCommandPreProccessEvent(final PlayerCommandPreprocessEvent event) {
-		if (!(plugin.serverwide.getArcher(event.getPlayer()).kit == null) || !event.getPlayer().hasPermission("archergames.overrides.command")) {
+		if (!(plugin.serverwide.getArcher(event.getPlayer()).getKit() == null) || !event.getPlayer().hasPermission("archergames.overrides.command")) {
 			if (!event.getMessage().contains("kit") && false) { // Needs fixing.
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(plugin.strings.get("nocommand"));

@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -16,9 +18,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+import org.kitteh.tag.PlayerReceiveNameTagEvent;
 import org.kitteh.vanish.staticaccess.VanishNoPacket;
 import org.kitteh.vanish.staticaccess.VanishNotLoadedException;
 
@@ -31,7 +36,7 @@ public class PlayerEventListener implements Listener {
 	public PlayerEventListener(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
-	
+
 	/**
 	 *
 	 * @param event
@@ -42,8 +47,8 @@ public class PlayerEventListener implements Listener {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, plugin.strings.get("kickLockdown"));
 			return;
 		}
-		for(Archer a : ArcherGames.players){
-			if(a.getName().equalsIgnoreCase(event.getPlayer().getName())){
+		for (Archer a : ArcherGames.players) {
+			if (a.getName().equalsIgnoreCase(event.getPlayer().getName())) {
 				return;
 			}
 		}
@@ -85,7 +90,7 @@ public class PlayerEventListener implements Listener {
 			event.getPlayer().setDisplayName(ChatColor.DARK_PURPLE + "" + event.getPlayer().getName() + ChatColor.WHITE);
 		}
 		event.getPlayer().sendMessage(String.format(plugin.strings.get("joinedgame"), event.getPlayer().getName(), plugin.strings.get("servername")));
-		if(plugin.debug){
+		if (plugin.debug) {
 			event.getPlayer().sendMessage("§4If you're seeing this, that means that you've connected to the BETA version of ArcherGames. This means that stuff won't work and that there will be bugs.");
 			event.getPlayer().sendMessage("§gIf you don't want to deal with this, hop on another server and see if it's also a beta version. Sorry about any inconvenience.");
 		}
@@ -110,8 +115,8 @@ public class PlayerEventListener implements Listener {
 	@EventHandler
 	public void onPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		// If the player is allowed to talk, pass their message on, Else cancel the event
-		Archer archer = Archer.getByName(event.getPlayer().getName());
-		if ((!archer.isReady() && !event.getPlayer().hasPermission("archergames.overrides.chat")) && ScheduledTasks.gameStatus == 1) {
+		Archer archer = plugin.serverwide.getArcher(event.getPlayer().getName());
+		if ((!archer.getPlaying() && !event.getPlayer().hasPermission("archergames.overrides.chat")) && ScheduledTasks.gameStatus == 1) {
 			event.setCancelled(true);
 			event.getPlayer().sendMessage(plugin.strings.get("nochat"));
 		}
@@ -125,7 +130,7 @@ public class PlayerEventListener implements Listener {
 	public void onDamageEvent(final EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player && !event.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 			Player player = (Player) event.getEntity();
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcher(player).getPlaying()) {
 				if (event.getCause() != EntityDamageEvent.DamageCause.VOID) {
 					event.setCancelled(true);
 				}
@@ -137,7 +142,19 @@ public class PlayerEventListener implements Listener {
 	public void onDamageByEntity(final EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
-			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !(plugin.serverwide.getArcher(player).isAlive())) {
+			if (ScheduledTasks.gameStatus == 1 || ScheduledTasks.gameStatus == 2 || ScheduledTasks.gameStatus == 5 || !plugin.serverwide.getArcher(player).getPlaying()) {
+				if(event.getCause().equals(DamageCause.PROJECTILE)){
+					if(!plugin.serverwide.getArcher(player).getPlaying()){
+						Arrow arrow = (Arrow) event.getDamager();
+						Vector velocity = arrow.getVelocity();
+						Location position = arrow.getLocation();
+						arrow.remove();
+						/*
+						Location newLocation;
+						Vector newVector;
+						plugin.startPosition.getWorld().spawnArrow(newLocation, newVector, (float) 0.6, (float) 12);*/
+					}
+				}
 				if (event.getDamager() instanceof Player) { // PVP
 					Player attacker = (Player) event.getDamager();
 					event.setCancelled(true);
@@ -161,7 +178,7 @@ public class PlayerEventListener implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
-				if (Archer.getByName(player.getName()).isAlive() && plugin.serverwide.livingPlayers.contains(Archer.getByName(player.getName()))) {
+				if (plugin.serverwide.getArcher(player.getName()).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcher(player.getName()))) {
 					plugin.serverwide.leaveGame(event.getEntity().getName());
 				}
 
@@ -179,7 +196,7 @@ public class PlayerEventListener implements Listener {
 			plugin.getServer().getScheduler().cancelTask(naggerTask.get(event.getPlayer().getName()));
 			naggerTask.remove(event.getPlayer().getName());
 		}
-		if (Archer.getByName(event.getPlayer().getName()).isAlive()) {
+		if (plugin.serverwide.getArcher(event.getPlayer().getName()).getPlaying()) {
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 2 && ScheduledTasks.gameStatus != 5) {
 				plugin.serverwide.leaveGame(event.getPlayer().getName());
 				for (ItemStack is : event.getPlayer().getInventory().getContents()) {
@@ -190,7 +207,7 @@ public class PlayerEventListener implements Listener {
 				event.getPlayer().getInventory().clear();
 			}
 		}
-		plugin.serverwide.livingPlayers.remove(Archer.getByName(event.getPlayer().getName()));
+		plugin.serverwide.livingPlayers.remove(plugin.serverwide.getArcher(event.getPlayer().getName()));
 		plugin.db.recordQuit(event.getPlayer().getName());
 		event.setQuitMessage("");
 	}
@@ -212,12 +229,19 @@ public class PlayerEventListener implements Listener {
 	}
 
 	@EventHandler
+	public void onNameTag(PlayerReceiveNameTagEvent event) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
+			event.setTag("§c[DEAD]-"+event.getPlayer().getName());
+		}
+	}
+
+	@EventHandler
 	public void onPlayerDropItem(final PlayerDropItemEvent event) {
 		if (ScheduledTasks.gameStatus == 1) {
 			event.getPlayer().sendMessage(plugin.strings.get("nodroppickup"));
 			event.setCancelled(true);
 		}
-		if (!plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
 			event.setCancelled(true);
 		}
 	}
@@ -229,7 +253,7 @@ public class PlayerEventListener implements Listener {
 			event.getItem().remove();
 			event.setCancelled(true);
 		}
-		if (!plugin.serverwide.getArcher(event.getPlayer()).isAlive()) {
+		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
 			event.setCancelled(true);
 		}
 	}
