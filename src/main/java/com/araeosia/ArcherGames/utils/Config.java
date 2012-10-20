@@ -196,12 +196,12 @@ public class Config {
 						plugin.log.info("Attempting to load armor slot #"+type);
 					}
 					ItemStack itemStackToAdd = new ItemStack(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".id"), 1, (short) plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".damage"));
-					if (plugin.getConfig().isConfigurationSection("ArcherGames.kits." + kitNumber + "Armor." + type + ".enchantments")) {
+					if (plugin.getConfig().isConfigurationSection("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments")) {
 						for (String enchantmentNumber : plugin.getConfig().getConfigurationSection("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments").getKeys(false)) {
 							if(plugin.debug){
 								plugin.log.info("Attempting to load enchantment #"+type);
 							}
-							itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".level"));
+							itemStackToAdd.addUnsafeEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Armor." + type + ".enchantments." + enchantmentNumber + ".level"));
 						}
 					}
 					armorToAdd.put(type, itemStackToAdd);
@@ -220,7 +220,7 @@ public class Config {
 							if(plugin.debug){
 								plugin.log.info("Attempting to load enchantment #"+enchantmentNumber);
 							}
-							itemStackToAdd.addEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".level"));
+							itemStackToAdd.addUnsafeEnchantment(Enchantment.getById(plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".name")), plugin.getConfig().getInt("ArcherGames.kits." + kitNumber + ".Items." + itemNumber + ".enchantments." + enchantmentNumber + ".level"));
 						}
 					}
 					itemsToAdd.add(itemStackToAdd);
