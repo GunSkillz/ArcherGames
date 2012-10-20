@@ -183,7 +183,7 @@ public class PlayerEventListener implements Listener {
 					plugin.serverwide.leaveGame(player.getName());
 				}
 				
-				if(plugin.serverwide.livingPlayers.size() == 1){
+				if(plugin.serverwide.livingPlayers.size() <= 1){
 					plugin.winner = plugin.serverwide.livingPlayers.get(0);
 				}
 
