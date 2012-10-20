@@ -32,6 +32,9 @@ public class GameHandler {
 	public void startGame() {
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("starting"));
 		plugin.scheduler.currentLoop = 0;
+		for(Player p : plugin.getServer().getOnlinePlayers()){
+			p.eject();
+		}
 		for (Player p : plugin.getServer().getOnlinePlayers()) {
 			Archer a = plugin.serverwide.getArcher(p.getName());
 			if (!plugin.serverwide.livingPlayers.contains(a)) {
