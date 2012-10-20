@@ -18,13 +18,7 @@ public class GameHandler {
 		return ScheduledTasks.gameStatus;
 	}
 	public void checkGameEnd(){
-		int alivePlayers = 0;
-		for (Player p : plugin.getServer().getOnlinePlayers()) {
-			if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
-				alivePlayers++;
-			}
-		}
-		if (alivePlayers <= 1) {
+		if (plugin.serverwide.livingPlayers.size() <= 1) {
 			if (plugin.debug) {
 				plugin.log.info("Game has ended.");
 			}
