@@ -72,7 +72,6 @@ public class GameHandler {
 	}
 	public void endGame() {
 		// Announce the winner, announce the runners up, give winners their money.
-		plugin.serverwide.winner = plugin.serverwide.playerPlaces.get(1);
 		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(1), 15000);
 		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(2), 10000);
 		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(3), 500);
