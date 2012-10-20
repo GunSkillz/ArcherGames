@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Updater {
 
@@ -23,6 +24,17 @@ public class Updater {
 	public Updater(ArcherGames plugin) {
 		this.plugin = plugin;
 	}
+
+	/*public class PluginInfo {
+
+		public HashMap<String, Plugin> plugins;
+
+		public class Plugin {
+
+			public String download;
+			public int version;
+		}
+	}*/
 
 	public String fetchDataFromURL(String URL) throws IOException {
 		URL url = new URL(URL);
@@ -42,7 +54,13 @@ public class Updater {
 		try {
 			JSONString = fetchDataFromURL(address);
 			Gson gson = new Gson();
+/*
+			PluginInfo pluginInfo = gson.fromJson(JSONString, PluginInfo.class);
+			for (Map.Entry<String, PluginInfo.Plugin> entry : PluginInfo.plugins) {
+				
+			}*/
 			HashMap<String, HashMap<String, HashMap<String, String>>> data = gson.fromJson(JSONString, HashMap.class);
+
 			int version = Integer.parseInt(data.get("plugins").get("ArcherGames").get("version"));
 			if (version != plugin.getConfig().getInt("ArcherGames.technical.version")) {
 				download(data.get("plugins").get("ArcherGames").get("download"));

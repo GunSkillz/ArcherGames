@@ -54,7 +54,7 @@ public class CommandHandler implements CommandExecutor, Listener {
 			String outputSpec = "";
 			int spec = 0;
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
-				if (plugin.serverwide.getArcher(p.getName()).getPlaying()) {
+				if (plugin.serverwide.getArcher(p).getPlaying()) {
 					outputAlive += p.getDisplayName() + ", ";
 					alive++;
 				} else {

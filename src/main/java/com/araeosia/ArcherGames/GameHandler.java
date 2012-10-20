@@ -31,7 +31,7 @@ public class GameHandler {
 			// Game is finally over. We have a winner.
 			plugin.scheduler.currentLoop = 0;
 			plugin.scheduler.gameStatus = 5;
-			plugin.winner = plugin.serverwide.getArcher(plugin.serverwide.playerPlaces.get(0));
+			plugin.winner = plugin.serverwide.getArcher(plugin.serverwide.playerPlaces.get(1));
 			endGame();
 		}
 	}
@@ -73,10 +73,10 @@ public class GameHandler {
 	}
 	public void endGame() {
 		// Announce the winner, announce the runners up, give winners their money.
-		plugin.serverwide.winner = plugin.serverwide.playerPlaces.get(0);
-		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(0), 15000);
-		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(1), 10000);
-		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(2), 500);
+		plugin.serverwide.winner = plugin.serverwide.playerPlaces.get(1);
+		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(1), 15000);
+		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(2), 10000);
+		plugin.econ.depositPlayer(plugin.serverwide.playerPlaces.get(3), 500);
 		plugin.serverwide.sendMessageToAllPlayers(plugin.strings.get("gameended"));
 	}
 }

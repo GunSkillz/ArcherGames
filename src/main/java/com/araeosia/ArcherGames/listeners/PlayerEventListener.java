@@ -179,7 +179,7 @@ public class PlayerEventListener implements Listener {
 			Player player = (Player) event.getEntity();
 			if (ScheduledTasks.gameStatus != 1 && ScheduledTasks.gameStatus != 5) {
 				if (plugin.serverwide.getArcher(player.getName()).getPlaying() && plugin.serverwide.livingPlayers.contains(plugin.serverwide.getArcher(player.getName()))) {
-					plugin.serverwide.leaveGame(event.getEntity().getName());
+					plugin.serverwide.leaveGame(player.getName());
 				}
 
 				if (event.getEntity().getKiller() instanceof Player) {
@@ -228,12 +228,12 @@ public class PlayerEventListener implements Listener {
 		event.getPlayer().sendMessage(plugin.strings.get("respawn"));
 	}
 
-	@EventHandler
+	/*@EventHandler
 	public void onNameTag(PlayerReceiveNameTagEvent event) {
 		if (!plugin.serverwide.getArcher(event.getPlayer()).getPlaying()) {
 			event.setTag("§c[DEAD]-"+event.getPlayer().getName());
 		}
-	}
+	}*/
 
 	@EventHandler
 	public void onPlayerDropItem(final PlayerDropItemEvent event) {
