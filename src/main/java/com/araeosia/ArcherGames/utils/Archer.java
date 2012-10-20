@@ -8,7 +8,7 @@ public class Archer {
 	private String name;
 	private boolean playing;
 	private int place;
-	private Kit kit;
+	private Kit kit = null;
 
 	public Archer(String playerName) {
 		this.name = playerName;
