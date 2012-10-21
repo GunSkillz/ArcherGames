@@ -67,5 +67,5 @@ commands:
     usage: /help
     aliases: [commands]
   goto:
-    descrption: Teleport to a player while spectating
+    description: Teleport to a player while spectating
     usage: /goto (player)
