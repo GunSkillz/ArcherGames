@@ -115,7 +115,7 @@ public class ScheduledTasks {
 								plugin.log.info((shutdownTimer - currentLoop) + " seconds until server reboots.");
 							}
 							if (currentLoop % 5 == 0) {
-								plugin.serverwide.sendMessageToAllPlayers(ChatColor.GREEN + "" + plugin.winner.getName() + " is the winner!");
+								plugin.serverwide.sendMessageToAllPlayers(ChatColor.RED + "" + plugin.winner.getName() + " has won the game!");
 							}
 							if (currentLoop >= shutdownTimer) {
 								if (plugin.debug) {
